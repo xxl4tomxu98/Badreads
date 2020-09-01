@@ -1,1 +1,1 @@
-# goodreads-clone-backend
+# goodreads-clone
