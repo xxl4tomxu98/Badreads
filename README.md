@@ -166,8 +166,8 @@ $ npm install
 
 
 | <a href="https://github.com/qsmity" target="_blank">**Quynn Smith**</a> | <a href="https://github.com/remaley5" target="_blank">**remaley5**</a> | <a href="https://github.com/tjtaylorjr" target="_blank">**TJ Taylor**</a> | <a href="https://github.com/xxl4tomxu98" target="_blank">**Tom Xu**</a> |
-| :---: | :---: | :---: | :---: |
-| [![Quynn Smith](https://avatars2.githubusercontent.com/u/31673566?s=200&u=8bb0cab66020f684771e32addc9a76c22f3e17cb&v=4)](https://github.com/qsmity)    | [![remaley5](https://avatars0.githubusercontent.com/u/16943507?s=200&v=4)](https://github.com/remaley5) | [![TJ Taylor](https://avatars3.githubusercontent.com/u/62177226?s=200&u=034c0f894dd93f9eb2ed8e43e3172ed83d19a9cc&v=4)](https://github.com/tjtaylorjr)  | [![Tom Xu](https://avatars2.githubusercontent.com/u/62292177?s=200&u=f3954ecc585c9e882be86ec184c159720ef1951f&v=4?s=200)](https://github.com/xxl4tomxu98)  |
+|:---:|:---:|:---:|:---:|
+| [![Quynn Smith](https://avatars2.githubusercontent.com/u/31673566?s=138&u=8bb0cab66020f684771e32addc9a76c22f3e17cb&v=4)](https://github.com/qsmity) | <a href="https://avatars0.githubusercontent.com/u/16943507?s=200&v=4" target="_blank"><img src="https://avatars0.githubusercontent.com/u/16943507?s=200&v=4" alt="remaley5" width="138" height="138" /></a> | [![TJ Taylor](https://avatars3.githubusercontent.com/u/62177226?s=138&u=034c0f894dd93f9eb2ed8e43e3172ed83d19a9cc&v=4)](https://github.com/tjtaylorjr) | [![Tom Xu](https://avatars2.githubusercontent.com/u/62292177?s=138&u=f3954ecc585c9e882be86ec184c159720ef1951f&v=4)](https://github.com/xxl4tomxu98) |
 | <a href="http://github.com/qsmity" target="_blank">`github.com/qsmity`</a> | <a href="https://github.com/remaley5" target="_blank">`github.com/remaley5`</a> | <a href="http://github.com/tjtaylorjr" target="_blank">`github.com/tjtaylorjr`</a> | <a href="http://github.com/xxl4tomxu98" target="_blank">`github.com/xxl4tomxu98`</a> |
 
 
