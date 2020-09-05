@@ -79,7 +79,7 @@
 
 # Table
 
-![Table Model](table-model-diagram.png)
+![Table Model](../images/table-model-diagram.png)
 
 <br>
 <br>

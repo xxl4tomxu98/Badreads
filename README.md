@@ -1,9 +1,7 @@
-<!-- <div align="center">
-  <a href="https://https://github.com/tjtaylorjr/goodreads-clone"><img src="https://thumbs2.imgbox.com/1b/34/JBdC7CaJ_t.jpg" title="ReadingTree" alt="A Tree Bookshelf"></a>
-</div> -->
-![booktree](./documentation/images/booktree.jpg)
 
-
+<div align="center">
+<a href="https://https://github.com/tjtaylorjr/goodreads-clone"><img src="./documentation/images/booktree.jpg" title="ReadingTree" alt="A Tree Bookshelf"></a>
+</div>
 <br>
 
 <div align="center">
@@ -40,12 +38,10 @@
 <br>
 
 ---
-<!-- <div align="center">
-  <a href="https://https://github.com/tjtaylorjr/goodreads-clone" target="_blank"><img src="https://images2.imgbox.com/35/fa/ltlPapTC_o.gif" alt="multiplying books"/></a>
-</div> -->
-![booktree](./documentation/images/multiplyingbooks.gif)
----
 
+<div align="center">
+  <a href="https://https://github.com/tjtaylorjr/goodreads-clone" target="_blank"><img src="./documentation/images/multiplyingbooks.gif" alt="multiplying books"/></a>
+</div>
 <br>
 
 <div align="center">
