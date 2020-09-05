@@ -1,7 +1,7 @@
 <!-- <div align="center">
   <a href="https://https://github.com/tjtaylorjr/goodreads-clone"><img src="https://thumbs2.imgbox.com/1b/34/JBdC7CaJ_t.jpg" title="ReadingTree" alt="A Tree Bookshelf"></a>
 </div> -->
-![booktree](/goodreads-clone/documentation/images/booktree.jpg)
+![booktree](./documentation/images/booktree.jpg)
 
 
 <br>
@@ -43,7 +43,7 @@
 <!-- <div align="center">
   <a href="https://https://github.com/tjtaylorjr/goodreads-clone" target="_blank"><img src="https://images2.imgbox.com/35/fa/ltlPapTC_o.gif" alt="multiplying books"/></a>
 </div> -->
-![booktree](/goodreads-clone/documentation/images/multiplyingbooks.gif)
+![booktree](./documentation/images/multiplyingbooks.gif)
 ---
 
 <br>
