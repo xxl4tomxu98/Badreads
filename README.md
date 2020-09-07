@@ -82,9 +82,6 @@ let generateProject = project => {
 </div>
 
 
-- All the `code` required to get started
-- Images of what it should look like
-
 ### Clone
 
 - Clone this repo to your local machine using `https://github.com/tjtaylorjr/goodreads-clone.git`
@@ -99,6 +96,15 @@ let generateProject = project => {
 $ npm install
 ```
 
+> refer to internal documentation for setting up database
+<br>
+
+> run the server
+
+```shell
+$ npm start
+```
+> browse to http://localhost:8080
 ---
 
 <div align="center">
