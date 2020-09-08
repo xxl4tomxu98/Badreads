@@ -26,7 +26,7 @@ In order to read user reviews
 
 > to be built
 - migration to add reviews_id
-### Endpoints
+### Endpoints.
 ---
 
 /books/:id

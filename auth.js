@@ -28,30 +28,27 @@ const restoreUser = (req, res, next) => {
       return res.set("WWW-Authenticate", "Bearer").status(401).end();
 
     } else {
+      return jwt.verify(token, secret, null, async(err, jwtPayload) => {
+        if (err) {
+          err.status = 401;
+          return next(err);
+        }
 
+        const { id } = jwtPayload.data;
 
-       return jwt.verify(token, secret, null, async(err, jwtPayload) => {
-         if (err) {
-           err.status = 401;
-           return next(err);
-         }
+        try {
+          req.user = await User.findByPk(id);
+        } catch (e) {
+          return next(e);
+        }
 
-         const { id } = jwtPayload.data;
+        if(!req.user) {
+          return res.set("WWW-Authenticate", "Bearer").status(401).end();
+        }
 
-         try {
-           req.user = await User.findByPk(id);
-         } catch (e) {
-           return next(e);
-         }
-
-         if(!req.user) {
-           return res.set("WWW-Authenticate", "Bearer").status(401).end();
-         }
-
-    return next()
-        });
+        return next()
+      });
     }
-
 }
 
 const requireAuth = [bearerToken(), restoreUser]

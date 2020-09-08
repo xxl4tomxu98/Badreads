@@ -11,10 +11,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.TEXT
-    }
+    },
+    publicationYear: {
+      allowNull: false,
+      type: Sequelize.STRING
+    },
   }, {});
   Book.associate = function(models) {
-    // associations can be defined here
+    const columnMapping = {
+      through: 'Books_Shelf',
+      otherKey: 'shelf_id',
+      foreignKey: 'book_id'
+    };
+    Book.belongsToMany(models.Shelf, columnMapping);
+    const columnMapping1 = {
+      through: 'Book_Genre',
+      otherKey: 'genre_id',
+      foreignKey: 'book_id'
+    };
+    Book.belongsToMany(models.Genre, columnMapping1);
+    Book.hasMany(models.Review, {foreignKey: 'book_id'});
   };
   return Book;
 };
