@@ -1,0 +1,24 @@
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert('Books', [
+      { author: 'Tara Westover', title: 'Educated' , description: 'Educated follows Tara Westover as she leaves her survivalist family in Idaho and sets off on a journey that leads her to earn a Ph.D. from Cambridge University. The reception to the book, and what it says about the gulf between educated and uneducated people in the United States, earned Westover a spot on Times list of the Most Influential People of 2019.', publicationYear: '2018', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Michelle Obama', title: 'Becoming' , description: "Even if you think you know all there is to know about Michelle Obama from watching her during her eight-year tenure as First Lady of the United States, her memoir will show you that there's still lots to learn about her. From her upbringing on Chicago's South Side to her triumphs and disappointments in the White House, Becoming offers a deeply personal look at Obama's life.", publicationYear: '2018', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Paul Kalanithi', title: 'When Breath Becomes Air' , description: "Paul Kalanithi didn't set out to become a writer — in fact, he was an M.D. with more than a decade of training as a neurosurgeon, until he was diagnosed with Stage IV lung cancer. After switching from doctor to patient, he set out to write this memoir to examine what makes life worth living. ", publicationYear: '2016', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Malala Yousafzai', title: 'I Am Malala' , description: "When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. ", publicationYear: '2014', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Amy Poehler', title: 'Yes Please' , description: "Amy Poehler's collection of essays is as funny as you'd expect from the former star of The Upright Citizens Brigade, Saturday Night Live and Parks and Recreation — but it also contains lots of useful real-world wisdom, such as advice about when to be funny and when to get serious. ", publicationYear: '2014', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Cheryl Strayed', title: 'Wild' , description: "Before it became a movie starring Reese Witherspoon, Cheryl Strayed's Wild was hitting the top of best-seller lists for its portrayal of a woman who had lost herself to grief, but then found redemption by hiking on the Pacific Crest Trail from California through Washington State. ", publicationYear: '2012', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Mindy Kaling', title: 'Is Everyone Hanging Out Without Me?' , description: "Mindy Kaling deserves credit for always living life on her own terms, and her book offers some of her keen observations about life that helped her get to where she is. In it, she details her thoughts about what makes a great best friend, romance, show business and an examination of what it was like to grow up with immigrant parents.", publicationYear: '2011', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Elizabeth Gilbert', title: 'Eat, Prey, Love' , description: "With her account of finding herself by traveling through Italy, India, and Indonesia, Elizabeth Gilbert was preaching about paying attention to your needs back before self-care was something that anyone ever talked about.", publicationYear: '2006', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Jeannette Walls', title: 'The Glass Castle' , description: 'Jeannette Walls describes her unconventional and nomadic upbringing, being raised by nonconformist parents — including an alcoholic father — who taught them how to "embrace life fearlessly." The story pops off the page so strongly, it was adapted into a feature film starring Brie Larson.', publicationYear: '2005', createdAt: new Date(), updatedAt: new Date() },
+      { author: 'Augusten Burroughs', title: 'Running with Scissors' , description: "Augusten Burroughs writes another tale about an unorthodox childhood shaped by damaged parents; his mother abandoned him to be raised by a therapist. Yet somehow, the story isn't maudlin, and Burroughs manages to walk that fine line of being brutally honest about his upbringing, without losing sight of the humor in his situation. ", publicationYear: '2005',createdAt: new Date(), updatedAt: new Date() }
+    ], {});
+  },
+
+  down: (queryInterface, Sequelize) => {
+
+    return queryInterface.bulkDelete('Books', null, {});
+
+  }
+};
