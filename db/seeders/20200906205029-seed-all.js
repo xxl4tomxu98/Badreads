@@ -5,9 +5,9 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-  const books = queryInterface.bulkInsert('Books', [
+  const book = queryInterface.bulkInsert('Books', [
   {
-      author: 'Tara Westover',
+      author: 'Tara Westoverß',
       title: 'Educated' ,
       description: 'Educated follows Tara Westover as she leaves her survivalist family in Idaho and sets off on a journey that leads her to earn a Ph.D. from Cambridge University. The reception to the book, and what it says about the gulf between educated and uneducated people in the United States, earned Westover a spot on Times list of the Most Influential People of 2019.',
       publicationYear: '1984',
