@@ -1,0 +1,60 @@
+extends layout.pug
+
+block content
+    div(class='container')
+        div(class='container_book-info')
+            h2(class='container_book-info_title')
+            h3(class='container_book-info_author')
+            p(class='container_book-info_description')
+        div(class='container_book-image')
+            img(src="../images/81h2gWPTYJL.jpg" alt="bookshelf")
+        div(class='container_genres')
+            select(class='selectpicker container_genres_select' name="genres")
+                option(value="fiction") fiction
+                option(value="horror") horror
+                option(value="comedy") comedy
+        div(class='container_reviews-title') Reviews
+            div
+                form(class='container_form' action='/' method='post')
+                    //- textarea(class='container_reviews_textarea' name="reviews", cols="138", rows="4" placeholder='***write a review***')
+                    input(class='container_reviews_input' type="text", name="reviews" placeholder="***write a review***")
+                    input(type="submit" value="" style='display: none')
+        div(class='container_reviews') 
+            div(class='container_reviews_star-container')
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+            div(class='container_reviews_text-container')
+                p(class='conainer_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
+            div(class='container_reviews_readmore-container')
+                a(class='container_reviews_readmore' href="#") readmore
+        div(class='container_reviews') 
+            div(class='container_reviews_star-container')
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+            div(class='container_reviews_text-container')
+                p(class='conainer_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
+            div(class='container_reviews_readmore-container')
+                a(class='container_reviews_readmore' href="#") readmore
+        div(class='container_reviews') 
+            div(class='container_reviews_star-container')
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+            div(class='container_reviews_text-container')
+                p(class='conainer_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
+            div(class='container_reviews_readmore-container')
+                a(class='container_reviews_readmore' href="#") readmore
+        
+
+
+
+
+    script(type='module' src='../js/book-show.js')
