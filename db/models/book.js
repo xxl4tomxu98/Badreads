@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     publicationYear: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
   }, {});
   Book.associate = function(models) {
