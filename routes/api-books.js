@@ -2,6 +2,7 @@ const express = require('express');
 const { asyncHandler } = require('../utils');
 const { Book , Genre , Review} = require('../db/models')
 
+
 const router = express.Router()
 const noBookFoundErrorHandler = (id) => {
     const err = new Error(`No Book found with id ${id}`)
@@ -11,6 +12,9 @@ const noBookFoundErrorHandler = (id) => {
 
     return err
 }
+
+
+
 
 router.get('/:id(\\d+)', asyncHandler( async(req, res, next) => {
     const bookId = parseInt(req.params.id, 10)

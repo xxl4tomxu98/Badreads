@@ -127,3 +127,8 @@ body{
     cursor: crosshair
 }
 
+/* search form */
+.form-control{
+    width: 150px;
+}
+
