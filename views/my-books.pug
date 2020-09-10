@@ -1,0 +1,15 @@
+extends layout.pug
+
+block content
+    .wrapper
+        .side-bar
+            include includes/bookshelf-list.pug
+        .bookshelf-title
+        .bookshelf-books
+            include includes/bookshelf-book-list.pug
+        .bookshelf-books-book-title
+            div bookshelf-books-book-title
+        .bookshelf-books-book-description
+            div bookshelf-books-book-description
+
+    script(src="../js/my-books/my-books-index.js" type="module")

@@ -21,8 +21,13 @@ const apiReviewRouter = require('./routes/api-reviews');
 const { lorem } = require('faker');
 
 
+
+// internal requires
+const apibookshelvesRouter = require('./routes/api-bookshelves');
+const bookshelvesRouter = require('./routes/bookshelves')
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 
 // external use statements
@@ -39,6 +44,8 @@ app.use('/api-books', apiBooksRouter)
 app.use('/books', booksRouter)
 app.use('/api-reviews', apiReviewRouter)
 
+app.use('/api-bookshelves', apibookshelvesRouter);
+app.use('/bookshelves', bookshelvesRouter)
 // general error handler code, more specialized error handling in utils.js
 
 app.use((req, res, next) => {
