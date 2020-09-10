@@ -1,0 +1,16 @@
+.book-on-shelf {
+    display: inline-block;
+    overflow-y: scroll;
+}
+
+.book-on-shelf {
+    padding: 10px;
+    height: 100px;
+    width: 90px;
+}
+
+.book-on-shelf__book-cover {
+    background-color: lightskyblue;
+    height: 20px;
+    width: 20px;
+}
