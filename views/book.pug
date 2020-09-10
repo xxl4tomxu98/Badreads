@@ -13,8 +13,8 @@ block content
                             option(value=genre.id) #{genre.name}
             p(class='container_book-info_description')
         div(class='container_book-image')
-            if book.image 
-                img(class='container_book-image_src' src=book.image alt="bookshelf")
+            if book.id < 5 
+                img(class='container_book-image_src' src=`../images/${book.id}.jpg` alt="bookshelf")
             else
                 img(class='container_book-image_src' src="../images/no_image_book.jpg" alt="bookshelf")
         div(class='container_genres')
