@@ -5,7 +5,8 @@ const cors = require("cors");
 
 // internal requires
 const { environment } = require('./config');
-const landingRouter = require('./routes/landing')
+const landingRouter = require('./routes/landing');
+const bookshelvesRouter = require('./routes/bookshelves');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(cors({ origin: "http://localhost:8080" }));
 
 // internal route use statements
 app.use('/', landingRouter);
-
+app.use('/bookshelves', bookshelvesRouter);
 // general error handler code, more specialized error handling in utils.js
 
 app.use((req, res, next) => {
