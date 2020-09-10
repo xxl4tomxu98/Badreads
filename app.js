@@ -9,13 +9,7 @@ const { lorem } = require('faker');
 
 // internal requires
 const { environment } = require('./config');
-<<<<<<< HEAD
-const landingRouter = require('./routes/landing');
-<<<<<<< HEAD
-const bookshelvesRouter = require('./routes/bookshelves');
 
-=======
-=======
 
 //frontEnd
 const path = require('path');
@@ -30,10 +24,9 @@ const apiReviewRouter = require('./routes/api-reviews');
 
 
 // internal requires
->>>>>>> ee1bb9676fa37e3df2ea2b6fe73e5e8d49c0cf77
 const apibookshelvesRouter = require('./routes/api-bookshelves');
 const bookshelvesRouter = require('./routes/bookshelves')
->>>>>>> daaa21b203625971d2ff758b6ecf11a66214e262
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -52,19 +45,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use('/', landingRouter);
-<<<<<<< HEAD
-<<<<<<< HEAD
-app.use('/bookshelves', bookshelvesRouter);
-=======
-=======
+
+
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/books', booksRouter)
 
->>>>>>> ee1bb9676fa37e3df2ea2b6fe73e5e8d49c0cf77
 app.use('/api-bookshelves', apibookshelvesRouter);
 app.use('/bookshelves', bookshelvesRouter)
->>>>>>> daaa21b203625971d2ff758b6ecf11a66214e262
+
 // general error handler code, more specialized error handling in utils.js
 
 app.use((req, res, next) => {

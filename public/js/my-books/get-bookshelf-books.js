@@ -1,4 +1,5 @@
 import {dropDownBookInfo} from './drop-down-book-info.js'
+import { shelfDelete } from "./delete-shelf.js";
 
 const getBookList = async(bookshelfId) => {
     //console.log('in getBookList')
@@ -41,8 +42,14 @@ export const populateBookshelfBookList = async (bookshelfId) => {
     const books = bookshelf.Books
     //console.log('books', books)
     bookshelfTitle.innerHTML = bookshelf.name;
+    const deleteShelfButton = document.createElement("Button");
+    deleteShelfButton.className = "delete-button";
+    bookshelfTitle.appendChild(deleteShelfButton);
+    deleteShelfButton.addEventListener("click", shelfDelete(bookshelfId));
+
     console.log('bookshelf', bookshelf)
     console.log('title = ', bookshelf.name)
+
     for (let book in books) {
         //console.log('in for loop, book =', books[book])
         const bookDiv = createBookDiv(books[book], bookshelfId);
