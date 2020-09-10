@@ -1,8 +1,8 @@
 .wrapper{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    width: 1000px;
-    grid-template-rows: 150px 150px;
+    width: 800px;
+    grid-template-rows: 150px 200px 100px 500px;
     margin: auto;
 }
 
@@ -23,15 +23,18 @@
     background-color: lightpink;
     grid-column: 2;
     grid-row: 2;
+    display: flex;
+    overflow-y: scroll;
+    position: relative;
 }
 
-.bookshelf-books-book-title {
+.bookshelf-books__book-title {
     background-color: lightgoldenrodyellow;
     grid-column: 2;
     grid-row: 3;
 }
 
-.bookshelf-books-book-description {
+.bookshelf-books__book-description {
     background-color:lightgrey;
     grid-column: 2;
     grid-row: 4;
