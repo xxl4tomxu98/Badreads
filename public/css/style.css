@@ -12,7 +12,7 @@ body{
     grid-template-areas: 
     'book-image book-info'
     'genres reviews';
-    margin: 0 auto; 
+    margin: 20px auto;  
     gap: 10px; 
     
 }
@@ -36,6 +36,7 @@ body{
 
 .container_book-image_src{
     box-shadow: 10px 10px 10px -10px #888888;
+    border-radius: 3%;
 }
 
 .container_book-image img{
