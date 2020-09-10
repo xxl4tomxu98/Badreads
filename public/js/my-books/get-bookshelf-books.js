@@ -1,9 +1,10 @@
 import {dropDownBookInfo} from './drop-down-book-info.js'
 
 const getBookList = async(bookshelfId) => {
-    //console.log('in getBookList')
+    console.log('in getBookList, bookshelfId =', bookshelfId)
     const res = await fetch(`/api-bookshelves/${bookshelfId}`);
     const bookshelf = await res.json();
+    console.log('bookshelf =', bookshelf)
     //console.log('data', data)
     return bookshelf;
 };
