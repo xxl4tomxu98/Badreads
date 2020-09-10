@@ -4,12 +4,13 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Books', [
       {
-        author: 'Tara WestoverÃŸ',
+        author: 'Tara Westover',
         title: 'Educated',
         description: 'Educated follows Tara Westover as she leaves her survivalist family in Idaho and sets off on a journey that leads her to earn a Ph.D. from Cambridge University. The reception to the book, and what it says about the gulf between educated and uneducated people in the United States, earned Westover a spot on Times list of the Most Influential People of 2019.',
         publicationYear: '1984',
         createdAt: new Date(),
         updatedAt: new Date()
+
       },
       {
         author: 'Michelle Obama',
@@ -61,7 +62,7 @@ module.exports = {
       },
       {
         author: 'Elizabeth Gilbert',
-        title: 'Eat, Prey, Love',
+        title: 'Eat, Pray, Love',
         description: "With her account of finding herself by traveling through Italy, India, and Indonesia, Elizabeth Gilbert was preaching about paying attention to your needs back before self-care was something that anyone ever talked about.",
         publicationYear: '1984',
         createdAt: new Date(),

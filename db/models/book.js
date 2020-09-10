@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     publicationYear: {
       allowNull: false,
       type: DataTypes.STRING
-    },
+    }
   }, {});
   Book.associate = function(models) {
     const columnMapping = {
