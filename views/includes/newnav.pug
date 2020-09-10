@@ -1,0 +1,16 @@
+nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+
+  div(class="collapse navbar-collapse" id="navbarTogglerDemo02")
+    ul(class="navbar-nav mr-auto mt-2 mt-lg-0")
+      li(class="nav-item active")
+        a(class="navbar-brand" href="/") Badreads
+          button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation")
+
+    ul
+    li.nav-item.dropdown
+      a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') placeholder
+        span.glyphicon.glyphicon-book(aria-hidden='true')
+      .dropdown-menu(aria-labelledby='dropdown01')
+        a.dropdown-item(href='#') Profile
+        a.dropdown-item(href='#') My Bookshelf
+        a.dropdown-item(href='#') Log Out
