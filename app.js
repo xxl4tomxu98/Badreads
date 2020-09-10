@@ -46,11 +46,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use('/', landingRouter);
 
+<<<<<<< HEAD
+=======
+app.use('/bookshelves', bookshelvesRouter);
+>>>>>>> master
 
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/books', booksRouter)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 app.use('/api-bookshelves', apibookshelvesRouter);
 app.use('/bookshelves', bookshelvesRouter)
 
