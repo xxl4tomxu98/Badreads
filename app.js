@@ -6,7 +6,8 @@ const cors = require("cors");
 // internal requires
 const { environment } = require('./config');
 const landingRouter = require('./routes/landing')
-
+const booksRouter = require('./routes/books.js');
+const path = require('path');
 const app = express();
 
 app.set('view engine', 'pug');
@@ -18,7 +19,9 @@ app.use(cors({ origin: "http://localhost:8080" }));
 
 
 // internal route use statements
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', landingRouter);
+app.use('/books', booksRouter);
 
 // general error handler code, more specialized error handling in utils.js
 

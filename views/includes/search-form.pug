@@ -1,0 +1,9 @@
+
+extends layout.pug
+  append head
+    script(src="../../routes/public/booksearch.js" type="module" defer)
+
+ form(action="/books" method="GET" class="form-inline searchform")
+    div(class="form-group")
+      input(type="text" name="navsearch" placeholder="Book Search" class="form-control searchform__textfield")
+      input(type="submit" value="Search" class="button button-default searchform__button")
