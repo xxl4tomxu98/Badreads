@@ -10,7 +10,7 @@ module.exports = {
       },
       author: {
         allowNull: false,
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(100)
       },
       title: {
         allowNull: false,
