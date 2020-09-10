@@ -9,7 +9,9 @@ module.exports = {
         description: 'Educated follows Tara Westover as she leaves her survivalist family in Idaho and sets off on a journey that leads her to earn a Ph.D. from Cambridge University. The reception to the book, and what it says about the gulf between educated and uneducated people in the United States, earned Westover a spot on Times list of the Most Influential People of 2019.',
         publicationYear: '1984',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        image: `https://images-na.ssl-images-amazon.com/images/I/81XR45UdqkL.jpg`
+        
       },
       {
         author: 'Michelle Obama',
@@ -17,7 +19,8 @@ module.exports = {
         description: "Even if you think you know all there is to know about Michelle Obama from watching her during her eight-year tenure as First Lady of the United States, her memoir will show you that there's still lots to learn about her. From her upbringing on Chicago's South Side to her triumphs and disappointments in the White House, Becoming offers a deeply personal look at Obama's life.",
         publicationYear: '1984',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        image: `../images/Becoming.jpg`
       },
       {
         author: 'Paul Kalanithi',
@@ -25,7 +28,8 @@ module.exports = {
         description: "Paul Kalanithi didn't set out to become a writer â€” in fact, he was an M.D. with more than a decade of training as a neurosurgeon, until he was diagnosed with Stage IV lung cancer. After switching from doctor to patient, he set out to write this memoir to examine what makes life worth living. ",
         publicationYear: '1984',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        image: `https://images-na.ssl-images-amazon.com/images/I/81wUspzxnkL.jpg`
       },
       {
         author: 'Malala Yousafzai',
@@ -41,7 +45,8 @@ module.exports = {
         description: "Amy Poehler's collection of essays is as funny as you'd expect from the former star of The Upright Citizens Brigade, Saturday Night Live and Parks and Recreation â€” but it also contains lots of useful real-world wisdom, such as advice about when to be funny and when to get serious. ",
         publicationYear: '1984',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        image: `https://cdn.pixabay.com/photo/2019/04/24/14/46/girl-4152274_1280.jpg`
       },
       {
         author: 'Cheryl Strayed',
