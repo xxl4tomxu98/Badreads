@@ -1,3 +1,5 @@
+import {dropDownBookInfo} from './drop-down-book-info.js'
+
 const getBookList = async(bookshelfId) => {
     //console.log('in getBookList')
     const res = await fetch(`/api-bookshelves/${bookshelfId}`);
@@ -6,12 +8,29 @@ const getBookList = async(bookshelfId) => {
     return bookshelf;
 };
 
-const createBookDiv = (book) => {
-    //console.log('in createBookDiv book.title=', book.title)
-    return `<div class='book-on-shelf'>
-                <div class='book-on-shelf__book-cover></div>
-                <div class='book-on-shelf__book-title'>${book.title}</div>
-            </div>`
+const createBookDiv = (book, bookshelfId) => {
+    console.log('in createBookDiv book.title=', book.title)
+    // const bookDiv =  `<div class='book-on-shelf'>
+    //             <div class='book-on-shelf__book-cover'></div>
+    //             <div class='book-on-shelf__book-title'>${book.title}</div>
+    //         </div>`
+
+    var bookDiv = document.createElement('div');
+    bookDiv.className = 'book-on-shelf';
+
+    var bookCoverDiv = document.createElement('div');
+    bookCoverDiv.className = 'book-on-shelf__book-cover';
+
+    var bookTitleDiv = document.createElement('div');
+    bookTitleDiv.className = 'book-on-shelf__book-title';
+    bookTitleDiv.innerHTML = `${book.title}`;
+
+    bookDiv.appendChild(bookCoverDiv);
+    bookDiv.appendChild(bookTitleDiv);
+
+    bookDiv.addEventListener('click', () => dropDownBookInfo(book, bookshelfId));
+    return bookDiv;
+
 };
 
 export const populateBookshelfBookList = async (bookshelfId) => {
@@ -26,8 +45,8 @@ export const populateBookshelfBookList = async (bookshelfId) => {
     console.log('title = ', bookshelf.name)
     for (let book in books) {
         //console.log('in for loop, book =', books[book])
-        const bookDiv = createBookDiv(books[book]);
+        const bookDiv = createBookDiv(books[book], bookshelfId);
         //console.log('bookDiv', bookDiv)
-        bookshelfBooks.innerHTML += bookDiv;
+        bookshelfBooks.appendChild(bookDiv)
     };
 };
