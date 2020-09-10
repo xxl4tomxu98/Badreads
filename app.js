@@ -2,14 +2,21 @@
 const express = require('express');
 const morgan = require("morgan");
 const cors = require("cors");
+var path = require('path')
 
 // internal requires
 const { environment } = require('./config');
 const landingRouter = require('./routes/landing');
+<<<<<<< HEAD
 const bookshelvesRouter = require('./routes/bookshelves');
 
+=======
+const apibookshelvesRouter = require('./routes/api-bookshelves');
+const bookshelvesRouter = require('./routes/bookshelves')
+>>>>>>> daaa21b203625971d2ff758b6ecf11a66214e262
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 
 // external use statements
@@ -20,7 +27,12 @@ app.use(cors({ origin: "http://localhost:8080" }));
 
 // internal route use statements
 app.use('/', landingRouter);
+<<<<<<< HEAD
 app.use('/bookshelves', bookshelvesRouter);
+=======
+app.use('/api-bookshelves', apibookshelvesRouter);
+app.use('/bookshelves', bookshelvesRouter)
+>>>>>>> daaa21b203625971d2ff758b6ecf11a66214e262
 // general error handler code, more specialized error handling in utils.js
 
 app.use((req, res, next) => {
