@@ -15,6 +15,8 @@ const booksRouter = require('./routes/book-page')
 
 //api
 const apiBooksRouter = require('./routes/api-books');
+const apiReviewRouter = require('./routes/api-reviews');
+
 const { lorem } = require('faker');
 
 
@@ -25,7 +27,7 @@ app.set('view engine', 'pug');
 // external use statements
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: false}))
 app.use(cors({ origin: "http://localhost:8080" }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', landingRouter);
 app.use('/api-books', apiBooksRouter)
 app.use('/books', booksRouter)
+app.use('/api-reviews', apiReviewRouter)
 
 // general error handler code, more specialized error handling in utils.js
 

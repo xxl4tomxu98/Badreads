@@ -9,55 +9,35 @@ block content
             div(class='container_genres my-1')
                 select(class='form-control form-control-sm container_genres_select' name="addToBookshelf")
                     option(selected) Add to Bookshelf
-                    option(value="genreId") fiction
-                    option(value="genreId") horror
-                    option(value="genreId") comedy
+                        each genre in book.Genres
+                            option(value=genre.id) #{genre.name}
             p(class='container_book-info_description')
         div(class='container_book-image')
             img(class='container_book-image_src' src="../images/81h2gWPTYJL.jpg" alt="bookshelf")
         div(class='container_genres')
-            select(class='form-control form-control-sm container_genres_select' name="genres")
-                option(value="fiction") fiction
-                option(value="horror") horror
-                option(value="comedy") comedy
+            h5 Genres
+            each genre in book.Genres
+                a(class='container_genres_links' href='/') #{genre.name}
         div(class='container_reviews-title') Reviews
             div
-                form(class='container_form' action='/' method='post')
+                form(class='container_form')
+                    if book
+                        input(class='container_form_hidden' type="hidden" name="book_id" value=book.id)
                     input(class='container_reviews_input' type="text", name="reviews" placeholder="***write a review***")
                     input(type="submit" value="" style='display: none')
-        div(class='container_reviews') 
-            div(class='container_reviews_star-container')
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-            div(class='container_reviews_text-container')
-                p(class='container_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
-            div(class='container_reviews_readmore-container')
-                a(class='container_reviews_readmore' href="#") readmore
-        div(class='container_reviews') 
-            div(class='container_reviews_star-container')
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-            div(class='container_reviews_text-container')
-                p(class='container_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
-            div(class='container_reviews_readmore-container')
-                a(class='container_reviews_readmore' href="#") readmore
-        div(class='container_reviews') 
-            div(class='container_reviews_star-container')
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-            div(class='container_reviews_text-container')
-                p(class='container_reviews_text') When she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world. she was 15, Malala Yousafzai was shot in the head at point-blank range while riding the bus home from school because she spoke out about Taliban rule. Not only did she survive, she went on to publish her memoir and become one of the most leading voices for change, and a symbol of how one person can change the world.
-            div(class='container_reviews_readmore-container')
-                a(class='container_reviews_readmore' href="#") readmore
+        each review in book.Reviews
+            div(class='container_reviews') 
+                div(class='container_reviews_star-container')
+                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                div(class='container_reviews_text-container')
+                    p(class='container_reviews_text') #{review.description}
+                div(class='container_reviews_readmore-container')
+                    a(class='container_reviews_readmore' href="#") readmore
+        
         
 
 

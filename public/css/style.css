@@ -47,6 +47,9 @@ body{
     grid-area: genres;
     margin: 0 auto; 
 }
+.container_genres_links{
+    text-decoration: underline;
+}
 
 .container_genres_select{
     height: 20px !important;
@@ -68,8 +71,8 @@ body{
     display: grid; 
     /* grid-template-rows: 15px 90% 20px; */
     /* grid-auto-rows: minmax(min-content, max-content); */
-    grid-template-rows: 1fr 3fr 1fr;    
-    padding: 20px;
+    grid-template-rows: 20px 1fr 20px;    
+    padding: 30px;
     background-color: rgb(255, 254, 254);
     box-shadow: 10px 10px 10px -10px #888888;
 }

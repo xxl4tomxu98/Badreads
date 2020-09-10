@@ -5,6 +5,10 @@ const bookAuthor = document.querySelector('.container_book-info_author')
 const bookDescription = document.querySelector('.container_book-info_description')
 const form = document.querySelector('.container_form')
 const container = document.querySelector('.container')
+const userId = 2
+const bookId = document.querySelector('.container_form_hidden').value
+
+const reviewContainer = document.createElement('div')
 
 const fetchBook = async (id) => {
     const response = await fetch(`/api-books/${id}`)
@@ -12,74 +16,96 @@ const fetchBook = async (id) => {
 
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
-    bookDescription.innerHTML = book.description
+    bookDescription.innerHTML = book.description + book.Genres[0].id
 }
 
-// const handleResponse = ( res ) => {
-//     if(!res.ok){
-//         throw res
-//     }
+// const fetchReview = async (id) => {
+//     const response = await fetch(`/api-reviews/${id}`)
+//     const { review } = await response.json()
 
-//    return res.json()
+
 // }
 
-window.addEventListener('DOMContentLoaded', async()=>{
-    try{
-        await fetchBook(2)    
-    } catch(e) {
+const addNewReview = (review) => {
+
+    const newReview =
+        `
+             <div class='container_reviews_star-container'>
+                 <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
+                 <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
+                 <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
+                 <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
+                 <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
+             </div>
+             <div class='container_reviews_text-container'>
+                 <p class='container_reviews_text'>
+                         ${review}
+                 </p>
+             </div>
+             <div class='container_reviews_readmore-container'>
+                 <a class='container_reviews_readmore' href='#'>
+                         readmore
+                 <a/>
+             </div>
+             </div>
+     `
+    reviewContainer.innerHTML = newReview
+    container.prepend(reviewContainer)
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await fetchBook(bookId)
+    } catch (e) {
         handleErrors(e)
         console.log(e)
     }
 
-        
+
 })
 
-form.addEventListener('submit', (e)=>{
+form.addEventListener('submit', async (e) => {
     const reviewInput = document.querySelector('.container_reviews_input')
     e.preventDefault()
-    
+
     let review;
-    if(reviewInput.value != ''){
-        console.log('hey')
-        const reviewContainer = document.createElement('div')
+    let bookId;
+    
+    if (reviewInput.value != '') {
+
         reviewContainer.classList.add('container_reviews')
         review = reviewInput.value
 
         reviewInput.value = ''
-    
-        const addNewReview = (review) => {
-    
-           const newReview = 
-           `
-                    <div class='container_reviews_star-container'>
-                        <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                        <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                        <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                        <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                        <img class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                    </div>
-                    <div class='container_reviews_text-container'>
-                        <p class='container_reviews_text'>
-                                ${review}
-                        </p>
-                    </div>
-                    <div class='container_reviews_readmore-container'>
-                        <a class='container_reviews_readmore' href='#'>
-                                readmore
-                        <a/>
-                    </div>
-                    </div>
-            `
-            
-            reviewContainer.innerHTML = newReview
-            container.prepend(reviewContainer)
 
-
-        }
-
+        //append review to grid on pug file
         addNewReview(review)
 
-        return 
+
+        try {
+            //grabs the current book id from the hidden input in pug file
+            if(document.querySelector('.container_form_hidden').value){
+                bookId = document.querySelector('.container_form_hidden').value
+            }
+
+            //create new review in database
+            const res = await fetch(`/api-reviews/${bookId}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ description: review, user_id: userId, book_id: bookId })
+            })
+            if (!res.ok) {
+                throw res;
+            }
+
+
+        } catch (e) {
+            console.log(e)
+            handleErrors(e)
+        }
+        return
 
     }
 
