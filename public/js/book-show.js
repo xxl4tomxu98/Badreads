@@ -13,10 +13,10 @@ const reviewContainer = document.createElement('div')
 const fetchBook = async (id) => {
     const response = await fetch(`/api-books/${id}`)
     const { book } = await response.json()
-
+    
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
-    bookDescription.innerHTML = book.description + book.Genres[0].id
+    bookDescription.innerHTML = book.description
 }
 
 // const fetchReview = async (id) => {

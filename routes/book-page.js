@@ -17,7 +17,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     console.log(book)
     res.render('book', {
         book
-    
         }
     )
 }))

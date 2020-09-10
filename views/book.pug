@@ -13,7 +13,10 @@ block content
                             option(value=genre.id) #{genre.name}
             p(class='container_book-info_description')
         div(class='container_book-image')
-            img(class='container_book-image_src' src="../images/81h2gWPTYJL.jpg" alt="bookshelf")
+            if book.image 
+                img(class='container_book-image_src' src=book.image alt="bookshelf")
+            else
+                img(class='container_book-image_src' src="../images/no_image_book.jpg" alt="bookshelf")
         div(class='container_genres')
             h5 Genres
             each genre in book.Genres
