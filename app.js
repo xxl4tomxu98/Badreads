@@ -2,11 +2,13 @@
 const express = require('express');
 const morgan = require("morgan");
 const cors = require("cors");
+const paginate = require('express-paginate');
 
 // internal requires
 const { environment } = require('./config');
 const landingRouter = require('./routes/landing')
 const booksRouter = require('./routes/books.js');
+const searchRouter = require('./routes/search.js');
 const path = require('path');
 const app = express();
 
@@ -16,12 +18,15 @@ app.set('view engine', 'pug');
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:8080" }));
+app.use(paginate.middleware(10, 50));
 
 
 // internal route use statements
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
 app.use('/', landingRouter);
 app.use('/books', booksRouter);
+app.use('/search', searchRouter);
 
 // general error handler code, more specialized error handling in utils.js
 
@@ -41,5 +46,7 @@ app.use((err, req, res, next) => {
     stack: isProduction ? null : err.stack,
   });
 });
+
+
 
 module.exports = app;

@@ -1,16 +1,16 @@
 append head
-  script(src="../../routes/public/booksearch.js" type="module" defer)
+  script(src="./js/booksearch.js" type="module" defer)
 
 nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
 
   div(class="collapse navbar-collapse" id="navbarTogglerDemo02")
     ul(class="navbar-nav mr-auto mt-2 mt-lg-0")
       li(class="nav-item active")
-        a(class="navbar-brand" href="/") Goodreads
+        a(class="navbar-brand" href="/") Badreads
           button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation")
 
-    form(action="/books" method="GET" class="form-inline my-2 my-lg-0 searchform")
-      input(type="search" name="navsearch" placeholder="Search By Title/Author" class="form-control mr-sm-2 searchform__textfield")
+    form(action="/search" method="GET" class="form-inline my-2 my-lg-0 searchform")
+      input(type="search" name="term" placeholder="Search By Title/Author" class="form-control mr-sm-2 searchform__textfield")
       button(type="submit" class="btn btn-outline-success my-2 my-sm-0 searchform__button") Discover
     li.nav-item.dropdown
       a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') placeholder
@@ -20,3 +20,7 @@ nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
         a.dropdown-item(href='#') My Bookshelf
         a.dropdown-item(href='#') Log Out
 
+
+//- form(action="/books" method="GET" class="form-inline my-2 my-lg-0 searchform")
+//-       input(type="search" name="navsearch" placeholder="Search By Title/Author" class="form-control mr-sm-2 searchform__textfield")
+//-       button(type="submit" class="btn btn-outline-success my-2 my-sm-0 searchform__button") Discover

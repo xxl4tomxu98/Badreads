@@ -18,15 +18,16 @@ block content
 
 
     each book in books
-      row
-        div(class='block booksearch')
-          div(class='block')
-            img(src=`./book-images/${book.id}.jpg` alt='book image' style='width:200px; heigh:300px')
-          div(class='block')
-            div(class='container')
-              a(href=`./${book.id}`)
-                h5= book.title
-              p= book.author
-              p= book.publicationYear
-            div(class='container')
-              text= book.description
+      div(class='block booksearch')
+        div(class='block')
+          img(src=`./book-images/${book.id}.jpg` alt='book image' style='width:200px; heigh:300px')
+        div(class='block')
+          div(class='container')
+            a(href=`./${book.id}`)
+              h5= book.title
+            p= book.author
+            p= book.publicationYear
+          div(class='container')
+            text= book.description
+
+  include ./includes/_paginate.pug
