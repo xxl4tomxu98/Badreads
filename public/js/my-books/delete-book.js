@@ -15,6 +15,7 @@ export const bookDelete = (bookId, shelfId) => {
       if (!res.ok) {
         throw res;
       }
+      const { message, updatedBooks } = await res.json();
       populateBookshelfBookList(shelfId);
     } catch (err) {
       console.error(err);

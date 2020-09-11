@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     const columnMapping = {
       through: 'Books_Shelf',
       otherKey: 'book_id',
-      foreignKey: 'shelf_id'
+      foreignKey: 'shelf_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     };
     Shelf.belongsToMany(models.Book, columnMapping);
     Shelf.belongsTo(models.User, {foreignKey: 'user_id'});

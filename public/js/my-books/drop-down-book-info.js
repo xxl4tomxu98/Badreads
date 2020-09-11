@@ -10,7 +10,7 @@ const populateDropDown = (bookTitle, bookAuthor, bookDescription, bookPublicatio
     const deleteBookButton = document.createElement("Button");
     deleteBookButton.className = "delete-button";
     bookTitleBlock.appendChild(deleteBookButton);
-    deleteBookButton.addEventListener("click", bookDelete(shelfId, bookId));
+    deleteBookButton.addEventListener("click", bookDelete(bookId, shelfId));
 
 }
 

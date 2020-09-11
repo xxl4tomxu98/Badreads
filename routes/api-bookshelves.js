@@ -87,8 +87,19 @@ router.delete(
       throw err;
     }
     if (bookshelf) {
+      const bookAndShelfConnections = await Books_Shelf.findAll({
+        where: {
+          shelf_id: req.params.bookshelfid
+        }
+      });
+
+      for (let connection of bookAndShelfConnections) {
+        await connection.destroy()
+      };
+
       await bookshelf.destroy();
       res.json({ message: `Deleted bookshelf with id of ${req.params.bookshelfid}.` });
+      res.redirect('/');
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
