@@ -1,16 +1,15 @@
 const express = require('express');
-const bcrypt = require("bcryptjs");
-const { check } = require("express-validator");
-const { asyncHandler, handleValidationErrors } = require("../utils");
-const { getUserToken, requireAuth } = require("../auth");
+
 const router = express.Router()
 
-const db = require("../db/models");
-
-const { User, Shelf, Review } = db;
-
 router.get('/', async(req, res) => {
-    res.render('my-books')
+    //can pull out user from db using the req because the side effect of requireAuth,
+    //besides checking user is loggeg in, it sets the req.user to the queried user from db
+    const { user } = req
+    res.render('my-books', {
+        user
+    }, 
+    )
 });
 
 module.exports = router;

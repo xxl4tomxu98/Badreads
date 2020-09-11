@@ -37,6 +37,7 @@ body{
 
 .container_book-image_src{
     box-shadow: 10px 10px 10px -10px #888888;
+    border-radius: 3%;
 }
 
 .container_book-image img{
