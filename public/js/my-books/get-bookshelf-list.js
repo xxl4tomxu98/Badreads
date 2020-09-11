@@ -17,9 +17,8 @@ const getBookshelves = async () => {
         return;
       }
 
-      
-
     const data = await res.json();
+    console.log(data)
     return data;
 };
 

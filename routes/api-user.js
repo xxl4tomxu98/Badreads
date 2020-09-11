@@ -9,6 +9,7 @@ const { User, Shelf, Book, Books_Shelf } = require('../db/models');
 const bcrypt = require('bcryptjs')
 
 
+const userId = 2;
 
 const validateEmailAndPassword = [
   check("email")
@@ -37,7 +38,7 @@ const bookshelfNotFoundError = (id) => {
 
 //user authorization
 
-   //create a user in database after logging in (post req from form) and returns a user and their token 
+   //create a user in database after logging in (post req from form) and returns a user and their token
 router.post(
   "/",
   validateEmailAndPassword,

@@ -1,0 +1,41 @@
+.book-list {
+    display: flex;
+}
+/* .book-on-shelf {
+    display: inline-block;
+    overflow-y: scroll;
+} */
+
+.book-on-shelf {
+    padding: 10px;
+    width: 110px;
+    margin: 10px;
+}
+
+.book-on-shelf__book-cover {
+    height: 120px;
+    width: 80px;
+    margin: auto;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
+    /* align-self: center; */
+}
+
+.book-on-shelf__book-header {
+    margin-left: 30px;
+}
+
+.book-on-shelf__book-title {
+    margin: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.book-on-shelf__book-header {
+    margin-left: 30px;
+    padding-left: 30px;
+}
+
+.bookshelf-books__description {
+    margin-left: 30px;
+    padding-left: 30px;
+}
