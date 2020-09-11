@@ -86,11 +86,11 @@ router.post(
 
 
 const validatebookShelf = [
-  check("name")
+  check("newBookshelfName")
     .exists({ checkFalsy: true })
     .withMessage("Bookshelf can't be empty."),
   //  bookshelf name cannot be longer than 80 characters:
-  check("name")
+  check("newBookshelfName")
     .isLength({ max: 80 })
     .withMessage("Bookshelf name can't be longer than 80 characters."),
   handleValidationErrors,
@@ -109,14 +109,15 @@ router.get("/",
 }));
 
 // add the bookshelf to database
-router.post("/",
+router.post("/new-shelf",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
-    const { name } = req.body;
-    const bookshelf = await Shelf.create({ name, user_id: userId});
+    const { newBookshelfName } = req.body;
+    console.log('newBookshelfName', newBookshelfName)
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: userId});
     // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
-    res.json({ bookshelf });
+    return res.json({ bookshelf });
   })
 );
 
@@ -204,10 +205,10 @@ router.get("/:bookshelfid/:bookid",
 
 // router.post("/:bookshelfid/:bookid",
 
-router.post("/:bookshelfid/add-to-shelf",
+router.post("/:bookid/add-book-to-shelf",
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
-  const bookshelfId = req.params.bookshelfid;
+  const { bookshelfId } = req.body ;
   const bookshelf = await Shelf.findByPk(bookshelfId);
   const book = await Book.findByPk(bookId)
   if (bookshelf) {

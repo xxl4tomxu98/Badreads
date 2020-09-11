@@ -18,7 +18,7 @@ const getBookshelves = async () => {
       }
 
     const data = await res.json();
-    console.log(data)
+    // console.log(data)
     return data;
 };
 
@@ -28,32 +28,40 @@ const appendBookshelfLi = (bookshelf) => {
     li.innerHTML = `${bookshelf.name}`;
     li.className = 'bookshelf-list-item';
     const bookshelfList = document.querySelector('.bookshelf-list');
-console.log(bookshelfList)
     li.addEventListener('click', () => populateBookshelfBookList(bookshelf.id))
     bookshelfList.appendChild(li);
+    // // console.log('appendBookshelfLi', bookshelfList)
 };
 
 const openCreateNewBookshelfField = async () => {
 
     const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
-    const newBookshelfForm = document.querySelector('#add-new-bookshelf__input-field');
+    const newBookshelfForm = document.querySelector('.add-bookshelf-form');
+    const newBookshelfFormField= document.querySelector('#add-new-bookshelf__input-field')
     // Display form field
-    newBookshelfForm.classList.remove('hidden');
+    // // console.log('made it here')
+    newBookshelfFormField.classList.remove('hidden');
 
     // Change button type
     setTimeout(function () {
         addBookshelfButton.removeAttribute('type');
         addBookshelfButton.type = 'submit';
+    }, 1000);
 
-        newBookshelfForm.addEventListener('submit', async e => {
+        addBookshelfButton.addEventListener('click', async e => {
             e.preventDefault();
-
+            console.log('in event listener')
+            console.log(newBookshelfForm);
             const formData = new FormData(newBookshelfForm);
-            const newBookshelfName = formData.get('newBookShelfName');
-            const _csrf = formData.get('_csrf');
 
-            const body = { newBookshelfName, _csrf }
-            const res = await fetch('/api-user', {
+            // // console.log('formData', formData)
+            const newBookshelfName = formData.get('newBookshelfName');
+            // const _csrf = formData.get('_csrf');
+
+            const body = { newBookshelfName }
+            console.log(body.newBookshelfName);
+
+            const res = await fetch('http://localhost:8080/api-user/new-shelf', {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers: {
@@ -63,17 +71,18 @@ const openCreateNewBookshelfField = async () => {
 
             const data = await res.json();
             const { bookshelf } = data;
+            console.log(bookshelf)
             appendBookshelfLi(bookshelf);
-            newBookshelfForm.classList.add('hidden');
-            addBookshelfButton.removeAttribute('type').type = 'button';
+            newBookshelfFormField.classList.add('hidden');
+            addBookshelfButton.removeAttribute('type');
+            addBookshelfButton.type = 'button';
         });
-    }, 1000);
 };
 
 export const populateUserBookshelfList = async () => {
     const { shelves } = await getBookshelves();
     for (let bookshelf of shelves) {
-        console.log('bookshelf', bookshelf)
+        // console.log('bookshelf', bookshelf)
         appendBookshelfLi(bookshelf);
     };
 
