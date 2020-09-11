@@ -13,14 +13,14 @@ const { environment } = require('./config');
 
 //frontEnd
 const path = require('path');
-const landingRouter = require('./routes/landing')
+const landingRouter = require('./routes/landing');
 const booksRouter = require('./routes/books');
-
+const profileRouter = require('./routes/profile');
 
 //api
 const apiBooksRouter = require('./routes/api-books');
 const apiReviewRouter = require('./routes/api-reviews');
-
+const apiProfileRouter = require('./routes/api-profile');
 
 
 // internal requires
@@ -54,6 +54,9 @@ app.use('/books', booksRouter)
 
 app.use('/api-bookshelves', apibookshelvesRouter);
 app.use('/bookshelves', bookshelvesRouter)
+
+app.use('/api-bookshelves/proifle', apiProfileRouter);
+app.use('/bookshelves/profile', profileRouter);
 
 // general error handler code, more specialized error handling in utils.js
 
