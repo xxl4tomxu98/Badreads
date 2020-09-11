@@ -15,6 +15,7 @@ const path = require('path');
 const landingRouter = require('./routes/landing')
 const booksRouter = require('./routes/books');
 const userRouter = require('./routes/user')
+const registerRouter = require('./routes/register')
 
 
 //api
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
+app.use('/register', registerRouter)
 
 //front-end mounted routes
 app.use('/', landingRouter);

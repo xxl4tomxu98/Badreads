@@ -9,11 +9,9 @@ const db = require("../db/models");
 const { User, Shelf, Review } = db;
 
 //register page with genres
-router.get('/register',  (req, res) => {
-    const user = db.User.build();
+router.get('/',  (req, res) => {
     res.render('register', {
-      title: 'Register',
-      user,
+      title: 'Register'
     });
   });
   
