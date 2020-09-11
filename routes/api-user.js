@@ -107,7 +107,7 @@ router.get("/", requireAuth,
       
     const shelves = await Shelf.findAll({
       where: {
-        user_id : 2
+        user_id : req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
