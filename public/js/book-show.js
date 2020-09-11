@@ -11,7 +11,13 @@ const bookId = document.querySelector('.container_form_hidden').value
 const reviewContainer = document.createElement('div')
 
 const fetchBook = async (id) => {
-    const response = await fetch(`/api-books/${id}`)
+    const response = await fetch(`/api-books/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "BADREADS_ACCESS_TOKEN"
+          )}`,
+        }}
+    )
     const { book } = await response.json()
     
     bookTitle.innerHTML = `<strong>${book.title}</strong>`

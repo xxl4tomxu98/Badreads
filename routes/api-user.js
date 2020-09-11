@@ -60,22 +60,27 @@ router.post(
   "/token",
   validateEmailAndPassword,
   asyncHandler(async (req, res, next) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({
-      where: {
-        email,
-      },
-    });
+    try{
+      const { email, password } = req.body;
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+      // console.log(user, password)
+      if (!user || !user.validatePassword(password)) {
+        const err = new Error("Login failed");
+        err.status = 401;
+        err.title = "Login failed";
+        err.errors = ["The provided credentials were invalid."];
+        return next(err);
+      }
+      const token = getUserToken(user);
+      res.json({ token, user: { id: user.id } });
 
-    if (!user || !user.validatePassword(password)) {
-      const err = new Error("Login failed");
-      err.status = 401;
-      err.title = "Login failed";
-      err.errors = ["The provided credentials were invalid."];
-      return next(err);
+    }catch(err){
+      console.log(err)
     }
-    const token = getUserToken(user);
-    res.json({ token, user: { id: user.id } });
   })
 );
 
@@ -96,15 +101,20 @@ const validatebookShelf = [
 ];
 
 // create the bookshelves list
-router.get("/",
+router.get("/", requireAuth,
   asyncHandler(async (req, res) => {
+    try{
+      
     const shelves = await Shelf.findAll({
       where: {
-        user_id : userId
+        user_id : req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
     res.json({ shelves });
+  }catch(e){
+    console.log(e)
+  }
 }));
 
 // add the bookshelf to database

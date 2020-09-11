@@ -10,8 +10,8 @@ block content
             div(class='container_genres my-1')
                 select(class='form-control form-control-sm container_genres_select' name="addToBookshelf")
                     option(selected) Add to Bookshelf
-                        each genre in book.Genres
-                            option(value=genre.id) #{genre.name}
+                        //- each shelf in shelves
+                        //-     option(value=genre.id) #{genre.name}
             p(class='container_book-info_description')
         div(class='container_book-image')
             if book.id < 5 
