@@ -1,0 +1,47 @@
+.signup-container{
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0; 
+    padding-left: 30%; 
+   
+}
+
+.input{
+    margin: 5px 0; 
+}
+
+.quote-generator-container{
+    height: 200px; 
+    background-color: peachpuff; 
+    margin: 50px 0; 
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+}
+
+.quote-generator-quote{ 
+    font-style: italic;
+    margin: 0 10px; 
+}
+
+.quote-generator-img{
+    height: 150px;
+    width: 150px;
+    /* object-fit: cover; */
+    border-radius:50%;
+    box-shadow: 10px 10px 10px -10px #000000;
+    /* align-self: center; */
+}
+
+.book-image-container{
+    display: inline-block;
+    margin: 30px 30px; 
+}
+
+.book-image__1, .book-image__2, .book-image__3{
+    height: 150px;
+    width: 100px;
+}
+

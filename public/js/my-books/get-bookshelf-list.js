@@ -2,7 +2,21 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js'
 
 // Get shelves
 const getBookshelves = async () => {
-    const res = await fetch('/api-bookshelves');
+    const res = await fetch('/api-user',{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "BADREADS_ACCESS_TOKEN"
+          )}`,
+        },
+      });
+
+      //redirect user to login page if not logged in which is on the landing page path('/')
+      if (res.status === 401) {
+        window.location.href = "/";
+        return;
+      }
+
+      
     const data = await res.json();
     return data;
 };
@@ -38,7 +52,7 @@ const openCreateNewBookshelfField = async () => {
             const _csrf = formData.get('_csrf');
 
             const body = { newBookshelfName, _csrf }
-            const res = await fetch('/api-bookshelves', {
+            const res = await fetch('/api-user', {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers: {
