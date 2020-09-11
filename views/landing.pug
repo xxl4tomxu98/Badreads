@@ -2,4 +2,33 @@ extends layout.pug
 
 block content
 
-  include ./includes/nav.pug
+  div(class="login-container")
+    div BadReads
+    form(class="login-form")
+      input(class="input login-form__username" type='text' name='username2' placeholder="Username")
+      input(class="input login-form__password"  type='password' name="password2" placeholder='Password')
+      button.btn.btn-primary(type='submit') Login
+
+  div(class="signup-container")
+    div(class="login-errors-container")
+    div(class="signup-errors-container")
+    h6 New here? Create a free account!
+    form(class="signup-form")
+      input(class="input signup-form__username form-control"  type='text' name='username' placeholder="Username")
+      input(class="input signup-form__email form-control" type='email' name="email" placeholder='Enter email')
+      input(class="input signup-form__password form-control"  type='password' name="password" placeholder='Password')
+      button.btn.btn-primary(type='submit') Sign Up
+  
+  div(class="quote-generator-container")
+      img(class="quote-generator-img" src="../images/ghandi.jpg", alt="")
+      p(class="quote-generator-quote") "quotes will go here! " 
+
+  div(class="discover-container") 
+    p Discover...
+    div(class="book-image-container")
+      img(class="book-image__1" src="../images/1.jpg", alt="")
+    div(class="book-image-container")
+      img(class="book-image__2" src="../images/2.jpg", alt="")
+    div(class="book-image-container")
+      img(class="book-image__3" src="../images/3.jpg", alt="")
+  script(src="../js/landing.js" type="module")
