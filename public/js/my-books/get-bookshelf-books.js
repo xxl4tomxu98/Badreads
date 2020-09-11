@@ -19,6 +19,7 @@ const getBookList = async(bookshelfId) => {
       
 
     const bookshelf = await res.json();
+    console.log('bookshelf =', bookshelf)
     //console.log('data', data)
     return bookshelf;
 };
