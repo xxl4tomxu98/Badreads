@@ -29,8 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Shelf, {foreignKey: 'user_id'});
     User.hasMany(models.Review, {foreignKey: 'user_id'});
   };
-  User.prototype.validatePassword = (password) =>
-    bcrypt.compareSync(password, this.hashedPassword.toString());
+  User.prototype.validatePassword = function (password){
+    return bcrypt.compareSync(password, this.hashedPassword.toString())
+  }
 
   return User;
 };
