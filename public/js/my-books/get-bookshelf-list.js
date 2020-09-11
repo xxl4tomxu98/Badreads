@@ -2,6 +2,7 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js'
 
 // Get shelves
 const getBookshelves = async () => {
+
     const res = await fetch('/api-user',{
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
@@ -17,6 +18,7 @@ const getBookshelves = async () => {
       }
 
       
+
     const data = await res.json();
     return data;
 };

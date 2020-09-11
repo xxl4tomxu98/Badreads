@@ -24,8 +24,6 @@ const apiReviewRouter = require('./routes/api-reviews');
 const apiUserRouter = require('./routes/api-user');
 
 
-
-// internal requires
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,11 +45,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
-app.use('/register', registerRouter)
+
+
 
 //front-end mounted routes
 app.use('/', landingRouter);
 app.use('/books', booksRouter)
+app.use('/register', registerRouter)
+
 app.use('/user', userRouter)
 // general error handler code, more specialized error handling in utils.js
 
