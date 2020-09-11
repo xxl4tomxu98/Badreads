@@ -52,6 +52,7 @@ router.post(
   })
 );
 
+//login in route to get a new token for existing user
 router.post(
   "/token",
   validateEmailAndPassword,
