@@ -46,6 +46,7 @@ module.exports = {
 
         updatedAt: new Date(),
       },
+      
     ], { returning: true }
     );
 
