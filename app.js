@@ -24,8 +24,8 @@ const apiProfileRouter = require('./routes/api-profile');
 
 
 // internal requires
-const apibookshelvesRouter = require('./routes/api-bookshelves');
-const bookshelvesRouter = require('./routes/bookshelves')
+const apiUserRouter = require('./routes/api-user');
+const userRouter = require('./routes/user')
 
 const app = express();
 
@@ -46,17 +46,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use('/', landingRouter);
 
-app.use('/bookshelves', bookshelvesRouter);
+app.use('/user', bookshelvesRouter);
 
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/books', booksRouter)
 
-app.use('/api-bookshelves', apibookshelvesRouter);
-app.use('/bookshelves', bookshelvesRouter)
+app.use('/api-user', apiUserRouter);
+app.use('/user', userRouter)
 
-app.use('/api-bookshelves/proifle', apiProfileRouter);
-app.use('/bookshelves/profile', profileRouter);
+app.use('/api-user/proifle', apiProfileRouter);
+app.use('/user/profile', profileRouter);
 
 // general error handler code, more specialized error handling in utils.js
 

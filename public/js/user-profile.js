@@ -4,7 +4,7 @@ let userId = 2;
 
 // Get genres for the user
 const getUserGenres = async () => {
-  const res = await fetch('/api-bookshelves/profile');
+  const res = await fetch('/api-user/profile');
   const { genres } = await res.json();
   return genres;
 };
