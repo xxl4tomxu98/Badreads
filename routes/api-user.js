@@ -131,7 +131,7 @@ router.get("/:bookshelfid/:bookid",
 
 
 // Add the book to selected shelf in the database
-router.post("/:bookshelfid/:bookid",
+router.post("/:bookshelfid/add-to-shelf",
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const bookshelfId = req.params.bookshelfid;

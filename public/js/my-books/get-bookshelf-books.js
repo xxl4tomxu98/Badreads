@@ -2,7 +2,7 @@ import {dropDownBookInfo} from './drop-down-book-info.js'
 
 const getBookList = async(bookshelfId) => {
     //console.log('in getBookList')
-    const res = await fetch(`/api-bookshelves/${bookshelfId}`);
+    const res = await fetch(`/api-user/${bookshelfId}`);
     const bookshelf = await res.json();
     //console.log('data', data)
     return bookshelf;
