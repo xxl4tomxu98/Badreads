@@ -2,6 +2,7 @@ const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
+
 const { getUserToken, requireAuth } = require("../auth");
 const router = express.Router()
 const { User, Shelf, Book, Books_Shelf } = require('../db/models');
@@ -21,6 +22,7 @@ const validateEmailAndPassword = [
 ];
 
 
+
 const bookshelfNotFoundError = (id) => {
   const err = Error("Bookshelf not found");
   err.errors = [`Bookshelf with id of ${id} could not be found.`];
@@ -28,6 +30,7 @@ const bookshelfNotFoundError = (id) => {
   err.status = 404;
   return err;
 };
+
 
 
 
@@ -85,6 +88,7 @@ router.post(
 
 
 
+
 const validatebookShelf = [
   check("name")
     .exists({ checkFalsy: true })
@@ -97,12 +101,13 @@ const validatebookShelf = [
 ];
 
 // create the bookshelves list
-router.get("/",
+router.get("/", requireAuth,
   asyncHandler(async (req, res) => {
     try{
+      
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id
+        user_id : 2
       },
       order: [["createdAt", "DESC"]],
     });
@@ -124,7 +129,9 @@ router.post("/",
   })
 );
 
+
 // get specific bookshelf books --user id
+
 router.get("/:bookshelfid",
   asyncHandler(async (req, res, next) => {
     const bookshelf = await Shelf.findOne({
@@ -203,7 +210,10 @@ router.get("/:bookshelfid/:bookid",
 
 
 // Add the book to selected shelf in the database
-router.post("/:bookshelfid/:bookid",
+
+// router.post("/:bookshelfid/:bookid",
+
+router.post("/:bookshelfid/add-to-shelf",
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const bookshelfId = req.params.bookshelfid;
@@ -284,6 +294,8 @@ router.delete("/:bookshelfid/books/:bookid",
     res.json({ message: `Removed ${book.title} by ${book.author} from your bookshelf, ${bookshelf.name}`, updatedBooks });
   }));
 
+
 router.use(requireAuth)
+
 
 module.exports = router;
