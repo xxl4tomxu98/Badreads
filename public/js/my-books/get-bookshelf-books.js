@@ -4,6 +4,7 @@ const getBookList = async(bookshelfId) => {
     //console.log('in getBookList')
     const res = await fetch(`/api-user/${bookshelfId}`);
     const bookshelf = await res.json();
+    console.log('bookshelf =', bookshelf)
     //console.log('data', data)
     return bookshelf;
 };
