@@ -1,21 +1,22 @@
 append head
   //- script(src="./js/booksearch.js" type="module" defer)
 
-nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+nav(class="navbar")
 
-  div(class="collapse navbar-collapse" id="navbarTogglerDemo02")
-    ul(class="navbar-nav mr-auto mt-2 mt-lg-0")
-      li(class="nav-item active")
-        a(class="navbar-brand" href="/") Badreads
-          button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation")
+  //- div(class="collapse navbar-collapse" id="navbarTogglerDemo02")
+  //-   ul(class="navbar-nav mr-auto mt-2 mt-lg-0")
+  //-     li(class="nav-item active")
+  a(class="navbar__text-logo" href="/") <strong>bad</strong>reads
+          //- button(class="text-logo-button" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation")
 
-    form(action="/books" method="GET" class="form-inline my-2 my-lg-0 searchform")
-      input(type="search" name="term" placeholder="Search By Title/Author" class="form-control mr-sm-2 searchform__textfield")
-      button(type="submit" class="btn btn-outline-success my-2 my-sm-0 searchform__button") Discover
-    li.nav-item.dropdown
-      a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') placeholder
-        span.glyphicon.glyphicon-book(aria-hidden='true')
-      .dropdown-menu(aria-labelledby='dropdown01')
-        a.dropdown-item(href='#') Profile
-        a.dropdown-item(href='#') My Bookshelf
-        a.dropdown-item(href='#') Log Out
+  form(action="/books" method="GET" class='navbar__search')
+    input(type="search" name="term" placeholder="Search By Title/Author" class="input-field navbar__search-field")
+    button(type="submit" class="button-dark") discover
+  button(type='button' class='profile-button')
+    //- li.nav-item.dropdown
+    //-   a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') placeholder
+    //-     span.glyphicon.glyphicon-book(aria-hidden='true')
+    //-   .dropdown-menu(aria-labelledby='dropdown01')
+    //-     a.dropdown-item(href='#') Profile
+    //-     a.dropdown-item(href='#') My Bookshelf
+    //-     a.dropdown-item(href='#') Log Out

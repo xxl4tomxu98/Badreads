@@ -5,10 +5,12 @@ export const createAddToShelfDropdown = async(bookId, bookshelfId) => {
     // dropdownForm.action = `/${bookId}/add-to-bookshelf`
     // dropdownForm.method = 'POST'
     let dropdown = document.createElement('select');
-    dropdown.classList = 'add-bookshelf-dropdown'
+    dropdown.classList = 'add-to-bookshelf-dropdown'
     //dropdown.onchange = 'this.form.submit()'
     for (let shelf of bookshelves.allShelvesWithoutBook) {
-        dropdown.appendChild(new Option(shelf.name, shelf.id));
+        const option = new Option(shelf.name, shelf.id);
+        option.classList = 'add-to-bookshelf-dropdown__option'
+        dropdown.appendChild(option);
     };
     return dropdown;
 };

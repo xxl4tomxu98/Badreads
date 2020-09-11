@@ -5,33 +5,34 @@ body{
 
 
 
-.container{
+.container {
     display: grid;
-    grid-template-columns: 25% 70%; 
+    grid-template-columns: 25% 70%;
     grid-auto-rows: minmax(min-content, max-content);
-    grid-template-areas: 
+    grid-template-areas:
     'book-image book-info'
     'genres reviews';
-    margin: 0 auto; 
-    gap: 10px; 
-    
+    margin: 0 auto;
+    gap: 10px;
+    margin-top: 50px;
+
 }
 
 .container_book-info{
     grid-area: book-info;
-    font-size: 1.5em
-    
+    font-size: 1.5em;
+    /* display: block; */
 }
 
 .container_book-info_description{
-    margin-top: 10px; 
+    margin-top: 50px;
 }
 
 
 .container_book-image{
     grid-area: book-image;
-    margin: 0 auto; 
-    
+    margin: 0 auto;
+
 }
 
 .container_book-image_src{
@@ -45,7 +46,7 @@ body{
 
 .container_genres{
     grid-area: genres;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 .container_genres_links{
     text-decoration: underline;
@@ -60,18 +61,22 @@ body{
     width: 150px;
 }
 
+.container_book-info_author {
+    font-weight: 200;
+    font-size: 20px;
+}
 .container_reviews-title{
     text-decoration: underline;
-    font-size: 18px; 
+    font-size: 18px;
     grid-area: reviews;
 }
 
 .container_reviews{
     grid-column: 2 / 3;
-    display: grid; 
+    display: grid;
     /* grid-template-rows: 15px 90% 20px; */
     /* grid-auto-rows: minmax(min-content, max-content); */
-    grid-template-rows: 20px 1fr 20px;    
+    grid-template-rows: 20px 1fr 20px;
     padding: 30px;
     background-color: rgb(255, 254, 254);
     box-shadow: 10px 10px 10px -10px #888888;
@@ -80,22 +85,22 @@ body{
 .container_reviews_star-container{
     justify-self: end;
     width: 50px;
-    height: 10px; 
+    height: 10px;
     /* keeps stars closely together */
-    display: flex; 
+    display: flex;
 
 }
 
 .container_reviews_star{
     height: 10px;
     width: 10px;
-    
+
 }
 
 .container_reviews_readmore{
     font-size: 10px;
-    text-decoration: unset; 
-    
+    text-decoration: unset;
+
 }
 
 .container_reviews_readmore-container{
@@ -103,13 +108,13 @@ body{
 }
 
 .container_reviews_text{
-    margin: 0; 
+    margin: 0;
     font-size: 12px;
 }
 
 
 /* .container_reviews_textarea{
-    margin-top: 10px; 
+    margin-top: 10px;
 } */
 /* .container_reviews_textarea:hover{
     cursor: crosshair;
@@ -132,3 +137,8 @@ body{
     width: 150px;
 }
 
+@media screen and (max-width: 950px) {
+    .container {
+        min-width: 900px;
+    }
+}
