@@ -9,23 +9,20 @@ const { lorem } = require('faker');
 
 // internal requires
 const { environment } = require('./config');
-
+const path = require('path');
 
 //frontEnd
-const path = require('path');
 const landingRouter = require('./routes/landing')
 const booksRouter = require('./routes/books');
+const userRouter = require('./routes/user')
+const registerRouter = require('./routes/register')
 
 
 //api
 const apiBooksRouter = require('./routes/api-books');
 const apiReviewRouter = require('./routes/api-reviews');
+const apiUserRouter = require('./routes/api-user');
 
-
-
-// internal requires
-const apibookshelvesRouter = require('./routes/api-bookshelves');
-const bookshelvesRouter = require('./routes/bookshelves')
 
 const app = express();
 
@@ -43,19 +40,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // internal route use statements
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false }));
-app.use('/', landingRouter);
 
-app.use('/bookshelves', bookshelvesRouter);
-
+//api mounted routes
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
+app.use('/api-user', apiUserRouter);
+
+
+
+//front-end mounted routes
+app.use('/', landingRouter);
 app.use('/books', booksRouter)
+app.use('/register', registerRouter)
 
-
-app.use('/api-bookshelves', apibookshelvesRouter);
-app.use('/bookshelves', bookshelvesRouter)
-
+app.use('/user', userRouter)
 // general error handler code, more specialized error handling in utils.js
 
 app.use((req, res, next) => {

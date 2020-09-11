@@ -4,6 +4,8 @@ const Op = sequelize.Op;
 
 const { asyncHandler } = require('../utils');
 const { Book, Genre, Review } = require('../db/models');
+//importing authorization to secure resources
+const { requireAuth } = require('../auth')
 
 
 const router = express.Router();

@@ -1,7 +1,7 @@
- export const handleErrors = async (err) => {
+ export const handleErrors = async (err, errorContainerClass) => {
     if (err.status >= 400 && err.status < 600) {
       const errorJSON = await err.json();
-      const errorsContainer = document.querySelector(".errors-container");
+      const errorsContainer = document.querySelector(errorContainerClass);
       let errorsHtml = [
         `
           <div class="alert alert-danger">
@@ -13,7 +13,7 @@
       if (errors && Array.isArray(errors)) {
         errorsHtml = errors.map(
           (message) => `
-            <div class="alert alert-danger">
+            <div class="alert alert-danger fade show">
                 ${message}
             </div>
           `
