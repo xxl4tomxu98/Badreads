@@ -2,8 +2,8 @@ const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
+const { requireAuth } = require("../auth");
 
-const { getUserToken, requireAuth } = require("../auth");
 const router = express.Router()
 const { User, Shelf, Book, Genre, Books_Shelf, User_Genre } = require('../db/models');
 const bcrypt = require('bcryptjs')
@@ -22,6 +22,7 @@ const validateEmailAndPassword = [
 ];
 
 
+router.use(requireAuth)
 
 const bookshelfNotFoundError = (id) => {
   const err = Error("Bookshelf not found");
@@ -106,8 +107,9 @@ const validatebookShelf = [
   handleValidationErrors,
 ];
 
-// create the bookshelves list
-router.get("/", requireAuth,
+// create the bookshelves list (grab the shelves)
+//api-user/shelves
+router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
 
@@ -124,7 +126,8 @@ router.get("/", requireAuth,
 }));
 
 // add the bookshelf to database
-router.post("/",
+//post req to /api-user/shelves
+router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
@@ -136,18 +139,19 @@ router.post("/",
 );
 
 
-// get specific bookshelf books --user id
+// get specific bookshelf books
 
-router.get("/shelves/:bookshelfid",
+//api-user/shelves/:bookshelfid
+router.get("shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
-    const bookshelf = await Shelf.findOne({
+    const shelf = await Shelf.findOne({
       where: {
         id: req.params.bookshelfid,
       },
       include: Book
     });
-    if (bookshelf) {
-      res.json({ bookshelf });
+    if (shelf) {
+      res.json({ shelf });
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
@@ -155,6 +159,8 @@ router.get("/shelves/:bookshelfid",
 );
 
 // delete bookshelf
+
+//api-user/shelves/:bookshelfid
 router.delete(
   "/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
@@ -193,10 +199,14 @@ router.delete(
 
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
-router.get("/:bookshelfid/:bookid",
-  asyncHandler(async (req, res) => {
 
+//api-user/shelves/:bookshelfid/books/:bookid
+router.get("/excluded-shelves/:bookshelfid/books/:bookid",
+  asyncHandler(async (req, res) => {
+//code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
+//the shelves found for the user with the book
     const bookId = req.params.bookid;
+    //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
         user_id : userId,
@@ -205,58 +215,28 @@ router.get("/:bookshelfid/:bookid",
         model: Book, where: {id: bookId}
       }
     });
+    //all shelves in db
     const allShelves = await Shelf.findAll();
+    //shelf id's for all user shelves with specific book
     let includedShelf = [];
     for (let shelf of shelves) {
       includedShelf.push(shelf.id);
     };
-
+    //array of all shelves in db
     let allShelvesArray = [];
     for (let shelf of allShelves) {
       allShelvesArray.push(shelf);
     };
 
+    //filters array for all shelves in db to have all shelves that don't contain the book already
     const allShelvesWithoutBook = allShelvesArray.filter(function(shelf) {
       if (!includedShelf.includes(shelf.id)) {
         return shelf;
       }
     });
-
+      //return as an obj containing the filtered array of objects
     res.json({ allShelvesWithoutBook });
 }));
-
-
-// Add the book to selected shelf in the database
-
-router.post("/shelves/:shelfid/books/:bookid",
-  asyncHandler(async (req, res, next) => {
-  const bookId = req.params.bookid;
-  const bookshelfId = req.params.bookshelfid;
-  const bookshelf = await Shelf.findByPk(bookshelfId);
-  const book = await Book.findByPk(bookId)
-  if (bookshelf) {
-    await bookshelf.addBook(book);
-    res.json(bookshelf);
-  } else {
-    next(bookshelfNotFoundError(req.params.bookshelfId));
-  };
-}));
-
-// Get books on a specific shelf
-router.get('/:id/books',
-  asyncHandler(async (req, res) => {
-    console.log('req.params.id', req.params.id);
-    const books = await Book.findAll({
-      include: { model: Shelf,
-        where: {
-          id: req.params.id,
-        },
-      },
-    });
-    res.json({ books });
-}));
-
-
 
 // GET request for the description, author, title, findByPk
 router.get("/shelves/:bookshelfid/books/:bookid",
@@ -273,7 +253,41 @@ router.get("/shelves/:bookshelfid/books/:bookid",
     res.json({ book });
 }));
 
+
+// Add the book to selected shelf in the database
+
+// post to /api-user/shelves/:shelfid/books/:bookid
+router.post("/shelves/:bookshelfid/books/:bookid",
+  asyncHandler(async (req, res, next) => {
+  const bookId = req.params.bookid;
+  const bookshelfId = req.params.bookshelfid;
+  const bookshelf = await Shelf.findByPk(bookshelfId);
+  const book = await Book.findByPk(bookId)
+  if (bookshelf) {
+    await bookshelf.addBook(book);
+    res.json({bookshelf});
+  } else {
+    next(bookshelfNotFoundError(req.params.bookshelfId));
+  };
+}));
+
+// Get books on a specific shelf
+router.get('/shelves/:id/books',
+  asyncHandler(async (req, res) => {
+    console.log('req.params.id', req.params.id);
+    const books = await Book.findAll({
+      include: { model: Shelf,
+        where: {
+          id: req.params.id,
+        },
+      },
+    });
+    res.json({ books });
+}));
+
+
 // delete book from a bookshelf
+//should be /api-use/shelves/:bookshelfid/books/:bookid
 router.delete("/shelves/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;

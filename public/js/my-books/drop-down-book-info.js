@@ -1,6 +1,10 @@
 import { createAddToShelfDropdown } from './add-to-shelf-dropdown.js'
 
 const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPublicationYear, bookId, bookshelfId) => {
+    var element = document.querySelector('.add-to-bookshelf-dropdown');
+    if(element) {
+        element.parentNode.removeChild(element)
+    };
     let bookTitleBlock = document.querySelector('.bookshelf-books__book-title');
     let bookAuthorBlock = document.querySelector('.bookshelf-books__book-author');
     let bookDescriptionBlock = document.querySelector('.bookshelf-books__book-description')
@@ -10,16 +14,14 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
 
     const addToShelfDropdown = await createAddToShelfDropdown(bookId, bookshelfId);
     console.log('addToShelfDropdown = ', addToShelfDropdown)
-    bookTitleBlock.appendChild(addToShelfDropdown);
+    bookAuthorBlock.insertAdjacentElement('afterend', addToShelfDropdown);
 }
 
-
-
-export const dropDownBookInfo = async(book, bookshelfId) => {
+export const dropDownBookInfo = async(Book, bookshelfId) => {
 
     //need authorization header to access user shelves for when user is redirected to my-books page
     //after login or sign-up since requireAuth was added to frontend user route
-    const res = await fetch(`/api-user/${bookshelfId}/books/${book.id}`, {
+    const res = await fetch(`/api-user/shelves/${bookshelfId}/books/${Book.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             "BADREADS_ACCESS_TOKEN"
@@ -33,14 +35,14 @@ export const dropDownBookInfo = async(book, bookshelfId) => {
         return;
       }
 
-    const bookInfo = await res.json();
+    const { book } = await res.json();
 
     // console.log(bookInfo.book);
-    const bookTitle = bookInfo.book.title;
-    const bookAuthor = bookInfo.book.author;
-    const bookDescription = bookInfo.book.description
-    const bookPublicationYear = bookInfo.book.publicationYear
+    const bookTitle = book.title;
+    const bookAuthor = book.author;
+    const bookDescription = book.description
+    const bookPublicationYear = book.publicationYear
 
-    populateDropDown(bookTitle, bookAuthor, bookDescription, bookPublicationYear, book.id, bookshelfId);
+    populateDropDown(bookTitle, bookAuthor, bookDescription, bookPublicationYear, Book.id, bookshelfId);
     // console.log(bookTitle, bookAuthor, bookDescription, bookPublicationYear);
 }

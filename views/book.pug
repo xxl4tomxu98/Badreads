@@ -1,20 +1,21 @@
 extends layout.pug
 
 block content
-    include ./includes/nav.pug
-    div(class='container')
+    include includes/nav.pug
+    div(class='book-container')
         div(class='container_book-info ')
             h2(class='container_book-info_title')
             h3(class='container_book-info_author')
             //- buton(class='btn btn-danger')
-            div(class='container_genres my-1')
+            div(class='add-to-bookshelf-dropdown my-1')
                 select(class='form-control form-control-sm container_genres_select' name="addToBookshelf")
                     option(selected) Add to Bookshelf
-                        //- each shelf in shelves
-                        //-     option(value=genre.id) #{genre.name}
-            p(class='container_book-info_description')
+                        each genre in book.Genres
+                            option(value=genre.id) #{genre.name}
+            h5(class='container_book-info_description')
+
         div(class='container_book-image')
-            if book.id < 5 
+            if book.id < 5
                 img(class='container_book-image_src' src=`../images/${book.id}.jpg` alt="bookshelf")
             else
                 img(class='container_book-image_src' src="../images/no_image_book.jpg" alt="bookshelf")
@@ -22,15 +23,14 @@ block content
             h5 Genres
             each genre in book.Genres
                 a(class='container_genres_links' href='/') #{genre.name}
-        div(class='container_reviews-title') Reviews
+        div(class='container_reviews-title')
+            h4 Reviews
             div
                 form(class='container_form')
-                    if book
-                        input(class='container_form_hidden' type="hidden" name="book_id" value=book.id)
                     input(class='container_reviews_input' type="text", name="reviews" placeholder="***write a review***")
                     input(type="submit" value="" style='display: none')
         each review in book.Reviews
-            div(class='container_reviews') 
+            div(class='container_reviews')
                 div(class='container_reviews_star-container')
                     img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
                     img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
@@ -41,10 +41,4 @@ block content
                     p(class='container_reviews_text') #{review.description}
                 div(class='container_reviews_readmore-container')
                     a(class='container_reviews_readmore' href="#") readmore
-        
-        
-
-
-
-
     script(type='module' src='../js/book-show.js')
