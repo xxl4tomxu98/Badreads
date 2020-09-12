@@ -34,7 +34,7 @@ export const dropDownBookInfo = async(Book, bookshelfId) => {
         window.location.href = "/";
         return;
       }
-        
+
     const { book } = await res.json();
 
     // console.log(bookInfo.book);
@@ -46,4 +46,3 @@ export const dropDownBookInfo = async(Book, bookshelfId) => {
     populateDropDown(bookTitle, bookAuthor, bookDescription, bookPublicationYear, Book.id, bookshelfId);
     // console.log(bookTitle, bookAuthor, bookDescription, bookPublicationYear);
 }
-

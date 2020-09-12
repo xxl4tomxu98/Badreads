@@ -3,7 +3,7 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js'
 // Get shelves
 const getBookshelves = async () => {
 
-    const res = await fetch('/api-user/shelves',{
+    const res = await fetch('http://localhost:8080/api-user/shelves',{
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             "BADREADS_ACCESS_TOKEN"
@@ -53,7 +53,7 @@ const openCreateNewBookshelfField = async () => {
             const _csrf = formData.get('_csrf');
 
             const body = { newBookshelfName, _csrf }
-            const res = await fetch('/api-user/shelves', {
+            const res = await fetch('http://localhost:8080/api-user/shelves', {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers: {
@@ -73,8 +73,8 @@ const openCreateNewBookshelfField = async () => {
 
 export const populateUserBookshelfList = async () => {
     const { shelves } = await getBookshelves();
-    
-    if(shelves) { 
+
+    if(shelves) {
         for (let bookshelf of shelves) {
         console.log('bookshelf', bookshelf)
         appendBookshelfLi(bookshelf);
