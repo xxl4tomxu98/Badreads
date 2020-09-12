@@ -6,7 +6,6 @@ const { requireAuth } = require("../auth");
 const {Shelf, Book, Books_Shelf} = require('../db/models');
 
 const router = express.Router()
-
 router.use(requireAuth)
 
 const bookshelfNotFoundError = (id) => {
@@ -33,10 +32,11 @@ const validatebookShelf = [
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-      
+
     const shelves = await Shelf.findAll({
       where: {
         user_id : req.user.id
+        // user_id: 2
       },
       order: [["createdAt", "DESC"]],
     });
@@ -47,18 +47,15 @@ router.get("/shelves",
 }));
 
 // add the bookshelf to database
-<<<<<<< HEAD
-router.post("/new-shelf",
-=======
+/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/shelves",
->>>>>>> 45740940e2159ebf1b74740c08238c2d83a8bb2d
+router.post("/new-shelf",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
     const { newBookshelfName } = req.body;
     console.log('newBookshelfName', newBookshelfName)
-    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: userId});
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
     // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
     return res.json({ bookshelf });
   })
@@ -68,7 +65,7 @@ router.post("/shelves",
 // get specific bookshelf books
 
 //api-user/shelves/:bookshelfid
-router.get("shelves/:bookshelfid",
+router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
     const shelf = await Shelf.findOne({
       where: {
@@ -116,7 +113,7 @@ router.delete(
 // Except the current bookshelf
 
 //api-user/shelves/:bookshelfid/books/:bookid
-router.get("/excluded-shelves/:bookshelfid/books/:bookid",
+router.get("/excluded-shelves/books/:bookid",
   asyncHandler(async (req, res) => {
 //code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
 //the shelves found for the user with the book
@@ -124,7 +121,7 @@ router.get("/excluded-shelves/:bookshelfid/books/:bookid",
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : userId,
+        user_id : req.user.id,
       },
       include: {
         model: Book, where: {id: bookId}
@@ -171,12 +168,9 @@ router.get("/shelves/:bookshelfid/books/:bookid",
 
 // Add the book to selected shelf in the database
 
-<<<<<<< HEAD
 router.post("/:bookid/add-book-to-shelf",
-=======
-// post to /api-user/shelves/:shelfid/books/:bookid
-router.post("/shelves/:bookshelfid/books/:bookid",
->>>>>>> 45740940e2159ebf1b74740c08238c2d83a8bb2d
+/* // post to /api-user/shelves/:shelfid/books/:bookid
+router.post("/shelves/:bookshelfid/books/:bookid", */
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const { bookshelfId } = req.body ;

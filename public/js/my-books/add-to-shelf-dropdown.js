@@ -1,18 +1,27 @@
 export const createAddToShelfDropdown = async(bookId, hidden) => {
-    const res = await fetch(`api-user/shelves/${bookId}`);
+    const res = await fetch(`http://localhost:8080/api-user/excluded-shelves/books/${bookId}`,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "BADREADS_ACCESS_TOKEN"
+          )}`,
+        },
+      });
+
     const bookshelves = await res.json();
 
     const dropdownForm = document.querySelector('.drop-down-form')
     const dropdownFormButton = document.querySelector('.drop-down-form__button');
     const dropdownFormSelect = document.querySelector('.drop-down-form__select');
-
-    dropdownForm.classList.remove('hidden');
+    if(hidden) {
+      dropdownForm.classList.remove('hidden');
+    }
     if(bookshelves) {
         for (let shelf of bookshelves.allShelvesWithoutBook) {
             const option = new Option(shelf.name, shelf.id);
             option.classList = 'add-to-bookshelf-dropdown__option'
             dropdownFormSelect.appendChild(option);
         };
+      }
 /* =======
 export const createAddToShelfDropdown = async(bookId, bookshelfId) => {
                                     //this route returns object of filtered array of shelves without current book
@@ -42,9 +51,7 @@ export const createAddToShelfDropdown = async(bookId, bookshelfId) => {
 //         option.classList = 'add-to-bookshelf-dropdown__option'
 //         dropdown.appendChild(option);
 // >>>>>>> 45740940e2159ebf1b74740c08238c2d83a8bb2d
-    };
     console.log(dropdownFormSelect)
-
 
     dropdownFormButton.addEventListener('click', async e => {
         e.preventDefault();
@@ -63,12 +70,16 @@ export const createAddToShelfDropdown = async(bookId, bookshelfId) => {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
+                Authorization: `Bearer ${localStorage.getItem(
+                    "BADREADS_ACCESS_TOKEN"
+                  )}`,
                 "Content-Type": "application/json"
             }
         });
 
+
         let response = await res.json()
-        console.log(response)
+        console.log('ADD BOOK =',response)
     });
 
 

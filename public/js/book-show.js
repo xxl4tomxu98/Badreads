@@ -5,27 +5,37 @@ const bookTitle = document.querySelector('.container_book-info_title')
 const bookAuthor = document.querySelector('.container_book-info_author')
 const bookDescription = document.querySelector('.container_book-info_description')
 const form = document.querySelector('.container_form')
-const container = document.querySelector('.container')
-const userId = 2
-const bookId = document.querySelector('.container_form_hidden').value
+const container = document.querySelector('.book-container')
+const userId = localStorage.getItem('BADREADS_CURRENT_USER_ID')
+const bookId = window.location.pathname.split('/')[2]
+const addBookshelfSelect = document.querySelector('.container_genres_select');
 
-const reviewContainer = document.createElement('div')
 
-const fetchBook = async (id) => {
-    const response = await fetch(`/api-books/${id}`, {
+// let id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
+// console.log('this is the current path: ', window.location.pathname)
+// console.log(window.location.pathname.split('/'))
+const fetchBook = async (bookId) => {
+    const response = await fetch(`/api-books/${bookId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem(
-            "BADREADS_ACCESS_TOKEN"
-          )}`,
-        }}
-    )
-    const { book } = await response.json()
-
+            Authorization: `Bearer ${localStorage.getItem(
+                "BADREADS_ACCESS_TOKEN"
+                )}`,
+            }
+        }
+        )
+        const { book } = await response.json()
+        createAddToShelfDropdown(bookId, false);
 
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
-    createAddToShelfDropdown(id, false);
     bookDescription.innerHTML = book.description
+    // for(let shelf in shelves){
+    //    const option = document.createElement('option')
+    //    option.innerHTML = `${shelf.name}`
+    //    option.setAttribute('value', `${shelf.id}`)
+    //    addBookshelfSelect.appendChild(option)
+    //                     //-     option(value=shelf.id) #{shelf.name}
+    // }
 }
 
 // const fetchReview = async (id) => {
@@ -36,6 +46,8 @@ const fetchBook = async (id) => {
 // }
 
 const addNewReview = (review) => {
+    const reviewContainer = document.createElement('div')
+    reviewContainer.classList.add('container_reviews')
 
     const newReview =
         `
@@ -77,45 +89,51 @@ form.addEventListener('submit', async (e) => {
     const reviewInput = document.querySelector('.container_reviews_input')
     e.preventDefault()
 
-    let review;
-    let bookId;
-
-    if (reviewInput.value != '') {
-
-        reviewContainer.classList.add('container_reviews')
-        review = reviewInput.value
-
-        reviewInput.value = ''
-
-        //append review to grid on pug file
-        addNewReview(review)
-
-
-        try {
-            //grabs the current book id from the hidden input in pug file
-            if(document.querySelector('.container_form_hidden').value){
-                bookId = document.querySelector('.container_form_hidden').value
-            }
-
+    try {
+        //check review input is not emtpy before making fetch call
+        if (reviewInput.value != '') {
+            const writtenReview = reviewInput.value
             //create new review in database
-            const res = await fetch(`/api-reviews/${bookId}`, {
+            const res = await fetch(`/api-reviews/books/${bookId}`, {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem(
+                        "BADREADS_ACCESS_TOKEN"
+                    )}`
                 },
-                body: JSON.stringify({ description: review, user_id: userId, book_id: bookId })
+                body: JSON.stringify({ description: writtenReview, user_id: userId, book_id: bookId })
+
+
             })
             if (!res.ok) {
                 throw res;
             }
 
+            //remove previously displayed reviews
+            while(container.firstChild.classList.contains('container_reviews')){
+                container.removeChild(container.firstChild)
+            }
 
-        } catch (e) {
-            console.log(e)
-            handleErrors(e)
+            const { reviews } = await res.json()
+
+            if(reviews){
+                for (let eachReview of reviews) {
+
+                    addNewReview(eachReview.description)
+                }
+            }
+
+            //clear input
+            reviewInput.value = ''
+        } else {
+
+            return
         }
-        return
 
+    } catch (e) {
+        console.log(e)
+        handleErrors(e)
     }
 
 })
