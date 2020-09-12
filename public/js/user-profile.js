@@ -32,7 +32,7 @@ const createGenreDiv = (genre, userId) => {
 
 
 export const populateUserGenres = async () => {
-  const userGenres = document.querySelector('.genre-list');
+  const userGenres = document.querySelector('.favorite-genres');
   //const userName = document.querySelector('.user-name');
   const genres = await getUserGenres();
   userGenres.innerHTML = '';

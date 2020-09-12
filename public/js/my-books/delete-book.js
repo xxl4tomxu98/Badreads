@@ -4,7 +4,7 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js';
 export const bookDelete = (bookId, shelfId) => {
   return async () => {
     try {
-      const res = await fetch(`/api-bookshelves/${shelfId}/books/${bookId}`, {
+      const res = await fetch(`/api-user/shelves/${shelfId}/books/${bookId}`, {
         method: "DELETE",
         // headers: {
         //   Authorization: `Bearer ${localStorage.getItem(

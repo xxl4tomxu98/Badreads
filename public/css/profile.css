@@ -1,7 +1,7 @@
 .container_profile{
   display: grid;
   grid-template-columns: 1fr 2fr;
-  width: 800px;
+  width: auto;
   grid-template-rows: auto;
   grid-template-areas:
     'picture user-info'
@@ -11,13 +11,13 @@
 
 .container_picture{
   grid-area: picture;
-  display: inline-block;
+  display: flex;
   margin: 30px 30px;
 }
 
 .picture{
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 200px;
   box-shadow: 10px 10px 10px -10px #000000;
 }
 
@@ -26,11 +26,12 @@
   grid-area: user-info;
   background-color: #000000;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: 100px;
   color: white;
-  margin: 0 auto;
+  margin: 30px 30px auto;
 }
 
 .user-info {

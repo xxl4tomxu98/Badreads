@@ -5,7 +5,7 @@ export const shelfDelete = (shelfId) => {
   console.log('delete shelf clicked')
   return async () => {
     try {
-      const res = await fetch(`/api-bookshelves/${shelfId}`, {
+      const res = await fetch(`/api-user/shelves/${shelfId}`, {
         method: "DELETE",
         // headers: {
         //   Authorization: `Bearer ${localStorage.getItem(

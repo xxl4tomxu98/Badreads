@@ -32,19 +32,11 @@ const bookshelfNotFoundError = (id) => {
   return err;
 };
 
-const userNotFoundError = (id) => {
-  const err = Error("user not found");
-  err.errors = [`User with the id of ${id} could not be found.`];
-  err.title = "User not found.";
-  err.status = 404;
-  return err;
-};
-
 
 
 //user authorization
 
-   //create a user in database after logging in (post req from form) and returns a user and their token
+//create a user in database after logging in (post req from form) and returns a user and their token
 router.post(
   "/",
   validateEmailAndPassword,
@@ -112,17 +104,16 @@ const validatebookShelf = [
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-
-    const shelves = await Shelf.findAll({
-      where: {
-        user_id : req.user.id
-      },
-      order: [["createdAt", "DESC"]],
-    });
-    res.json({ shelves });
-  }catch(e){
-    console.log(e)
-  }
+      const shelves = await Shelf.findAll({
+        where: {
+          user_id : req.user.id
+        },
+        order: [["createdAt", "DESC"]],
+      });
+      res.json({ shelves });
+    }catch(e){
+      console.log(e)
+    }
 }));
 
 // add the bookshelf to database
@@ -132,8 +123,7 @@ router.post("/shelves",
   asyncHandler(async (req, res) => {
     console.log('in post request')
     const { name } = req.body;
-    const bookshelf = await Shelf.create({ name, user_id: userId});
-    // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
+    const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
     res.json({ bookshelf });
   })
 );
@@ -142,7 +132,7 @@ router.post("/shelves",
 // get specific bookshelf books
 
 //api-user/shelves/:bookshelfid
-router.get("shelves/:bookshelfid",
+router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
     const shelf = await Shelf.findOne({
       where: {
@@ -169,11 +159,11 @@ router.delete(
         id: req.params.bookshelfid,
       },
     });
-    if (userId !== bookshelf.user_id) {
-    // if (req.user.id !== bookshelf.user_id) {
+
+    if (req.user.id !== bookshelf.user_id) {
       const err = new Error("Unauthorized");
       err.status = 401;
-      err.message = "You are not authorized to delete this tweet.";
+      err.message = "You are not authorized to delete this bookshelf.";
       err.title = "Unauthorized";
       throw err;
     }
@@ -200,7 +190,7 @@ router.delete(
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
 
-//api-user/shelves/:bookshelfid/books/:bookid
+
 router.get("/excluded-shelves/:bookshelfid/books/:bookid",
   asyncHandler(async (req, res) => {
 //code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
@@ -209,7 +199,7 @@ router.get("/excluded-shelves/:bookshelfid/books/:bookid",
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : userId,
+        user_id : req.user.id,
       },
       include: {
         model: Book, where: {id: bookId}
@@ -325,32 +315,24 @@ router.delete("/shelves/:bookshelfid/books/:bookid",
 
 
 // routes for api-user/profile
-let userId = 2;
-router.get('/profile', asyncHandler( async(req, res, next) => {
 
-    const user = await User.findByPk(userId);
-    if(user){
-      const genres = await Genre.findAll( {
-        include: {model: User, where: {id: userId}}
-      });
-      res.json({ genres });
-    } else {
-      next( userNotFoundError(userId) );
-    }
+router.get('/profile', asyncHandler( async(req, res) => {
+
+  const genres = await Genre.findAll( {
+    include: {model: User, where: {id: req.user.id}}
+  });
+  res.json({ genres });
+
 }));
 
 // Add a genre to the user's favorites in the user-profile page
 router.post("/profile/:genreid",
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const genreId = req.params.genreid;
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(req.user.id);
     const genre = await Genre.findByPk(genreId);
-    if (user) {
-      await user.addGenre(genre);
-      res.json(user);
-    } else {
-      next(userNotFoundError(userId));
-    };
+    await user.addGenre(genre);
+    res.json(user);
 }));
 
 
@@ -358,29 +340,21 @@ router.post("/profile/:genreid",
 // disconnect a genre from the user profile
 router.delete(
   "/profile/:genreid",
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const genreId = req.params.genreid;
-    const user = await User.findByPk(userId);
-    if (user) {
-      const genreAndUserConnections = await User_Genre.findAll({
-        where: {
-          genre_id: genreId
-        }
-      });
-      for (let connection of genreAndUserConnections) {
-        await connection.destroy();
-      };
-      res.json({ message: `Disconnect genre with id of ${genreId} from the user.` });
-      res.redirect('/');
-    } else {
-      next(userNotFoundError(userId));
-    }
+    const genreAndUserConnections = await User_Genre.findAll({
+      where: {
+        genre_id: genreId
+      }
+    });
+    for (let connection of genreAndUserConnections) {
+      await connection.destroy();
+    };
+    res.json({ message: `Disconnect genre with id of ${genreId} from the user.` });
+    res.redirect('/');
   })
 );
 
-
-
-router.use(requireAuth)
 
 
 module.exports = router;

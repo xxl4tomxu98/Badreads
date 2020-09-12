@@ -44,16 +44,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
-
+app.use('/auth-user', authUserRouter);
 
 //front-end mounted routes
 app.use('/books', booksRouter)
 app.use('/register', registerRouter)
-
 app.use('/user', userRouter)
 app.use('/user/profile', profileRouter);
 // general error handler code, more specialized error handling in utils.js
-
+app.use('/', landingRouter);
 
 
 app.use((req, res, next) => {

@@ -3,21 +3,21 @@ extends layout.pug
 
 block content
 
-  append head
-    link(rel='stylesheet', href='./css/profile.css')
+    //- append head
+    //- link(rel='stylesheet', href='./css/profile.css')
     //- script(src='../js/user-profile.js' type='module' defer)
 
 
-  include ./includes/nav.pug
+    include ./includes/nav.pug
 
     div(class='container_profile')
       div(class='container_picture ')
-        img(class='picture' src=`../images/${book.id}.jpg` alt="bookshelf")
+        img(class='picture' src=`../images/1.jpg` alt="bookshelf")
 
       div(class='container_user-info')
-        h2(class='user-info_name')
-        h4(class='user-info_email')
-        h3(class='user-info_address')
+        h2(class='user-info_name') Tom Xu
+        h4(class='user-info_email') tomxu@udel.edu
+        h3(class='user-info_address') tom@appacademy.io
 
         p(class='user-info_rating-review')
 
@@ -26,7 +26,7 @@ block content
 
       div(class='container_favorite-genres') Favorite Genres
         div
-          each genre in genres
+          //- each genre in genres
             h3 #{genre.name}
 
-  script(type='module' src='../js/user-profile.js')
+    script(type='module' src='../js/user-profile.js')
