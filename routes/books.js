@@ -3,7 +3,7 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
 const { asyncHandler } = require('../utils');
-const { Book, Genre, Review } = require('../db/models');
+const { Book, Genre, Review, Shelf} = require('../db/models');
 //importing authorization to secure resources
 const { requireAuth } = require('../auth')
 
@@ -51,8 +51,18 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     include: [{ model: Genre }, { model: Review }],
     order: [[Review, 'createdAt', 'DESC']]
   })
+  
+  // const shelves = await Shelf.findAll({
+  //   where: {
+  //     user_id: req.user.id
+  //   }
+  // })
+  
+  // console.log(req.cookies)
+
   res.render('book', {
-    book
+    book, 
+    // shelves
   }
   )
 }))

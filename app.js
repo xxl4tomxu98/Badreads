@@ -22,7 +22,7 @@ const profileRouter = require('./routes/profile');
 const apiBooksRouter = require('./routes/api-books');
 const apiReviewRouter = require('./routes/api-reviews');
 const apiUserRouter = require('./routes/api-user');
-const apiProfileRouter = require('./routes/api-profile');
+//const apiProfileRouter = require('./routes/api-profile');
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
-app.use('/api-user/profile', apiProfileRouter);
+//app.use('/api-user/profile', apiProfileRouter);
 
 
 //front-end mounted routes

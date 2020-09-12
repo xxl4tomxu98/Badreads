@@ -1,0 +1,46 @@
+.container_profile{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  width: 800px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'picture user-info'
+    'edit-button favorite-genres';
+}
+
+
+.container_picture{
+  grid-area: picture;
+  display: inline-block;
+  margin: 30px 30px;
+}
+
+.picture{
+  height: 100px;
+  width: 100px;
+  box-shadow: 10px 10px 10px -10px #000000;
+}
+
+
+.container_user-info{
+  grid-area: user-info;
+  background-color: #000000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  color: white;
+  margin: 0 auto;
+}
+
+.user-info {
+  padding: 10px;
+}
+
+
+.container_edit-button{
+  grid-area: edit-button;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

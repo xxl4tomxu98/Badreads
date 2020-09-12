@@ -23,7 +23,7 @@ const createGenreDiv = (genre, userId) => {
   genreNameDiv.innerHTML = `${genre.name}`;
 
   genreDiv.appendChild(genreCoverDiv);
-  genreiv.appendChild(genreNameDiv);
+  genreDiv.appendChild(genreNameDiv);
 
 
   return genreDiv;
