@@ -1,4 +1,5 @@
 import { handleErrors } from './utils.js'
+import { createAddToShelfDropdown } from './my-books/add-to-shelf-dropdown.js'
 
 const bookTitle = document.querySelector('.container_book-info_title')
 const bookAuthor = document.querySelector('.container_book-info_author')
@@ -19,9 +20,11 @@ const fetchBook = async (id) => {
         }}
     )
     const { book } = await response.json()
-    
+
+
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
+    createAddToShelfDropdown(id, false)
     bookDescription.innerHTML = book.description
 }
 
@@ -76,7 +79,7 @@ form.addEventListener('submit', async (e) => {
 
     let review;
     let bookId;
-    
+
     if (reviewInput.value != '') {
 
         reviewContainer.classList.add('container_reviews')
@@ -116,4 +119,3 @@ form.addEventListener('submit', async (e) => {
     }
 
 })
-

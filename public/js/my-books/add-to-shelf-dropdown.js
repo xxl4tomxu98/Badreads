@@ -1,5 +1,5 @@
-export const createAddToShelfDropdown = async(bookId, bookshelfId) => {
-    const res = await fetch(`api-user/${bookshelfId}/${bookId}`);
+export const createAddToShelfDropdown = async(bookId, hidden) => {
+    const res = await fetch(`api-user/shelves/${bookId}`);
     const bookshelves = await res.json();
 
     const dropdownForm = document.querySelector('.drop-down-form')
