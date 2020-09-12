@@ -59,7 +59,6 @@ const openCreateNewBookshelfField = async () => {
             // const _csrf = formData.get('_csrf');
 
             const body = { newBookshelfName }
-            console.log(body.newBookshelfName);
 
             const res = await fetch('http://localhost:8080/api-user/new-shelf', {
                 method: "POST",

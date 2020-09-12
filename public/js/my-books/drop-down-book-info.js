@@ -1,3 +1,4 @@
+// import { bookDelete } from "./delete-book.js";
 import { createAddToShelfDropdown } from './add-to-shelf-dropdown.js'
 
 const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPublicationYear, bookId, bookshelfId) => {
@@ -11,11 +12,18 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
     bookTitleBlock.innerHTML = bookTitle;
     bookAuthorBlock.innerHTML = bookAuthor;
     bookDescriptionBlock.innerHTML = bookDescription;
+    // const deleteBookButton = document.createElement("Button");
+    // deleteBookButton.className = "delete-button";
+    // bookTitleBlock.appendChild(deleteBookButton);
+    // deleteBookButton.addEventListener("click", bookDelete(bookshelfId, bookId));
+
 
     const addToShelfDropdown = await createAddToShelfDropdown(bookId, bookshelfId);
     console.log('addToShelfDropdown = ', addToShelfDropdown)
     bookAuthorBlock.insertAdjacentElement('afterend', addToShelfDropdown);
 }
+
+
 
 export const dropDownBookInfo = async(book, bookshelfId) => {
 
@@ -46,4 +54,3 @@ export const dropDownBookInfo = async(book, bookshelfId) => {
     populateDropDown(bookTitle, bookAuthor, bookDescription, bookPublicationYear, book.id, bookshelfId);
     // console.log(bookTitle, bookAuthor, bookDescription, bookPublicationYear);
 }
-

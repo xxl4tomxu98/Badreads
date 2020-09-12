@@ -254,7 +254,7 @@ router.get("/:bookshelfid/books/:bookid",
 router.delete("/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;
-    const bookshelfId = req.params.bookshelfid;
+    // const { bookshelf } = req.body.bookshelf;
 
     const book = await Book.findByPk(bookId);
     const bookshelf = await Shelf.findByPk(bookshelfId, {
