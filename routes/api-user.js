@@ -2,26 +2,12 @@ const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
+const { requireAuth } = require("../auth");
+const {Shelf, Book, Books_Shelf} = require('../db/models');
 
-const { getUserToken, requireAuth } = require("../auth");
 const router = express.Router()
-const { User, Shelf, Book, Books_Shelf } = require('../db/models');
-const bcrypt = require('bcryptjs')
 
-
-
-const validateEmailAndPassword = [
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors,
-];
-
-
+router.use(requireAuth)
 
 const bookshelfNotFoundError = (id) => {
   const err = Error("Bookshelf not found");
@@ -30,64 +16,6 @@ const bookshelfNotFoundError = (id) => {
   err.status = 404;
   return err;
 };
-
-
-
-
-
-//user authorization
-
-   //create a user in database after logging in (post req from form) and returns a user and their token 
-router.post(
-  "/",
-  validateEmailAndPassword,
-  handleValidationErrors,
-  asyncHandler(async (req, res) => {
-    const { username, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, email, hashedPassword });
-
-    const token = getUserToken(user);
-    res.status(201).json({
-      user: { id: user.id },
-      token,
-    });
-  })
-);
-
-//login in route to get a new token for existing user
-router.post(
-  "/token",
-  validateEmailAndPassword,
-  asyncHandler(async (req, res, next) => {
-    try{
-      const { email, password } = req.body;
-      const user = await User.findOne({
-        where: {
-          email,
-        },
-      });
-      // console.log(user, password)
-      if (!user || !user.validatePassword(password)) {
-        const err = new Error("Login failed");
-        err.status = 401;
-        err.title = "Login failed";
-        err.errors = ["The provided credentials were invalid."];
-        return next(err);
-      }
-      const token = getUserToken(user);
-      res.json({ token, user: { id: user.id } });
-
-    }catch(err){
-      console.log(err)
-    }
-  })
-);
-
-
-
-
-
 
 const validatebookShelf = [
   check("name")
@@ -100,8 +28,9 @@ const validatebookShelf = [
   handleValidationErrors,
 ];
 
-// create the bookshelves list
-router.get("/", requireAuth,
+// create the bookshelves list (grab the shelves)
+//api-user/shelves
+router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
       
@@ -118,7 +47,8 @@ router.get("/", requireAuth,
 }));
 
 // add the bookshelf to database
-router.post("/",
+//post req to /api-user/shelves
+router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
@@ -130,18 +60,19 @@ router.post("/",
 );
 
 
-// get specific bookshelf books --user id
+// get specific bookshelf books
 
-router.get("/:bookshelfid",
+//api-user/shelves/:bookshelfid
+router.get("shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
-    const bookshelf = await Shelf.findOne({
+    const shelf = await Shelf.findOne({
       where: {
         id: req.params.bookshelfid,
       },
       include: Book
     });
-    if (bookshelf) {
-      res.json({ bookshelf });
+    if (shelf) {
+      res.json({ shelf });
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
@@ -149,8 +80,10 @@ router.get("/:bookshelfid",
 );
 
 // delete bookshelf
+
+//api-user/shelves/:bookshelfid
 router.delete(
-  "/:bookshelfid",
+  "/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
     const bookshelf = await Shelf.findOne({
       where: {
@@ -176,10 +109,14 @@ router.delete(
 
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
-router.get("/:bookshelfid/:bookid",
-  asyncHandler(async (req, res) => {
 
+//api-user/shelves/:bookshelfid/books/:bookid
+router.get("/excluded-shelves/:bookshelfid/books/:bookid",
+  asyncHandler(async (req, res) => {
+//code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
+//the shelves found for the user with the book
     const bookId = req.params.bookid;
+    //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
         user_id : userId,
@@ -188,32 +125,49 @@ router.get("/:bookshelfid/:bookid",
         model: Book, where: {id: bookId}
       }
     });
+    //all shelves in db
     const allShelves = await Shelf.findAll();
+    //shelf id's for all user shelves with specific book
     let includedShelf = [];
     for (let shelf of shelves) {
       includedShelf.push(shelf.id);
     };
-
+    //array of all shelves in db
     let allShelvesArray = [];
     for (let shelf of allShelves) {
       allShelvesArray.push(shelf);
     };
 
+    //filters array for all shelves in db to have all shelves that don't contain the book already
     const allShelvesWithoutBook = allShelvesArray.filter(function(shelf) {
       if (!includedShelf.includes(shelf.id)) {
         return shelf;
       }
     });
-
+      //return as an obj containing the filtered array of objects
     res.json({ allShelvesWithoutBook });
+}));
+
+// GET request for the description, author, title, findByPk
+router.get("/shelves/:bookshelfid/books/:bookid",
+  asyncHandler(async (req, res) => {
+    const bookId = req.params.bookid;
+    const bookshelfId = req.params.bookshelfid;
+    const book = await Book.findByPk(bookId, {
+      include: { model: Shelf,
+        where: {
+          id: bookshelfId
+        }
+      },
+    });
+    res.json({ book });
 }));
 
 
 // Add the book to selected shelf in the database
 
-// router.post("/:bookshelfid/:bookid",
-
-router.post("/:bookshelfid/add-to-shelf",
+// post to /api-user/shelves/:shelfid/books/:bookid
+router.post("/shelves/:bookshelfid/books/:bookid",
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const bookshelfId = req.params.bookshelfid;
@@ -221,7 +175,7 @@ router.post("/:bookshelfid/add-to-shelf",
   const book = await Book.findByPk(bookId)
   if (bookshelf) {
     await bookshelf.addBook(book);
-    res.json(bookshelf);
+    res.json({bookshelf});
   } else {
     next(bookshelfNotFoundError(req.params.bookshelfId));
   };
@@ -242,23 +196,8 @@ router.get('/:id/books',
 }));
 
 
-
-// GET request for the description, author, title, findByPk
-router.get("/:bookshelfid/books/:bookid",
-  asyncHandler(async (req, res) => {
-    const bookId = req.params.bookid;
-    const bookshelfId = req.params.bookshelfid;
-    const book = await Book.findByPk(bookId, {
-      include: { model: Shelf,
-        where: {
-          id: bookshelfId
-        }
-      },
-    });
-    res.json({ book });
-}));
-
 // delete book from a bookshelf
+//should be /api-use/shelves/:bookshelfid/books/:bookid
 router.delete("/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;
@@ -295,7 +234,7 @@ router.delete("/:bookshelfid/books/:bookid",
   }));
 
 
-router.use(requireAuth)
+
 
 
 module.exports = router;
