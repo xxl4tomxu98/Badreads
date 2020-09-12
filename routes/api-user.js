@@ -33,7 +33,7 @@ const validatebookShelf = [
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-      
+
     const shelves = await Shelf.findAll({
       where: {
         user_id : req.user.id
@@ -182,7 +182,7 @@ router.post("/shelves/:bookshelfid/books/:bookid",
 }));
 
 // Get books on a specific shelf
-router.get('/:id/books',
+router.get('/shelves/:id/books',
   asyncHandler(async (req, res) => {
     console.log('req.params.id', req.params.id);
     const books = await Book.findAll({
@@ -198,7 +198,7 @@ router.get('/:id/books',
 
 // delete book from a bookshelf
 //should be /api-use/shelves/:bookshelfid/books/:bookid
-router.delete("/:bookshelfid/books/:bookid",
+router.delete("/shelves/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;
     const bookshelfId = req.params.bookshelfid;
