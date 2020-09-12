@@ -80,10 +80,13 @@ const openCreateNewBookshelfField = async () => {
 
 export const populateUserBookshelfList = async () => {
     const { shelves } = await getBookshelves();
-    for (let bookshelf of shelves) {
-        // console.log('bookshelf', bookshelf)
+
+    if(shelves) {
+        for (let bookshelf of shelves) {
+        console.log('bookshelf', bookshelf)
         appendBookshelfLi(bookshelf);
-    };
+    }
+}
 
     const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
     addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
