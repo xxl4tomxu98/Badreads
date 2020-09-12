@@ -3,9 +3,8 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
 const { asyncHandler } = require('../utils');
-const { Book, Genre, Review, Shelf} = require('../db/models');
-//importing authorization to secure resources
-const { requireAuth } = require('../auth')
+const { Book, Genre, Review, Shelf } = require('../db/models');
+
 
 
 const router = express.Router();
@@ -14,6 +13,8 @@ const router = express.Router();
 //   res.render('search.pug')
 // })
 
+
+//when user goes to /books with or without a search term logic
 router.get('/', asyncHandler(async (req, res) => {
   const { term } = req.query;
   let books;
@@ -43,28 +44,29 @@ router.get('/', asyncHandler(async (req, res) => {
 
 }))
 
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-  const bookId = parseInt(req.params.id, 10)
+//when user goes to /books/bookid
+router.get('/:bookid(\\d+)', asyncHandler(async (req, res) => {
+  const bookId = parseInt(req.params.bookid, 10)
 
   //weird querying for ordering join tables, only works with double square brackets for some reason
   const book = await Book.findByPk(bookId, {
     include: [{ model: Genre }, { model: Review }],
     order: [[Review, 'createdAt', 'DESC']]
   })
-  
+
+  // const user = req.user
+
   // const shelves = await Shelf.findAll({
   //   where: {
-  //     user_id: req.user.id
+  //     user_id: user.id
   //   }
   // })
-  
-  // console.log(req.cookies)
 
   res.render('book', {
-    book, 
-    // shelves
+    book
   }
   )
+
 }))
 
 //   /books/search
