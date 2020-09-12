@@ -60,8 +60,10 @@ const restoreUser = (req, res, next) => {
     }
 }
 
+
+
 //exporting as array M.W to use in routes you don't want to be accessed without being logged in 
 //bearerToken() function allows parsin of token from req which is being done in restorUser ftn
 const requireAuth = [bearerToken(), restoreUser]
 
-module.exports = { getUserToken, requireAuth };
+module.exports = { getUserToken, requireAuth};

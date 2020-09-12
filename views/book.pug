@@ -11,7 +11,7 @@ block content
                 select(class='form-control form-control-sm container_genres_select' name="addToBookshelf")
                     option(selected) Add to Bookshelf
                         //- each shelf in shelves
-                        //-     option(value=genre.id) #{genre.name}
+                        //-     option(value=shelf.id) #{shelf.name}
             p(class='container_book-info_description')
         div(class='container_book-image')
             if book.id < 5 
@@ -25,8 +25,6 @@ block content
         div(class='container_reviews-title') Reviews
             div
                 form(class='container_form')
-                    if book
-                        input(class='container_form_hidden' type="hidden" name="book_id" value=book.id)
                     input(class='container_reviews_input' type="text", name="reviews" placeholder="***write a review***")
                     input(type="submit" value="" style='display: none')
         each review in book.Reviews

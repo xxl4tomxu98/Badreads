@@ -18,10 +18,11 @@ const userRouter = require('./routes/user')
 const registerRouter = require('./routes/register')
 
 
-//apie
+//api
 const apiBooksRouter = require('./routes/api-books');
 const apiReviewRouter = require('./routes/api-reviews');
 const apiUserRouter = require('./routes/api-user');
+const authUserRouter = require('./routes/auth-user')
 
 
 
@@ -48,12 +49,15 @@ app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
 app.use('/register', registerRouter)
+app.use('/auth-user', authUserRouter)
 
 //front-end mounted routes
 app.use('/', landingRouter);
 app.use('/books', booksRouter)
 app.use('/user', userRouter)
 // general error handler code, more specialized error handling in utils.js
+
+
 
 app.use((req, res, next) => {
   const err = new Error("The requested resource couldn't be found.");

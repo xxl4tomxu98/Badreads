@@ -3,7 +3,7 @@ import {dropDownBookInfo} from './drop-down-book-info.js'
 const getBookList = async(bookshelfId) => {
     //console.log('in getBookList')
 
-    const res = await fetch(`/api-user/${bookshelfId}`, {
+    const res = await fetch(`/api-user/shelves/${bookshelfId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             "BADREADS_ACCESS_TOKEN"
