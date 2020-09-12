@@ -1,6 +1,10 @@
 import { createAddToShelfDropdown } from './add-to-shelf-dropdown.js'
 
 const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPublicationYear, bookId, bookshelfId) => {
+    var element = document.querySelector('.add-to-bookshelf-dropdown');
+    if(element) {
+        element.parentNode.removeChild(element)
+    };
     let bookTitleBlock = document.querySelector('.bookshelf-books__book-title');
     let bookAuthorBlock = document.querySelector('.bookshelf-books__book-author');
     let bookDescriptionBlock = document.querySelector('.bookshelf-books__book-description')
@@ -10,7 +14,7 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
 
     const addToShelfDropdown = await createAddToShelfDropdown(bookId, bookshelfId);
     console.log('addToShelfDropdown = ', addToShelfDropdown)
-    bookTitleBlock.appendChild(addToShelfDropdown);
+    bookAuthorBlock.insertAdjacentElement('afterend', addToShelfDropdown);
 }
 
 export const dropDownBookInfo = async(Book, bookshelfId) => {

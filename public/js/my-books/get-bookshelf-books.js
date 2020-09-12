@@ -19,6 +19,7 @@ const getBookList = async(bookshelfId) => {
       
 
     const bookshelf = await res.json();
+    console.log('bookshelf =', bookshelf)
     //console.log('data', data)
     return bookshelf;
 };
@@ -33,15 +34,15 @@ const createBookDiv = (book, bookshelfId) => {
     var bookDiv = document.createElement('div');
     bookDiv.className = 'book-on-shelf';
 
-    var bookCoverDiv = document.createElement('div');
-    bookCoverDiv.className = 'book-on-shelf__book-cover';
+    var bookCoverImg = document.createElement('img');
+    bookCoverImg.className = 'book-on-shelf__book-cover';
+    bookCoverImg.src = '../images/2.jpg'
+    var bookTitleH5 = document.createElement('h5');
+    bookTitleH5.className = 'book-on-shelf__book-title';
+    bookTitleH5.innerHTML = `${book.title}`;
 
-    var bookTitleDiv = document.createElement('div');
-    bookTitleDiv.className = 'book-on-shelf__book-title';
-    bookTitleDiv.innerHTML = `${book.title}`;
-
-    bookDiv.appendChild(bookCoverDiv);
-    bookDiv.appendChild(bookTitleDiv);
+    bookDiv.appendChild(bookCoverImg);
+    bookDiv.appendChild(bookTitleH5);
 
     bookDiv.addEventListener('click', () => dropDownBookInfo(book, bookshelfId));
     return bookDiv;
@@ -49,6 +50,7 @@ const createBookDiv = (book, bookshelfId) => {
 };
 
 export const populateBookshelfBookList = async (bookshelfId) => {
+    document.querySelector('.welcome-header').innerHTML = '';
     const bookshelfBooks = document.querySelector('.book-list');
     const bookshelfTitle = document.querySelector('.bookshelf-title');
     const { bookshelf } = await getBookList(bookshelfId);
