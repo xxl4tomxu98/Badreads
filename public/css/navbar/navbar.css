@@ -5,7 +5,7 @@
 .navbar {
     background-color: rgba(156, 172, 183, 100);
     display: grid;
-    grid-template-columns: 2fr 4fr  40px;
+    grid-template-columns: 2fr 4fr  60px;
 }
 
 .navbar__text-logo {

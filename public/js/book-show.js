@@ -24,7 +24,7 @@ const fetchBook = async (id) => {
 
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
-    createAddToShelfDropdown(id, false)
+    createAddToShelfDropdown(id, false);
     bookDescription.innerHTML = book.description
 }
 

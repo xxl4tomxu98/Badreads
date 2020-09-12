@@ -75,7 +75,11 @@ h1 {
 .booksearch {
   display: grid;
   grid-template-columns: 300px 1fr;
-  padding: 150px;
+  padding: 70px;
+}
+
+.booksearch__img{
+    box-shadow: 10px 10px 10px -10px #888888;
 }
 
 .booksearch__infocard {
