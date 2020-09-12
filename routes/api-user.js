@@ -35,7 +35,7 @@ router.get("/shelves",
 
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id
+        user_id : 2
         // user_id: 2
       },
       order: [["createdAt", "DESC"]],
@@ -55,8 +55,8 @@ router.post("/new-shelf",
     console.log('in post request')
     const { newBookshelfName } = req.body;
     console.log('newBookshelfName', newBookshelfName)
-    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
-    // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: 2});
+    // const bookshelf = await bookShelf.create({ name, user_id: 2 });
     return res.json({ bookshelf });
   })
 );
@@ -93,7 +93,7 @@ router.delete(
       },
     });
     if (userId !== bookshelf.user_id) {
-    // if (req.user.id !== bookshelf.user_id) {
+    // if (2 !== bookshelf.user_id) {
       const err = new Error("Unauthorized");
       err.status = 401;
       err.message = "You are not authorized to delete this tweet.";
@@ -121,7 +121,7 @@ router.get("/excluded-shelves/books/:bookid",
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id,
+        user_id : 2,
       },
       include: {
         model: Book, where: {id: bookId}

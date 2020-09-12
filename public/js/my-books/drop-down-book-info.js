@@ -9,7 +9,7 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
     let bookTitleBlock = document.querySelector('.bookshelf-books__book-title');
     let bookAuthorBlock = document.querySelector('.bookshelf-books__book-author');
     let bookDescriptionBlock = document.querySelector('.bookshelf-books__book-description')
-    bookTitleBlock.innerHTML = bookTitle;
+    bookTitleBlock.innerHTML = `<a href='/books/${bookId}'>${bookTitle}</a>`;
     bookAuthorBlock.innerHTML = bookAuthor;
     bookDescriptionBlock.innerHTML = bookDescription;
     // const deleteBookButton = document.createElement("Button");
