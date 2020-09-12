@@ -5,7 +5,7 @@ body{
 
 
 
-.container {
+.book-container {
     display: grid;
     grid-template-columns: 25% 70%;
     grid-auto-rows: minmax(min-content, max-content);

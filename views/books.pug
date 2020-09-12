@@ -5,15 +5,11 @@ block content
   include includes/nav.pug
   append head
     link(rel='stylesheet', href='./css/search.css')
-    
-
-
-  include ./includes/nav.pug
 
   each book in books
     div(class='block booksearch')
       div(class='block')
-        img(src=`./images/${book.id}.jpg` alt='book image' style='width:200px; height:300px')
+        img(class='booksearch__img' src=`./images/${book.id}.jpg` alt='book image' style='width:200px; height:300px')
       div(class='block')
         div(class='container')
           a(href=`/books/${book.id}`)
