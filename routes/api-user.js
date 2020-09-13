@@ -6,7 +6,6 @@ const { requireAuth } = require("../auth");
 const {Shelf, Book, Books_Shelf} = require('../db/models');
 
 const router = express.Router()
-
 router.use(requireAuth)
 
 const bookshelfNotFoundError = (id) => {
@@ -18,11 +17,11 @@ const bookshelfNotFoundError = (id) => {
 };
 
 const validatebookShelf = [
-  check("name")
+  check("newBookshelfName")
     .exists({ checkFalsy: true })
     .withMessage("Bookshelf can't be empty."),
   //  bookshelf name cannot be longer than 80 characters:
-  check("name")
+  check("newBookshelfName")
     .isLength({ max: 80 })
     .withMessage("Bookshelf name can't be longer than 80 characters."),
   handleValidationErrors,
@@ -33,37 +32,42 @@ const validatebookShelf = [
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-      
+
     const shelves = await Shelf.findAll({
       where: {
         user_id : req.user.id
+        // user_id: req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
-    res.json({ shelves });
+    if(shelves) {
+      res.json({ shelves });
+    } else {
+      res.json('no shelves')
+    }
   }catch(e){
     console.log(e)
   }
 }));
 
 // add the bookshelf to database
+/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/shelves",
+router.post("/new-shelf",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
-    const { name } = req.body;
-    const bookshelf = await Shelf.create({ name, user_id: userId});
+    const { newBookshelfName } = req.body;
+    console.log('newBookshelfName', newBookshelfName)
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
     // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
-    res.json({ bookshelf });
+    return res.json({ bookshelf });
   })
 );
 
-
 // get specific bookshelf books
-
 //api-user/shelves/:bookshelfid
-router.get("shelves/:bookshelfid",
+router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
     const shelf = await Shelf.findOne({
       where: {
@@ -80,7 +84,6 @@ router.get("shelves/:bookshelfid",
 );
 
 // delete bookshelf
-
 //api-user/shelves/:bookshelfid
 router.delete(
   "/shelves/:bookshelfid",
@@ -109,9 +112,8 @@ router.delete(
 
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
-
 //api-user/shelves/:bookshelfid/books/:bookid
-router.get("/excluded-shelves/:bookshelfid/books/:bookid",
+router.get("/excluded-shelves/books/:bookid",
   asyncHandler(async (req, res) => {
 //code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
 //the shelves found for the user with the book
@@ -119,14 +121,21 @@ router.get("/excluded-shelves/:bookshelfid/books/:bookid",
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : userId,
+        user_id : req.user.id,
       },
       include: {
-        model: Book, where: {id: bookId}
+        model: Book, where: {
+          id: bookId
+        }
       }
     });
-    //all shelves in db
-    const allShelves = await Shelf.findAll();
+
+    //all shelves in db for the user
+    const allShelves = await Shelf.findAll({
+      where: {
+        user_id: req.user.id
+      }
+    });
     //shelf id's for all user shelves with specific book
     let includedShelf = [];
     for (let shelf of shelves) {
@@ -166,11 +175,12 @@ router.get("/shelves/:bookshelfid/books/:bookid",
 
 // Add the book to selected shelf in the database
 
-// post to /api-user/shelves/:shelfid/books/:bookid
-router.post("/shelves/:bookshelfid/books/:bookid",
+router.post("/:bookid/add-book-to-shelf",
+/* // post to /api-user/shelves/:shelfid/books/:bookid
+router.post("/shelves/:bookshelfid/books/:bookid", */
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
-  const bookshelfId = req.params.bookshelfid;
+  const { bookshelfId } = req.body ;
   const bookshelf = await Shelf.findByPk(bookshelfId);
   const book = await Book.findByPk(bookId)
   if (bookshelf) {
@@ -201,7 +211,7 @@ router.get('/:id/books',
 router.delete("/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;
-    const bookshelfId = req.params.bookshelfid;
+    // const { bookshelf } = req.body.bookshelf;
 
     const book = await Book.findByPk(bookId);
     const bookshelf = await Shelf.findByPk(bookshelfId, {
