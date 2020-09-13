@@ -4,12 +4,28 @@ body {
     color: rgb(114, 112, 112)
 }
 
+#margin-left {
+    margin-left: 10px;
+}
+
+a {
+  color: gray;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #7c9089;
+}
 a.hover {
     color: gray;
 }
 .hidden {
     display: none;
 }
+
+
 
 .button-light, .profile-button {
     background-color: rgb(208, 163, 132);
@@ -33,8 +49,17 @@ a.hover {
     padding: 3px;
 }
 
+h1 {
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+h2.quote {
+  font-weight: lighter;
+}
+
 h3 {
-    color: inherit;
+    color: gray;
 }
 
 h4 {
@@ -81,13 +106,15 @@ h5 {
     background-color: rgb(136 84 54);
 }
 
-drop-down-form {
+.drop-down-form {
   display: inline-block;
   height: 28px;
+  color: gray;
 
 }
 
-.button-light.drop-down-form__button {
+
+.drop-down-form__button {
   height: 28px;
   font-size: 15px;
   margin-left: 15px;
@@ -99,6 +126,20 @@ drop-down-form {
   height: 28px;
   border-radius: 5px;
 }
+
+#drop-down-form__select {
+    font-size: 12px;
+    height: 23px;
+    border-radius: 5px;
+  }
+
+#drop-down-form__button {
+    height: 20px;
+    font-size: 12px;
+    padding: 0 10px;
+    margin-left: 20px;
+  }
+
 body {
     font-family: sans-serif;
     /* background-color: lightgrey; */
@@ -106,11 +147,6 @@ body {
 
   * {
     box-sizing: border-box;
-  }
-
-  h1 {
-    color: #eee;
-    margin-bottom: 30px;
   }
 
   /* #booksList {
