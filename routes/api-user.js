@@ -35,12 +35,16 @@ router.get("/shelves",
 
     const shelves = await Shelf.findAll({
       where: {
-        user_id : 2
-        // user_id: 2
+        user_id : req.user.id
+        // user_id: req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
-    res.json({ shelves });
+    if(shelves) {
+      res.json({ shelves });
+    } else {
+      res.json('no shelves')
+    }
   }catch(e){
     console.log(e)
   }
@@ -55,15 +59,13 @@ router.post("/new-shelf",
     console.log('in post request')
     const { newBookshelfName } = req.body;
     console.log('newBookshelfName', newBookshelfName)
-    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: 2});
-    // const bookshelf = await bookShelf.create({ name, user_id: 2 });
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
+    // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
     return res.json({ bookshelf });
   })
 );
 
-
 // get specific bookshelf books
-
 //api-user/shelves/:bookshelfid
 router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
@@ -82,7 +84,6 @@ router.get("/shelves/:bookshelfid",
 );
 
 // delete bookshelf
-
 //api-user/shelves/:bookshelfid
 router.delete(
   "/shelves/:bookshelfid",
@@ -93,7 +94,7 @@ router.delete(
       },
     });
     if (userId !== bookshelf.user_id) {
-    // if (2 !== bookshelf.user_id) {
+    // if (req.user.id !== bookshelf.user_id) {
       const err = new Error("Unauthorized");
       err.status = 401;
       err.message = "You are not authorized to delete this tweet.";
@@ -111,7 +112,6 @@ router.delete(
 
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
-
 //api-user/shelves/:bookshelfid/books/:bookid
 router.get("/excluded-shelves/books/:bookid",
   asyncHandler(async (req, res) => {
@@ -121,14 +121,21 @@ router.get("/excluded-shelves/books/:bookid",
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : 2,
+        user_id : req.user.id,
       },
       include: {
-        model: Book, where: {id: bookId}
+        model: Book, where: {
+          id: bookId
+        }
       }
     });
-    //all shelves in db
-    const allShelves = await Shelf.findAll();
+
+    //all shelves in db for the user
+    const allShelves = await Shelf.findAll({
+      where: {
+        user_id: req.user.id
+      }
+    });
     //shelf id's for all user shelves with specific book
     let includedShelf = [];
     for (let shelf of shelves) {

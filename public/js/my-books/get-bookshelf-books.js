@@ -35,8 +35,8 @@ const createBookDiv = (book, bookshelfId) => {
     bookDiv.className = 'book-on-shelf';
 
     var bookCoverImg = document.createElement('img');
-    bookCoverImg.className = 'book-on-shelf__book-cover';
-    bookCoverImg.src = '../images/2.jpg'
+    bookCoverImg.className = 'book-on-shelf__book-cover book-cover';
+    bookCoverImg.src = `../images/${book.id}.jpg`
     var bookTitleH5 = document.createElement('h5');
     bookTitleH5.className = 'book-on-shelf__book-title';
     bookTitleH5.innerHTML = `${book.title}`;
