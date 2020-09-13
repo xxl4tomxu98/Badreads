@@ -1,4 +1,5 @@
 import { handleErrors } from './utils.js'
+import { createAddToShelfDropdown } from './my-books/add-to-shelf-dropdown.js'
 
 const bookTitle = document.querySelector('.container_book-info_title')
 const bookAuthor = document.querySelector('.container_book-info_author')
@@ -7,7 +8,7 @@ const form = document.querySelector('.container_form')
 const container = document.querySelector('.book-container')
 const userId = localStorage.getItem('BADREADS_CURRENT_USER_ID')
 const bookId = window.location.pathname.split('/')[2]
-const addBookshelfSelect = document.querySelector('.container_genres_select')
+const addBookshelfSelect = document.querySelector('.container_genres_select');
 
 
 // let id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
@@ -18,11 +19,12 @@ const fetchBook = async (bookId) => {
         headers: {
             Authorization: `Bearer ${localStorage.getItem(
                 "BADREADS_ACCESS_TOKEN"
-            )}`,
+                )}`,
+            }
         }
-    }
-    )
-    const { book } = await response.json()
+        )
+        const { book } = await response.json()
+        createAddToShelfDropdown(bookId, false);
 
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
@@ -114,10 +116,10 @@ form.addEventListener('submit', async (e) => {
             }
 
             const { reviews } = await res.json()
-            
+
             if(reviews){
                 for (let eachReview of reviews) {
-                 
+
                     addNewReview(eachReview.description)
                 }
             }
@@ -135,6 +137,3 @@ form.addEventListener('submit', async (e) => {
     }
 
 })
-
-
-
