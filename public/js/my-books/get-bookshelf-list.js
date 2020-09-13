@@ -28,7 +28,7 @@ const appendBookshelfLi = (bookshelf) => {
     li.innerHTML = `${bookshelf.name}`;
     li.className = 'bookshelf-list-item';
     const bookshelfList = document.querySelector('.bookshelf-list');
-console.log(bookshelfList)
+// console.log(bookshelfList)
     li.addEventListener('click', () => populateBookshelfBookList(bookshelf.id))
     bookshelfList.appendChild(li);
 };
@@ -76,7 +76,7 @@ export const populateUserBookshelfList = async () => {
     
     if(shelves) { 
         for (let bookshelf of shelves) {
-        console.log('bookshelf', bookshelf)
+        // console.log('bookshelf', bookshelf)
         appendBookshelfLi(bookshelf);
     }
 }

@@ -29,7 +29,7 @@ router.get('/', asyncHandler(async (req, res) => {
         },
         order: [['title', 'ASC']]
       });
-      console.log(books);
+      // console.log(books);
     } catch (err) {
       console.log(err);
     }

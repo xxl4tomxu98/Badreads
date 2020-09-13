@@ -55,10 +55,11 @@ export const populateBookshelfBookList = async (bookshelfId) => {
     const bookshelfTitle = document.querySelector('.bookshelf-title');
     const { bookshelf } = await getBookList(bookshelfId);
     bookshelfBooks.innerHTML = ''
+    console.log('bookshelf---', bookshelf)
     const books = bookshelf.Books
-    //console.log('books', books)
+    // console.log('books', books)
     bookshelfTitle.innerHTML = bookshelf.name;
-    console.log('bookshelf', bookshelf)
+    // console.log('bookshelf', bookshelf)
     console.log('title = ', bookshelf.name)
     for (let book in books) {
         //console.log('in for loop, book =', books[book])

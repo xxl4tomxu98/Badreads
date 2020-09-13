@@ -36,7 +36,8 @@ router.get("/shelves",
       
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id
+        //req.user.id
+        user_id : 2
       },
       order: [["createdAt", "DESC"]],
     });
@@ -63,16 +64,16 @@ router.post("/shelves",
 // get specific bookshelf books
 
 //api-user/shelves/:bookshelfid
-router.get("shelves/:bookshelfid",
+router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
-    const shelf = await Shelf.findOne({
+    const bookshelf = await Shelf.findOne({
       where: {
         id: req.params.bookshelfid,
       },
       include: Book
     });
-    if (shelf) {
-      res.json({ shelf });
+    if (bookshelf) {
+      res.json({ bookshelf });
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
@@ -184,7 +185,7 @@ router.post("/shelves/:bookshelfid/books/:bookid",
 // Get books on a specific shelf
 router.get('/:id/books',
   asyncHandler(async (req, res) => {
-    console.log('req.params.id', req.params.id);
+    // console.log('req.params.id', req.params.id);
     const books = await Book.findAll({
       include: { model: Shelf,
         where: {
