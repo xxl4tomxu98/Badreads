@@ -1,8 +1,16 @@
+/* Changes:
+    add shelf POST request
+      line 148 Changed Route Name form /new-shelf to /shelves
+      line 155  fixed 'Shelf' from 'bookshelf'
+      line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
+
 const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { requireAuth } = require("../auth");
+
 const jwt = require('jsonwebtoken');
 const router = express.Router()
 const { User, Shelf, Book, Genre, Books_Shelf, User_Genre } = require('../db/models');
@@ -117,7 +125,6 @@ router.get('/username', asyncHandler(async (req, res) => {
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-
     const shelves = await Shelf.findAll({
       where: {
         //req.user.id
@@ -125,8 +132,10 @@ router.get("/shelves",
       },
       order: [["createdAt", "DESC"]],
     });
+    const user = await User.findByPk(req.user.id);
+    const username = user.username;
     if(shelves) {
-      res.json({ shelves });
+      res.json({ shelves, username });
     } else {
       res.json('no shelves')
     }
@@ -135,16 +144,20 @@ router.get("/shelves",
   }
 }));
 
+/*
+line 148 Changed Route Name form /new-shelf to /shelves
+line 155  fixed 'Shelf' from 'bookshelf'
+line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
 // add the bookshelf to database
-/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/new-shelf",
+router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
-    console.log('in post request', 'name----', req.body.newBookshelfName)
     const { newBookshelfName } = req.body;
-    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id });
-    res.json({ bookshelf });
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
+    // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
+    return res.json({ bookshelf });
   })
 );
 

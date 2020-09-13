@@ -6,14 +6,4 @@ import {populateUserBookshelfList} from './get-bookshelf-list.js';
 document.addEventListener("DOMContentLoaded", async () => {
         populateUserBookshelfList();
 
-        // const res = await fetch('/api-user/profile', {
-        //         headers: {
-        //           Authorization: `Bearer ${localStorage.getItem(
-        //             "BADREADS_ACCESS_TOKEN"
-        //           )}`,
-        //         },
-        //       })
-
-        // const { user } = res.json()
-        // welcomeHeader.innerHTML =  `Welcome ${user.username}!`
 });

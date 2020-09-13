@@ -30,7 +30,6 @@ const appendBookshelfLi = (bookshelf) => {
     const bookshelfList = document.querySelector('.bookshelf-list');
     li.addEventListener('click', () => populateBookshelfBookList(bookshelf.id))
     bookshelfList.appendChild(li);
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
 };
 
 const openCreateNewBookshelfField = async () => {
@@ -42,21 +41,25 @@ const openCreateNewBookshelfField = async () => {
     // Display form field
     newBookshelfFormField.classList.remove('hidden');
 
+    console.log('addbookshelfbutton',addBookshelfButton)
+
     // Change button type
     setTimeout(function () {
         addBookshelfButton.removeAttribute('type');
         addBookshelfButton.type = 'submit';
     }, 1000);
 
+    console.log('addbookshelfbutton', addBookshelfButton)
+
     addBookshelfButton.addEventListener('click', async e => {
         e.preventDefault();
-        addBookshelfButton.disabled = true;
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
 
-        const body = { newBookshelfName }
+        console.log('newbookshelfname', newBookshelfName)
+        const body = {newBookshelfName}
 
-        const res = await fetch('http://localhost:8080/api-user/new-shelf', {
+        const res = await fetch('http://localhost:8080/api-user/shelves', {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -75,17 +78,24 @@ const openCreateNewBookshelfField = async () => {
         // console.log(bookshelf)
         appendBookshelfLi(bookshelf);
         newBookshelfFormField.classList.add('hidden');
+
+        setTimeout(function () {
+            addBookshelfButton
+                .removeAttribute('type')
+                .classlist.add('buttonButton')
+                .type = 'button';
+        }, 1000);
     });
 
-    setTimeout(() => {
-        addBookshelfButton.type = 'button';
-        addBookshelfButton.disabled = false;
-    }, 1000);
 };
 
 export const populateUserBookshelfList = async () => {
-    const { shelves } = await getBookshelves();
+    const { shelves, username } = await getBookshelves();
 
+    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
+
+    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
+    console.log('username', capitalizedUsername);
     if (shelves) {
         for (let bookshelf of shelves) {
             // // console.log('bookshelf', bookshelf)
@@ -93,6 +103,6 @@ export const populateUserBookshelfList = async () => {
         }
     }
 
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
+    const addBookshelfButton = document.querySelector('.buttonButton');
     addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
 };

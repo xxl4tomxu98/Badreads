@@ -1,9 +1,7 @@
-body{
+/* body{
     background-color: rgba(184, 183, 183, 0.308);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-
 
 .book-container {
     display: grid;
@@ -21,7 +19,7 @@ body{
 .container_book-info{
     grid-area: book-info;
     font-size: 1.5em;
-    /* display: block; */
+    /* display: block;
 }
 
 .container_book-info_description{
@@ -49,7 +47,7 @@ body{
     grid-area: genres;
     margin: 0 auto;
 }
-.container_genres_links{
+.container_genres__links{
     text-decoration: underline;
 }
 
@@ -75,8 +73,6 @@ body{
 .container_reviews{
     grid-column: 2 / 3;
     display: grid;
-    /* grid-template-rows: 15px 90% 20px; */
-    /* grid-auto-rows: minmax(min-content, max-content); */
     grid-template-rows: 20px 1fr 20px;
     padding: 30px;
     background-color: rgb(255, 254, 254);
@@ -87,7 +83,6 @@ body{
     justify-self: end;
     width: 50px;
     height: 10px;
-    /* keeps stars closely together */
     display: flex;
 
 }
@@ -114,13 +109,6 @@ body{
 }
 
 
-/* .container_reviews_textarea{
-    margin-top: 10px;
-} */
-/* .container_reviews_textarea:hover{
-    cursor: crosshair;
-} */
-
 .container_reviews_input{
     height: 50px;
     width: 100%;
@@ -133,7 +121,7 @@ body{
     cursor: crosshair
 }
 
-/* search form */
+
 .form-control{
     width: 150px;
 }
@@ -143,6 +131,4 @@ body{
         min-width: 900px;
     }
 }
-
-
-
+ */
