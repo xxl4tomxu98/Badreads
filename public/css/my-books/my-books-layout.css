@@ -2,11 +2,15 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     width: 800px;
-    grid-template-rows: 70px 200px 100px 500px;
+    grid-template-rows: 70px 300px 100px 500px;
     margin: auto;
     margin-top: 50px;
 }
 
+h1#welcome {
+    color: gray;
+    margin-bottom: 30px;
+}
 .side-bar {
     /* background-color:lavender; */
     grid-column-start: 1;
@@ -22,6 +26,7 @@
     align-items: flex-end;
     padding-left: 30px;
     margin-bottom: 20px;
+    color: gray;
     /* align-items: baseline; */
 }
 
@@ -81,6 +86,12 @@
     text-align: right;
     margin-right: 60px
 }
+
+
+.book-on-shelf__book-title {
+    font-size: 14px;
+}
+
 @media screen and (max-width: 800px) {
     .wrapper {
         margin-left: 70px;

@@ -197,8 +197,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        author: 'The Martian',
-        title: 'Andy Weir',
+        author: 'Andy Weir',
+        title: 'The Martian',
         description: 'example description',
         publicationYear: '1984',
         createdAt: new Date(),

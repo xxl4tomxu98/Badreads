@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { requireAuth } = require("../auth");
-const {Shelf, Book, Books_Shelf} = require('../db/models');
+const {Shelf, Book, Books_Shelf, User} = require('../db/models');
 
 const router = express.Router()
 router.use(requireAuth)
@@ -32,7 +32,6 @@ const validatebookShelf = [
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-
     const shelves = await Shelf.findAll({
       where: {
         user_id : req.user.id
@@ -40,8 +39,10 @@ router.get("/shelves",
       },
       order: [["createdAt", "DESC"]],
     });
+    const user = await User.findByPk(req.user.id);
+    const username = user.username;
     if(shelves) {
-      res.json({ shelves });
+      res.json({ shelves, username });
     } else {
       res.json('no shelves')
     }
