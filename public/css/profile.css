@@ -1,11 +1,11 @@
 .container_profile{
   display: grid;
   grid-template-columns: 1fr 2fr;
-  width: auto;
+
   grid-template-rows: auto;
   grid-template-areas:
     'picture user-info'
-    'edit-button favorite-genres';
+    'add-button favorite-genres';
 }
 
 
@@ -13,6 +13,7 @@
   grid-area: picture;
   display: flex;
   margin: 30px 30px;
+  justify-content: center;
 }
 
 .picture{
@@ -24,13 +25,12 @@
 
 .container_user-info{
   grid-area: user-info;
-  background-color: #000000;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: 200px;
-  color: white;
+  color: black;
   margin: 30px 30px auto;
 }
 
@@ -54,15 +54,15 @@
   text-align: center;
 }
 
-.container_edit-button{
-  grid-area: edit-button;
+.container_add-button{
+  grid-area: add-button;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 
-.button-light, .edit-button {
+.button-light, .add-button {
   background-color: rgb(208, 163, 132);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
   border: none;

@@ -15,17 +15,17 @@ block content
         img(class='picture' src=`../images/1.jpg` alt="bookshelf")
 
       div(class='container_user-info')
-        h2(class='user-info__name') Tom Xu
-        h4(class='user-info__email') tomxu@udel.edu
-        h3(class='user-info__address') tom@appacademy.io
+        h2(class='user-info__name')
+        h4(class='user-info__email')
+        h3(class='user-info__address') 100 appacademy way, New York, NY
 
         p(class='user-info_rating-review')
 
-      div(class='container_delete-button')
-        button.button-light.edit-button(type='button'): a(href="/register") Add Genre
+      div(class='container_add-button')
+        button.button-light.add-button(type='button'): a(href="/register") Add Genre
 
       div(class='container_favorite-genres') Favorite Genres
-        div
+        div(class='favorite-genres')
           userGenres
 
     script(type='module' src='../js/user-profile.js')

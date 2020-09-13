@@ -2,9 +2,10 @@
 //- div
 //-     input(type='text' class='input-field input-field__search-bookshelf' id='search-bookshelf' placehoder="Search this bookshelf")
 
-form(method='post' action='/user' class='add-bookshelf-form')
+form(class='add-bookshelf-form')
     input(type="hidden" name="_csrf" value=csrf)
-    input(type='text' class='input-field input-field__add-bookshelf hidden' id='add-new-bookshelf__input-field' name='newBookName')
+    input(type='text' class='input-field input-field__add-bookshelf hidden' id='add-new-bookshelf__input-field' name='newBookshelfName')
     button(type='button' class='button-light' id='add-new-bookshelf__button') add shelf
+    button(type='submit' class='button-light hidden' id='add-new-bookshelf__button-submit') add shelf
 
 ul.bookshelf-list

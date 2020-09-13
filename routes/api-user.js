@@ -22,7 +22,7 @@ const validateEmailAndPassword = [
 ];
 
 
-router.use(requireAuth)
+
 
 const bookshelfNotFoundError = (id) => {
   const err = Error("Bookshelf not found");
@@ -89,11 +89,11 @@ router.post(
 
 
 const validatebookShelf = [
-  check("name")
+  check("newBookshelfName")
     .exists({ checkFalsy: true })
     .withMessage("Bookshelf can't be empty."),
   //  bookshelf name cannot be longer than 80 characters:
-  check("name")
+  check("newBookshelfName")
     .isLength({ max: 80 })
     .withMessage("Bookshelf name can't be longer than 80 characters."),
   handleValidationErrors,
@@ -117,22 +117,28 @@ router.get('/username', asyncHandler(async (req, res) => {
 router.get("/shelves",
   asyncHandler(async (req, res) => {
     try{
-      const shelves = await Shelf.findAll({
-        where: {
-          //req.user.id needs back
-          user_id : 2
-        },
-        order: [["createdAt", "DESC"]],
-      });
+
+    const shelves = await Shelf.findAll({
+      where: {
+        user_id : 2
+        //user_id: req.user.id
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    if(shelves) {
       res.json({ shelves });
-    }catch(e){
-      console.log(e)
+    } else {
+      res.json('no shelves')
     }
+  }catch(e){
+    console.log(e)
+  }
 }));
 
 // add the bookshelf to database
+/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/shelves",
+router.post("/new-shelf",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     console.log('in post request')
@@ -142,9 +148,7 @@ router.post("/shelves",
   })
 );
 
-
 // get specific bookshelf books
-
 //api-user/shelves/:bookshelfid
 router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
@@ -163,7 +167,6 @@ router.get("/shelves/:bookshelfid",
 );
 
 // delete bookshelf
-
 //api-user/shelves/:bookshelfid
 router.delete(
   "/shelves/:bookshelfid",
@@ -174,13 +177,13 @@ router.delete(
       },
     });
 
-    if (req.user.id !== bookshelf.user_id) {
-      const err = new Error("Unauthorized");
-      err.status = 401;
-      err.message = "You are not authorized to delete this bookshelf.";
-      err.title = "Unauthorized";
-      throw err;
-    }
+    // if (req.user.id !== bookshelf.user_id) {
+    //   const err = new Error("Unauthorized");
+    //   err .status = 401;
+    //   err.message = "You are not authorized to delete this bookshelf.";
+    //   err.title = "Unauthorized";
+    //   throw err;
+    //}
     if (bookshelf) {
       const bookAndShelfConnections = await Books_Shelf.findAll({
         where: {
@@ -203,9 +206,8 @@ router.delete(
 
 // Get the bookshelves except the shelves that have that book
 // Except the current bookshelf
-
-
-router.get("/excluded-shelves/:bookshelfid/books/:bookid",
+//api-user/shelves/:bookshelfid/books/:bookid
+router.get("/excluded-shelves/books/:bookid",
   asyncHandler(async (req, res) => {
 //code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
 //the shelves found for the user with the book
@@ -216,13 +218,16 @@ router.get("/excluded-shelves/:bookshelfid/books/:bookid",
         user_id : req.user.id,
       },
       include: {
-        model: Book, where: {id: bookId}
+        model: Book, where: {
+          id: bookId
+        }
       }
     });
-    //all shelves in db
+
+    //all shelves in db for the user
     const allShelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id,
+        user_id: req.user.id
       }
     });
     //shelf id's for all user shelves with specific book
@@ -264,11 +269,12 @@ router.get("/shelves/:bookshelfid/books/:bookid",
 
 // Add the book to selected shelf in the database
 
-// post to /api-user/shelves/:shelfid/books/:bookid
-router.post("/shelves/:bookshelfid/books/:bookid",
+router.post("/:bookid/add-book-to-shelf",
+/* // post to /api-user/shelves/:shelfid/books/:bookid
+router.post("/shelves/:bookshelfid/books/:bookid", */
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
-  const bookshelfId = req.params.bookshelfid;
+  const { bookshelfId } = req.body ;
   const bookshelf = await Shelf.findByPk(bookshelfId);
   const book = await Book.findByPk(bookId)
   if (bookshelf) {
