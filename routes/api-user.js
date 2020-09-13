@@ -120,8 +120,8 @@ router.get("/shelves",
 
     const shelves = await Shelf.findAll({
       where: {
-        user_id : 2
-        //user_id: req.user.id
+        //user_id : 2
+        user_id: req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
@@ -344,7 +344,7 @@ router.get('/profile', asyncHandler( async(req, res) => {
 
   const genres = await Genre.findAll( {
     //need req.user.id
-    include: {model: User, where: {id: 2}}
+    include: {model: User, where: {id: req.user.id}}
   });
   res.json({ genres });
 

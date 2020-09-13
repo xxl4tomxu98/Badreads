@@ -19,7 +19,7 @@ module.exports = {
       { name: 'Self-Help', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Travel', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Western', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Women\'s', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Women', createdAt: new Date(), updatedAt: new Date() },
     ], { returning: true }
     );
   },
