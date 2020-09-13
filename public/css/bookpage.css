@@ -26,6 +26,10 @@ body{
   margin-top: 20px;
 }
 
+.container__book-cover {
+    justify-self: center;
+    margin-bottom: 20px;
+}
 .container__book-image{
   grid-area: book-image;
   height: 225px;
@@ -35,7 +39,12 @@ body{
 
 .container__genres{
   grid-area: genres;
-  margin: 0 auto;
+  justify-self: center;
+}
+
+.container__genres h4 {
+  font-size: 20px;
+  font-weight:500;
 }
 .container__genres__links{
   text-decoration: none;

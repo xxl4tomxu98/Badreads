@@ -283,8 +283,6 @@ router.get("/shelves/:bookshelfid/books/:bookid",
 // Add the book to selected shelf in the database
 
 router.post("/:bookid/add-book-to-shelf",
-/* // post to /api-user/shelves/:shelfid/books/:bookid
-router.post("/shelves/:bookshelfid/books/:bookid", */
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const { bookshelfId } = req.body ;
@@ -292,7 +290,7 @@ router.post("/shelves/:bookshelfid/books/:bookid", */
   const book = await Book.findByPk(bookId)
   if (bookshelf) {
     await bookshelf.addBook(book);
-    res.json({bookshelf});
+    res.json({bookshelf, book});
   } else {
     next(bookshelfNotFoundError(req.params.bookshelfId));
   };
