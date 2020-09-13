@@ -12,7 +12,7 @@ nav(class="navbar")
   form(action="/books" method="GET" class='navbar__search')
     input(type="search" name="term" placeholder="Search By Title/Author" class="input-field navbar__search-field")
     button(type="submit" class="button-dark") discover
-  button(type='button' class='profile-button') profile
+  button(type='button' class='profile-button'): a( href="/user/profile" class="profile-link") profile
     //- li.nav-item.dropdown
     //-   a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') placeholder
     //-     span.glyphicon.glyphicon-book(aria-hidden='true')
