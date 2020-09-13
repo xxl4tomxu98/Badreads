@@ -2,13 +2,8 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js'
 
 // Get shelves
 const getBookshelves = async () => {
-<<<<<<< HEAD
-
-    const res = await fetch('http://localhost:8080/api-user/shelves',{
-=======
     console.log('getting shelves');
     const res = await fetch('/api-user/shelves', {
->>>>>>> sophie-willson-branch
         headers: {
             Authorization: `Bearer ${localStorage.getItem(
                 "BADREADS_ACCESS_TOKEN"
@@ -53,30 +48,6 @@ const openCreateNewBookshelfField = async () => {
         addBookshelfButton.type = 'submit';
     }, 1000);
 
-<<<<<<< HEAD
-        newBookshelfForm.addEventListener('submit', async e => {
-            e.preventDefault();
-
-            const formData = new FormData(newBookshelfForm);
-            const newBookshelfName = formData.get('newBookShelfName');
-            const _csrf = formData.get('_csrf');
-
-            const body = { newBookshelfName, _csrf }
-            const res = await fetch('http://localhost:8080/api-user/shelves', {
-                method: "POST",
-                body: JSON.stringify(body),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-            //return newly created bookshelf
-            const data = await res.json();
-            const { bookshelf } = data;
-            appendBookshelfLi(bookshelf);
-            newBookshelfForm.classList.add('hidden');
-            addBookshelfButton.removeAttribute('type').type = 'button';
-=======
     addBookshelfButton.addEventListener('click', async e => {
         e.preventDefault();
         addBookshelfButton.disabled = true;
@@ -94,7 +65,6 @@ const openCreateNewBookshelfField = async () => {
                 )}`,
                 "Content-Type": "application/json"
             }
->>>>>>> sophie-willson-branch
         });
 
 
@@ -116,11 +86,7 @@ const openCreateNewBookshelfField = async () => {
 export const populateUserBookshelfList = async () => {
     const { shelves } = await getBookshelves();
 
-<<<<<<< HEAD
-    if(shelves) {
-=======
     if (shelves) {
->>>>>>> sophie-willson-branch
         for (let bookshelf of shelves) {
             // // console.log('bookshelf', bookshelf)
             appendBookshelfLi(bookshelf);

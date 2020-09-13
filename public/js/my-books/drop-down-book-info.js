@@ -45,11 +45,7 @@ export const dropDownBookInfo = async(Book, bookshelfId) => {
         return;
       }
 
-<<<<<<< HEAD
-    const { book } = await res.json();
-=======
     // const { book } = await res.json();
->>>>>>> sophie-willson-branch
 
     // console.log(bookInfo.book);
     const bookTitle = book.title;
