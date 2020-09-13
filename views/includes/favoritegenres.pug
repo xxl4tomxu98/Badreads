@@ -1,0 +1,9 @@
+mixin genreButton(genre)
+    div(class="genre-container__genre ")
+      div(class="genre-container__bstp-formating clearfix")
+        div(data-toggle="buttons" class="genre-container__button btn-group")
+          label(class="genre-container__button-label btn-styling btn btn-default")
+            div(class="genre-container__button-content")
+              input(type="checkbox" id=`genre-${genre.name}` class="genre-container__checkbox" name="var_id[]" autocomplete="off" value=`#{genre.name}` hidden)
+              span(class="")
+              h5(class="genre-container__genre-text") #{genre.name}
