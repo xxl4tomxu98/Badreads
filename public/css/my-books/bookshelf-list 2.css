@@ -1,0 +1,16 @@
+.hidden {
+    display: none;
+}
+
+.bookshelf-list-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.bookshelf-list-item:hover {
+    text-decoration: underline;
+}
+
+.bookshelf-list-item--active{
+    font-weight: bold;
+}

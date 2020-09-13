@@ -1,0 +1,19 @@
+extends layout.pug
+
+
+block content
+  include includes/nav.pug
+
+  div.searchpage
+  each book in books
+    div(class='booksearch')
+      div(class='booksearch__block')
+        img(class='booksearch__book-cover book-cover' src=`./images/${book.id}.jpg` alt='book image')
+      div(class='booksearch__block')
+        div(class='booksearch__container booksearch__container__headers')
+          a(href=`/books/${book.id}`)
+            h3= book.title
+          h4= book.author
+          h4= book.publicationYear
+        div(class='booksearch__container booksearch__container__description')
+          text= book.description

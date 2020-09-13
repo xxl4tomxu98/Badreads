@@ -40,8 +40,8 @@ router.get('/', asyncHandler(async (req, res) => {
     })
   }
   // console.log(books);
-  res.render('books', { books });
-
+  console.log(term);
+  res.render('searchpage', { books});
 }))
 
 //when user goes to /books/bookid

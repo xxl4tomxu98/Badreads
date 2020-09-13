@@ -1,8 +1,5 @@
 extends layout.pug
 
-append head
-    link(rel='stylesheet', href='./css/search.css')
-
 block content
 
   include ./includes/newnav.pug
@@ -14,9 +11,6 @@ block content
         button(type="submit" class="btn btn-outline-success my-2 my-sm-0 searchform__button") Discover
     a(href='localhost:8080/bookshelf')
       h1.display-3=`Search Results for ${User}`
-
-
-
 
     each book in books
       div(class='block booksearch')

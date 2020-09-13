@@ -44,13 +44,14 @@ const openCreateNewBookshelfField = async () => {
 
     // Change button type
     setTimeout(function () {
-        addBookshelfButton.removeAttribute('type');
-        addBookshelfButton.type = 'submit';
+        addBookshelfButton
+            .removeAttribute('type')
+            .classlist.remove('buttonButton')
+            .type = 'submit';
     }, 1000);
 
     addBookshelfButton.addEventListener('click', async e => {
         e.preventDefault();
-        addBookshelfButton.disabled = true;
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
 
@@ -75,12 +76,15 @@ const openCreateNewBookshelfField = async () => {
         // console.log(bookshelf)
         appendBookshelfLi(bookshelf);
         newBookshelfFormField.classList.add('hidden');
+
+        setTimeout(function () {
+            addBookshelfButton
+                .removeAttribute('type')
+                .classlist.add('buttonButton')
+                .type = 'button';
+        }, 1000);
     });
 
-    setTimeout(() => {
-        addBookshelfButton.type = 'button';
-        addBookshelfButton.disabled = false;
-    }, 1000);
 };
 
 export const populateUserBookshelfList = async () => {
@@ -93,6 +97,6 @@ export const populateUserBookshelfList = async () => {
         }
     }
 
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
+    const addBookshelfButton = document.querySelector('.buttonButton');
     addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
 };
