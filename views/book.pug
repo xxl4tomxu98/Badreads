@@ -7,8 +7,9 @@ block content
             h2(class='container_book-info_title')
             h3(class='container_book-info_author')
             //- buton(class='btn btn-danger')
-            form(class='drop-down-form' name='form')
+            form(class='drop-down-form' name='form') 
                 select(name='dropdownFormSelect' class='drop-down-form__select')
+                    option(selected) Add to Bookshelf
                 button(type='submit' class='drop-down-form__button') submit
 
             h5(class='container_book-info_description')
@@ -21,7 +22,7 @@ block content
         div(class='container_genres')
             h5 Genres
             each genre in book.Genres
-                a(class='container_genres_links' href='/') #{genre.name}
+                a(class='container_genres_links') #{genre.name}
         div(class='container_reviews-title')
             h4 Reviews
             div

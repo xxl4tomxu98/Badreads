@@ -36,7 +36,7 @@ router.get("/shelves",
     const shelves = await Shelf.findAll({
       where: {
         //req.user.id
-        user_id : 2
+        user_id : req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
@@ -69,14 +69,14 @@ router.post("/new-shelf",
 //api-user/shelves/:bookshelfid
 router.get("/shelves/:bookshelfid",
   asyncHandler(async (req, res, next) => {
-    const bookshelf = await Shelf.findOne({
+    const shelf = await Shelf.findOne({
       where: {
         id: req.params.bookshelfid,
       },
       include: Book
     });
-    if (bookshelf) {
-      res.json({ bookshelf });
+    if (shelf) {
+      res.json({ shelf });
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
