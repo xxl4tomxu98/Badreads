@@ -3,12 +3,12 @@ const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { requireAuth } = require("../auth");
-
+const jwt = require('jsonwebtoken');
 const router = express.Router()
 const { User, Shelf, Book, Genre, Books_Shelf, User_Genre } = require('../db/models');
 const bcrypt = require('bcryptjs')
 
-
+router.use(requireAuth);
 
 const validateEmailAndPassword = [
   check("email")
@@ -99,6 +99,19 @@ const validatebookShelf = [
   handleValidationErrors,
 ];
 
+
+router.get('/username', asyncHandler(async (req, res) => {
+  try{
+    const { token } = req
+    const { id } = jwt.decode(token).data
+    const user = await User.findByPk(id);
+    res.json({ user });
+  }catch(e){
+    console.log(e)
+  }
+}));
+
+
 // create the bookshelves list (grab the shelves)
 //api-user/shelves
 router.get("/shelves",
@@ -106,7 +119,8 @@ router.get("/shelves",
     try{
       const shelves = await Shelf.findAll({
         where: {
-          user_id : req.user.id
+          //req.user.id needs back
+          user_id : 1
         },
         order: [["createdAt", "DESC"]],
       });
@@ -319,7 +333,8 @@ router.delete("/shelves/:bookshelfid/books/:bookid",
 router.get('/profile', asyncHandler( async(req, res) => {
 
   const genres = await Genre.findAll( {
-    include: {model: User, where: {id: req.user.id}}
+    //need req.user.id
+    include: {model: User, where: {id: 1}}
   });
   res.json({ genres });
 

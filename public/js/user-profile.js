@@ -1,14 +1,5 @@
 import { handleErrors } from './utils.js'
-
-let userId = 2;
-
-// Get genres for the user
-const getUserGenres = async () => {
-  const res = await fetch('/api-user/profile');
-  const { genres } = await res.json();
-  return genres;
-};
-
+const editButton = document.querySelector('.edit-button');
 // Create genre names
 const createGenreDiv = (genre, userId) => {
 
@@ -18,10 +9,16 @@ const createGenreDiv = (genre, userId) => {
   let genreCoverDiv = document.createElement('div');
   genreCoverDiv.className = 'genre-in-profile__genre-cover';
 
+  let deleteGenreButton = document.createElement("button");
+  deleteGenreButton.setAttribute("class", "genre-delete-button");
+
   let genreNameDiv = document.createElement('div');
   genreNameDiv.className = 'genre-in-profile__genre-name';
   genreNameDiv.innerHTML = `${genre.name}`;
+  genreNameDiv.setAttribute("id", `${genre.id}`);
 
+  deleteGenreButton.innerHTML = "x";
+  genreNameDiv.appendChild(deleteGenreButton);
   genreDiv.appendChild(genreCoverDiv);
   genreDiv.appendChild(genreNameDiv);
 
@@ -30,9 +27,25 @@ const createGenreDiv = (genre, userId) => {
 
 };
 
+let userId = localStorage.getItem("BADREADS_CURRENT_USER_ID");
+
+// Get genres for the user
+const getUserGenres = async () => {
+  const res = await fetch('/api-user/profile', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(
+          "BADREADS_ACCESS_TOKEN"
+      )}`,
+    }
+  });
+  const { genres } = await res.json();
+
+  return genres;
+};
+
 
 export const populateUserGenres = async () => {
-  const userGenres = document.querySelector('.favorite-genres');
+  const userGenres = document.querySelector('.container_favorite-genres');
   //const userName = document.querySelector('.user-name');
   const genres = await getUserGenres();
   userGenres.innerHTML = '';
@@ -43,3 +56,41 @@ export const populateUserGenres = async () => {
     userGenres.appendChild(genreDiv);
   };
 };
+
+window.addEventListener("DOMContentLoaded", async () => {
+  populateUserGenres();
+  const genreContainer = document.querySelector('.container_favorite-genres');
+
+  const res = await fetch('/api-user/username', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(
+          "BADREADS_ACCESS_TOKEN"
+      )}`,
+    }
+  });
+  const { user } = await res.json();
+  console.log(user);
+  const name = document.querySelector(".user-info__name");
+  const email = document.querySelector(".user-info__email");
+  name.innerHTML = `${user.username}`;
+  email.innerHTML = `${user.email}`;
+
+  genreContainer.addEventListener("click", async (event) => {
+
+    const genreId = event.target.parentNode.id;
+
+    console.log(event.target.parentNode.id);
+
+
+    const res = await fetch(`/api-user/profile/${genreId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(
+            "BADREADS_ACCESS_TOKEN"
+        )}`,
+      }
+    });
+
+    location.reload();
+  });
+})
