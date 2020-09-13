@@ -122,7 +122,6 @@ module.exports = {
         description: "Thrilling new vocabulary with which to alienate friends and offend family",
         user_id: 3,
         createdAt: new Date(),
-
         updatedAt: new Date()
       },
       {

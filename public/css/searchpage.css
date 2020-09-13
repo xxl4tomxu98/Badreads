@@ -1,63 +1,79 @@
 body {
-    font-family: sans-serif;
-    /* background-color: lightgrey; */
+  font-family: sans-serif;
+  /* background-color: lightgrey; */
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 h1 {
-    color: #eee;
-    margin-bottom: 30px;
+  color: #eee;
+  margin-bottom: 30px;
 }
 
 /* #booksList {
-    padding-inline-start: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    grid-gap: 20px;
+  padding-inline-start: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 20px;
 } */
 
-.booksearch {
-  display: grid;
+.searchTitle {
   width: 800px;
-  grid-template-columns: 150px 1fr;
-  grid-template-rows: 150px;
-  padding: 20px;
   margin: auto;
+}
+.booksearch {
+display: grid;
+width: 800px;
+grid-template-columns: 150px 1fr;
+grid-template-rows: 150px;
+padding: 20px;
+margin: auto;
 }
 
 .booksearch h3 {
-  font-size: 20px;
+font-size: 20px;
+margin-bottom: 0px;
 };
 
-.booksearch__block{}
-.booksearch__container{
-  display:block;
-  height: 90px;
-  overflow: hidden;
-}
+.booksearch h4 {
+  margin-bottom: 0px;
+};
+
+/* .booksearch__block{} */
+
 .booksearch__book-cover {
-  height: 150px;
+height: 150px;
+}
+
+div .booksearch__container{
+  display:block;
+  height: 80px;
+}
+
+.booksearch__container__description{
+display:block;
+height: 70px;
+overflow: hidden;
 }
 
 #searchBar {
-    width: 100%;
-    height: 32px;
-    border-radius: 3px;
-    border: 1px solid #eaeaea;
-    padding: 5px 10px;
-    font-size: 12px;
+  width: 100%;
+  height: 32px;
+  border-radius: 3px;
+  border: 1px solid #eaeaea;
+  padding: 5px 10px;
+  font-size: 12px;
 }
 
 #searchWrapper {
-    position: relative;
+  position: relative;
 }
 
 #searchWrapper::after {
-    content: '🔍';
-    position: absolute;
-    top: 7px;
-    right: 15px;
+  content: '🔍';
+  position: absolute;
+  top: 7px;
+  right: 15px;
 }

@@ -4,6 +4,7 @@ extends layout.pug
 block content
   include includes/nav.pug
 
+<<<<<<< HEAD
   div.searchpage
   each book in books
     div(class='booksearch')
@@ -11,9 +12,25 @@ block content
         img(class='booksearch__book-cover book-cover' src=`./images/${book.id}.jpg` alt='book image')
       div(class='booksearch__block')
         div(class='booksearch__container booksearch__container__headers')
+=======
+  div.searchTitle
+    h2= searchTitle
+  each book in books
+    div(class='booksearch')
+      div(class='booksearch__block')
+        if book.id < 29
+          img(class='bookpage-container__book-cover book-cover' src=`../images/${book.id}.jpg` style="height: 150px; width: 97px; overflow: hidden;" alt=`${book.name}`)
+      div(class='booksearch__block')
+        div(class='booksearch__container')
+>>>>>>> master
           a(href=`/books/${book.id}`)
             h3= book.title
           h4= book.author
           h4= book.publicationYear
+<<<<<<< HEAD
         div(class='booksearch__container booksearch__container__description')
           text= book.description
+=======
+        div(class='booksearch__container')
+          p.booksearch__container__description= book.description
+>>>>>>> master

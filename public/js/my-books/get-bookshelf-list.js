@@ -88,8 +88,11 @@ const openCreateNewBookshelfField = async () => {
 };
 
 export const populateUserBookshelfList = async () => {
-    const { shelves } = await getBookshelves();
+    const { shelves, username } = await getBookshelves();
 
+    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
+    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
+    console.log('username', capitalizedUsername);
     if (shelves) {
         for (let bookshelf of shelves) {
             // // console.log('bookshelf', bookshelf)

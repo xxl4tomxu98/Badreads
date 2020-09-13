@@ -15,6 +15,8 @@ export const createAddToShelfDropdown = async(bookId, hidden) => {
     if(hidden) {
       dropdownForm.classList.remove('hidden');
     }
+    console.log(bookshelves);
+    console.log(dropdownFormSelect)
     if(bookshelves) {
         for (let shelf of bookshelves.allShelvesWithoutBook) {
             const option = new Option(shelf.name, shelf.id);

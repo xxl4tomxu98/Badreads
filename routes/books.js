@@ -39,9 +39,11 @@ router.get('/', asyncHandler(async (req, res) => {
       order: [['title', 'ASC']]
     })
   }
+  console.log(books);
+  const searchTitle = `Search result for "${term}"`
   // console.log(books);
-  console.log(term);
-  res.render('searchpage', { books});
+  res.render('searchpage', { books, searchTitle });
+
 }))
 
 //when user goes to /books/bookid
@@ -62,7 +64,7 @@ router.get('/:bookid(\\d+)', asyncHandler(async (req, res) => {
   //   }
   // })
 
-  res.render('book', {
+  res.render('bookpage', {
     book
   }
   )
