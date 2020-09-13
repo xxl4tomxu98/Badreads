@@ -1,12 +1,36 @@
+/* Changes:
+    add shelf POST request
+      line 148 Changed Route Name form /new-shelf to /shelves
+      line 155  fixed 'Shelf' from 'bookshelf'
+      line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
+
 const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { requireAuth } = require("../auth");
-const {Shelf, Book, Books_Shelf, User} = require('../db/models');
 
+const jwt = require('jsonwebtoken');
 const router = express.Router()
-router.use(requireAuth)
+const { User, Shelf, Book, Genre, Books_Shelf, User_Genre } = require('../db/models');
+const bcrypt = require('bcryptjs')
+
+router.use(requireAuth);
+
+const validateEmailAndPassword = [
+  check("email")
+    .exists({ checkFalsy: true })
+    .isEmail()
+    .withMessage("Please provide a valid email."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password."),
+  handleValidationErrors,
+];
+
+
+
 
 const bookshelfNotFoundError = (id) => {
   const err = Error("Bookshelf not found");
@@ -15,6 +39,62 @@ const bookshelfNotFoundError = (id) => {
   err.status = 404;
   return err;
 };
+
+
+
+//user authorization
+
+//create a user in database after logging in (post req from form) and returns a user and their token
+router.post(
+  "/",
+  validateEmailAndPassword,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, email, hashedPassword });
+
+    const token = getUserToken(user);
+    res.status(201).json({
+      user: { id: user.id },
+      token,
+    });
+  })
+);
+
+//login in route to get a new token for existing user
+router.post(
+  "/token",
+  validateEmailAndPassword,
+  asyncHandler(async (req, res, next) => {
+    try{
+      const { email, password } = req.body;
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+      // console.log(user, password)
+      if (!user || !user.validatePassword(password)) {
+        const err = new Error("Login failed");
+        err.status = 401;
+        err.title = "Login failed";
+        err.errors = ["The provided credentials were invalid."];
+        return next(err);
+      }
+      const token = getUserToken(user);
+      res.json({ token, user: { id: user.id } });
+
+    }catch(err){
+      console.log(err)
+    }
+  })
+);
+
+
+
+
+
 
 const validatebookShelf = [
   check("newBookshelfName")
@@ -27,6 +107,19 @@ const validatebookShelf = [
   handleValidationErrors,
 ];
 
+
+router.get('/username', asyncHandler(async (req, res) => {
+  try{
+    const { token } = req
+    const { id } = jwt.decode(token).data
+    const user = await User.findByPk(id);
+    res.json({ user });
+  }catch(e){
+    console.log(e)
+  }
+}));
+
+
 // create the bookshelves list (grab the shelves)
 //api-user/shelves
 router.get("/shelves",
@@ -34,8 +127,8 @@ router.get("/shelves",
     try{
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id
-        // user_id: req.user.id
+        //user_id : 2
+        user_id: req.user.id
       },
       order: [["createdAt", "DESC"]],
     });
@@ -51,15 +144,17 @@ router.get("/shelves",
   }
 }));
 
+/*
+line 148 Changed Route Name form /new-shelf to /shelves
+line 155  fixed 'Shelf' from 'bookshelf'
+line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
 // add the bookshelf to database
-/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/new-shelf",
+router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
-    console.log('in post request')
     const { newBookshelfName } = req.body;
-    console.log('newBookshelfName', newBookshelfName)
     const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
     // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
     return res.json({ bookshelf });
@@ -94,17 +189,28 @@ router.delete(
         id: req.params.bookshelfid,
       },
     });
-    if (userId !== bookshelf.user_id) {
+
     // if (req.user.id !== bookshelf.user_id) {
-      const err = new Error("Unauthorized");
-      err.status = 401;
-      err.message = "You are not authorized to delete this tweet.";
-      err.title = "Unauthorized";
-      throw err;
-    }
+    //   const err = new Error("Unauthorized");
+    //   err .status = 401;
+    //   err.message = "You are not authorized to delete this bookshelf.";
+    //   err.title = "Unauthorized";
+    //   throw err;
+    //}
     if (bookshelf) {
+      const bookAndShelfConnections = await Books_Shelf.findAll({
+        where: {
+          shelf_id: req.params.bookshelfid
+        }
+      });
+
+      for (let connection of bookAndShelfConnections) {
+        await connection.destroy()
+      };
+
       await bookshelf.destroy();
       res.json({ message: `Deleted bookshelf with id of ${req.params.bookshelfid}.` });
+      res.redirect('/');
     } else {
       next(bookshelfNotFoundError(req.params.bookshelfid));
     }
@@ -193,7 +299,7 @@ router.post("/shelves/:bookshelfid/books/:bookid", */
 }));
 
 // Get books on a specific shelf
-router.get('/:id/books',
+router.get('/shelves/:id/books',
   asyncHandler(async (req, res) => {
     console.log('req.params.id', req.params.id);
     const books = await Book.findAll({
@@ -209,10 +315,10 @@ router.get('/:id/books',
 
 // delete book from a bookshelf
 //should be /api-use/shelves/:bookshelfid/books/:bookid
-router.delete("/:bookshelfid/books/:bookid",
+router.delete("/shelves/:bookshelfid/books/:bookid",
   asyncHandler(async(req, res) => {
     const bookId = req.params.bookid;
-    // const { bookshelf } = req.body.bookshelf;
+    const bookshelfId = req.params.bookshelfid;
 
     const book = await Book.findByPk(bookId);
     const bookshelf = await Shelf.findByPk(bookshelfId, {
@@ -245,6 +351,47 @@ router.delete("/:bookshelfid/books/:bookid",
   }));
 
 
+// routes for api-user/profile
+
+router.get('/profile', asyncHandler( async(req, res) => {
+
+  const genres = await Genre.findAll( {
+    //need req.user.id
+    include: {model: User, where: {id: req.user.id}}
+  });
+  res.json({ genres });
+
+}));
+
+// Add a genre to the user's favorites in the user-profile page
+router.post("/profile/:genreid",
+  asyncHandler(async (req, res) => {
+    const genreId = req.params.genreid;
+    const user = await User.findByPk(req.user.id);
+    const genre = await Genre.findByPk(genreId);
+    await user.addGenre(genre);
+    res.json(user);
+}));
+
+
+
+// disconnect a genre from the user profile
+router.delete(
+  "/profile/:genreid",
+  asyncHandler(async (req, res) => {
+    const genreId = req.params.genreid;
+    const genreAndUserConnections = await User_Genre.findAll({
+      where: {
+        genre_id: genreId
+      }
+    });
+    for (let connection of genreAndUserConnections) {
+      await connection.destroy();
+    };
+    res.json({ message: `Disconnect genre with id of ${genreId} from the user.` });
+    res.redirect('/');
+  })
+);
 
 
 

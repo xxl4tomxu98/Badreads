@@ -13,12 +13,14 @@ block content
                 h2.quote “A room without books is like a body without a soul.”
                 h3.quote-author ― Marcus Tullius Cicero
             include includes/bookshelf-book-list.pug
-        .bookshelf-books__book-header
-            h3.bookshelf-books__book-title
-            h4.bookshelf-books__book-author
-            form(class='drop-down-form hidden' name='form')
-                select(name='dropdownFormSelect' class='drop-down-form__select')
-                button(type='submit' class='drop-down-form__button') submit
+        div(class="bookshelf-books__dropdown")
+          .bookshelf-books__book-header
+              h3.bookshelf-books__book-title
+              h4.bookshelf-books__book-author
+              form(class='drop-down-form hidden' name='form')
+                  select(name='dropdownFormSelect' class='drop-down-form__select')
+                    option(class='drop-down-form__option' name='selectBook') add to bookshelf
+                  button(type='submit' class='drop-down-form__button') submit
 
-        .bookshelf-books__book-description
+          .bookshelf-books__book-description
     script(src="../js/my-books/my-books-index.js" type="module")

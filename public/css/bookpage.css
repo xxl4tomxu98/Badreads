@@ -3,8 +3,6 @@ body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-
-
 .book-container {
   display: grid;
   width: 800px;
@@ -12,53 +10,59 @@ body{
   grid-auto-rows: minmax(min-content, max-content);
   grid-template-areas:
   'book-image book-info'
+  'genres book-info'
   'genres reviews';
   margin: 0 auto;
   gap: 10px;
   margin-top: 50px;
-
 }
 
 .container__book-info{
   grid-area: book-info;
   font-size: 1.5em;
-  /* display: block; */
 }
 
-.container__book-info__description{
-  margin-top: 50px;
+.bookpage-container__book-info__description{
+  margin-top: 20px;
 }
-
 
 .container__book-image{
   grid-area: book-image;
-  margin: 0 auto;
-
-}
-
-.container__book-image img{
   height: 225px;
   width: 150px;
+  margin: 0 auto;
 }
-
 
 .container__genres{
   grid-area: genres;
   margin: 0 auto;
 }
 .container__genres__links{
-  text-decoration: underline;
+  text-decoration: none;
+  color: gray;
+}
+
+.container__genres__links:hover {
+  color: gray;
 }
 
 .bookpage-container__book-info__author {
   font-weight: 200;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
+
 .container__reviews-title{
   margin-top: 20px;
   font-size: 18px;
   grid-area: reviews;
+}
+
+.bookpage-container__reviews__input {
+  padding: 20px;
+  height: fit-content;
+  grid-column: 2 / 3;
+  width: 100%;
 }
 
 .container__reviews{
@@ -67,7 +71,7 @@ body{
   /* grid-template-rows: 15px 90% 20px; */
   /* grid-auto-rows: minmax(min-content, max-content); */
   grid-template-rows: 20px 1fr 20px;
-  padding: 30px;
+  padding: 20px;
   background-color: rgb(255, 254, 254);
   box-shadow: 10px 10px 10px -10px #888888;
 }
@@ -132,7 +136,3 @@ body{
       min-width: 900px;
   }
 }
-
-/* body{
-
-/* body{

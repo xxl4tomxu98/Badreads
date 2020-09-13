@@ -30,7 +30,6 @@ const appendBookshelfLi = (bookshelf) => {
     const bookshelfList = document.querySelector('.bookshelf-list');
     li.addEventListener('click', () => populateBookshelfBookList(bookshelf.id))
     bookshelfList.appendChild(li);
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
 };
 
 const openCreateNewBookshelfField = async () => {
@@ -42,22 +41,25 @@ const openCreateNewBookshelfField = async () => {
     // Display form field
     newBookshelfFormField.classList.remove('hidden');
 
+    console.log('addbookshelfbutton',addBookshelfButton)
+
     // Change button type
     setTimeout(function () {
-        addBookshelfButton
-            .removeAttribute('type')
-            .classlist.remove('buttonButton')
-            .type = 'submit';
+        addBookshelfButton.removeAttribute('type');
+        addBookshelfButton.type = 'submit';
     }, 1000);
+
+    console.log('addbookshelfbutton', addBookshelfButton)
 
     addBookshelfButton.addEventListener('click', async e => {
         e.preventDefault();
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
 
-        const body = { newBookshelfName }
+        console.log('newbookshelfname', newBookshelfName)
+        const body = {newBookshelfName}
 
-        const res = await fetch('http://localhost:8080/api-user/new-shelf', {
+        const res = await fetch('http://localhost:8080/api-user/shelves', {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -91,6 +93,7 @@ export const populateUserBookshelfList = async () => {
     const { shelves, username } = await getBookshelves();
 
     var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
+
     document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
     console.log('username', capitalizedUsername);
     if (shelves) {

@@ -8,8 +8,8 @@ block content
             h3(class='bookpage-container__book-info__author')
             //- buton(class='btn btn-danger')
             form(class='drop-down-form' name='form')
-                select(name='dropdownFormSelect' class='drop-down-form__select')
-                button(type='submit' class='drop-down-form__button') submit
+                select(name='dropdownFormSelect' class='drop-down-form__select drop-down')
+                button(type='submit' class='drop-down-form__button button-light') submit
 
             h5(class='bookpage-container__book-info__description')
 
@@ -18,7 +18,7 @@ block content
         div(class='container_genres')
             h5 Genres
             each genre in book.Genres
-                a(class='container__genres_links' href='/') #{genre.name}
+                a(class='container__genres__links' href='/') #{genre.name}
         div(class='container__reviews-title')
             h3 Reviews
             div

@@ -8,13 +8,29 @@
     grid-template-columns: 2fr 4fr  60px;
     box-shadow: 2px 2px 10px #5f6f7936;
     margin-bottom: 50px;
+    padding: 15px;
 }
 
 
+.navbar__logo__button {
+    border: none;
+    background: none;
+}
+.navbar__logo__button__img {
+    height: 60px;
+    border-radius: 50%;
+    opacity: .8;
+}
+
+.navbar__logo__button__img:hover {
+    opacity: 1;
+}
+
 .navbar__text-logo {
     color: whitesmoke;
-    font-size: 30px;
     font-weight: 100;
+    font-size: 40px
+
 }
 
 .navbar__text-logo-div {
@@ -46,6 +62,8 @@
     font-size: 14px;
     padding: 5px;
     padding-left: 10px;
+    height: 40px;
+    border-radius: 10px;
     width: 300px;
     box-shadow: 0 0 6 rgba(156, 172, 183, 100)
 }
