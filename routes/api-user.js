@@ -141,9 +141,9 @@ router.get("/shelves",
 router.post("/new-shelf",
   validatebookShelf,
   asyncHandler(async (req, res) => {
-    console.log('in post request')
-    const { name } = req.body;
-    const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
+    console.log('in post request', 'name----', req.body.newBookshelfName)
+    const { newBookshelfName } = req.body;
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id });
     res.json({ bookshelf });
   })
 );
