@@ -13,8 +13,8 @@ block content
           for genre in genres
             +genreButton(genre)
       div(class="genre-container__button-container")
-        label(type="button" class="genre-container__selectAll btn-styling btn btn-default") Select All
-        label(type="submit" class="genre-container__submit-button btn-styling btn btn-default") Submit
+        label(type="button" id="genre-select-all" class="genre-container__selectAll btn-styling btn btn-default")
+        label(type="button" id="genre-submit" class="genre-container__submit-button btn-styling btn btn-default") Submit
 
   style.
     .genre-container__genre-group {
@@ -26,10 +26,11 @@ block content
     .genre-container__header {
         text-align: center;
     }
-    .genre-container__genre-group label.btn-default.active{
+    .genre-container__genre-group label.btn-default.active {
         background-color: #007ba7;
         color: #FFF;
     }
+
     .genre-container__genre-group label.btn-styling{
         width:100%;
         border:1px solid #305891;
