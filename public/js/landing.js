@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     quoteArea.innerHTML = ghandiQuotes[randomNum] + '   -Ghandi'
 })
 
-//logic for signing up 
+//logic for signing up
 signUpForm.addEventListener('submit', async (e) => {
     e.preventDefault()
 
@@ -31,15 +31,15 @@ signUpForm.addEventListener('submit', async (e) => {
     const body = { username, email, password }
 
     try {
-        const res = await fetch("/api-user", {
+        const res = await fetch("/auth-user", {
           method: "POST",
           body: JSON.stringify(body),
           headers: {
             "Content-Type": "application/json",
           },
         });
-        
-        //fetches don't catch errors other than network failures so you 
+
+        //fetches don't catch errors other than network failures so you
         //have to check to see if it's another res beside 200 ok and throw an error so
         //that the handleErrors ftn will catch them
         if (!res.ok) {
@@ -52,13 +52,13 @@ signUpForm.addEventListener('submit', async (e) => {
             token,
             user: { id },
           } = await res.json();
-          
+
           //add current user info to local storage
           localStorage.setItem("BADREADS_ACCESS_TOKEN", token);
           localStorage.setItem("BADREADS_CURRENT_USER_ID", id);
 
           //redirect user to my-books page after login to display shelves
-          window.location.href = "/user";
+          window.location.href = "/register";
 
       }catch(err){
           console.log(err)
@@ -77,7 +77,7 @@ loginForm.addEventListener('submit', async (e) =>{
         const password = formData.get("password2");
         const body = { email, password };
         try {
-          const res = await fetch("/api-user/token", {
+          const res = await fetch("/auth-user/token", {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -96,9 +96,9 @@ loginForm.addEventListener('submit', async (e) =>{
           localStorage.setItem("BADREADS_CURRENT_USER_ID", id);
 
           // redirect to home page to see all tweets:
-          window.location.href = "/user";
+          window.location.href = "/user/shelves";
         } catch (err) {
-            console.log(err)    
+            console.log(err)
             handleErrors(err, '.login-errors-container')
       };
 })

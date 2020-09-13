@@ -1,116 +1,100 @@
 extends layout.pug
 
+include ./includes/favoriteGenres.pug
+
 block content
 
-  .container
-    h2 Pick your favorite genres
-    .row
-      .form-group
-        .items-collection
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.bizmoduleselect(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-car.fa-2x
-                    h5 car
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-truck.fa-2x
-                    h5 truck
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-laptop.fa-2x
-                    h5 laptop
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-cube.fa-2x
-                    h5 cube
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-lock.fa-2x
-                    h5 secure
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-barcode.fa-2x
-                    h5 barcode
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-key.fa-2x
-                    h5 key
-          .items.col-xs-6.col-sm-3.col-md-3.col-lg-3
-            .info-block.block-info.clearfix
-              .btn-group.itemcontent(data-toggle='buttons')
-                label.btn.btn-secondary
-                  .itemcontent
-                    input(type='checkbox', name='var_id[]', autocomplete='off', value='')
-                    span.fa.fa-keyboard-o.fa-2x
-                    h5 keyboard
-    .row
-      br
-      .form-group
-        .col-sm-12.col-md-12.col-lg-12
-          i.fa.fa-search.fa-2x.float-xs-left.searchicon
-          input#search.form-control(type='search', placeholder='Filter items...')
-    style.
-      #search {
-      width:90%;
-      }
-      .searchicon {
-      color:#5CB85C;
-      }
-      .items-collection{
-      margin:20px 0 0 0;
-      }
-      .items-collection label.btn-default.active{
-      background-color:#007ba7;
-      color:#FFF;
-      }
-      .items-collection label.btn-default{
-      width:90%;
-      border:1px solid #305891;
-      margin:5px;
-      border-radius: 17px;
-      color: #305891;
-      }
-      .items-collection label .itemcontent{
-      width:100%;
-      }
-      .items-collection .btn-group{
-      width:90%
-      }
-    script.
-      $(function () {
-      $('#search').on('keyup', function () {
-      var pattern = $(this).val();
-      $('.items-collection .items').hide();
-      $('.items-collection .items').filter(function () {
-      return $(this).text().match(new RegExp(pattern, 'i'));
-      }).show();
-      });
-      });
+  div(class='container genre-container')
+    h2(class="genre-container__header") Pick your favorite genres
+    form(class="genre-container__form")
+      div(class="genre-container__row")
+      div(class="form-group genre-container__form-group")
+        div(id="availableGenres" class="genre-container__genre-group")
+          for genre in genres
+            +genreButton(genre)
+      div(class="genre-container__button-container")
+        label(type="button" id="genre-select-all" class="genre-container__selectAll btn-styling btn btn-default")
+        label(type="button" id="genre-submit" class="genre-container__submit-button btn-styling btn btn-default") Submit
+
+  style.
+    .genre-container__genre-group {
+        margin:20px 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .genre-container__header {
+        text-align: center;
+    }
+    .genre-container__genre-group label.btn-default.active {
+        background-color: #007ba7;
+        color: #FFF;
+    }
+
+    .genre-container__genre-group label.btn-styling{
+        width:100%;
+        border:1px solid #305891;
+        margin:5px;
+        border-radius: 23px;
+        color: #FFF;
+        background-color: skyblue;
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
+    }
+
+
+    .genre-container__genre-group label .genre-container__button-content{
+        width:100%;
+    }
+    .genre-container__genre-group .btn-group{
+        width:90%
+    }
+    .genre-container__genre-text {
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        padding-top: 10px;
+    }
+    .genre-container__submit-button {
+
+        text-align: center;
+        background color: #007ba7;
+        width:10%;
+        border:1px solid #305891;
+        margin:5px;
+        border-radius: 23px;
+        color: #000;
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
+    }
+
+    .genre-container__selectAll {
+
+        text-align: center;
+        background color: #007ba7;
+        width:10%;
+        border:1px solid #305891;
+        margin:5px;
+        border-radius: 23px;
+        color: #000;
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
+    }
+
+    .genre-container {
+        height: 350px;
+        width: 75%;
+        background-color: gainsboro;
+        border-radius: 10px;
+    }
+
+    .genre-container__button-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .genre-container__button-container label.btn-styling{
+        background-color: #007ba7;
+    }
+
+  script(type="text/javascript" src="../bootstrap/js/jquery-1.10.2.min.js")
+  script(type="text/javascript" src="../bootstrap/js/bootstrap.min.js")
+  script(type="text/javascript" src="../js/register.js")
