@@ -65,3 +65,38 @@ $submitButton.on("click", function ( event ) {
   event.preventDefault();
   $(location).attr('href', '/user/shelves');
 })
+
+
+// old Code
+
+// import { handleErrors } from './utils.js'
+
+// // to obtain any information stored in local storage related to user's genre selections
+// const genreInfo = JSON.parse(localStorage.getItem('genreInfo')) || {};
+// // select all the checkboxes
+// // const genreSelections = document.querySelectorAll('input[type="checkbox"]:checked'), values = [];
+// const genreSelections = document.querySelectorAll('.genre-container__checkbox'), values = [];
+
+// // select  button
+// const selectAllButton = document.getElementById('genre-select-all-button');
+// // listen for a change on the boxes and iterate to update our key value pairs
+// function isChecked(checkbox) {
+//   return checkbox.checked === true;
+// }
+
+// let allChecked = () => genreSelections.length === genreSelections.filter(isChecked(checkbox));
+
+// genreSelections.addEventListener("change", event => {
+
+//   genreSelections.forEach(() => {
+//     genreInfo[this.id] = this.checked;
+//   });
+//   // set new value of user genre selections in local storage
+//   localStorage.setItem("genreInfo", JSON.stringify(genreInfo));
+//   window.location.href = "user/shelves";
+// });
+
+// // when the page loads set the checkboxes
+// genreInfo.forEach((key, value) => {
+//   ('#' + key).checked = value;
+// });
