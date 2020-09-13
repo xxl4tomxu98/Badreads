@@ -1,0 +1,77 @@
+.container_profile{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  grid-template-rows: auto;
+  grid-template-areas:
+    'picture user-info'
+    'add-button favorite-genres';
+}
+
+
+.container_picture{
+  grid-area: picture;
+  display: flex;
+  margin: 30px 30px;
+  justify-content: center;
+}
+
+.picture{
+  height: 200px;
+  width: 200px;
+  box-shadow: 10px 10px 10px -10px #000000;
+}
+
+
+.container_user-info{
+  grid-area: user-info;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 200px;
+  color: black;
+  margin: 30px 30px auto;
+}
+
+.user-info {
+  padding: 10px;
+}
+
+.user-info__name {
+  margin: auto;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.user-info__email {
+  margin: auto;
+  text-align: center;
+}
+
+.user-info__address {
+  margin: auto;
+  text-align: center;
+}
+
+.container_add-button{
+  grid-area: add-button;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.button-light, .add-button {
+  background-color: rgb(208, 163, 132);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px 0px;
+}
+
+.button-light:hover{
+  box-shadow: 0px 3px 6px 0px rgb(0, 0, 0, .5)
+}
