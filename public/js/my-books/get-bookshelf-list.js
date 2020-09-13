@@ -35,23 +35,18 @@ const appendBookshelfLi = (bookshelf) => {
 const openCreateNewBookshelfField = async () => {
     console.log("calling open create new")
     const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
-
     const newBookshelfForm = document.querySelector('.add-bookshelf-form');
     const newBookshelfFormField = document.querySelector('#add-new-bookshelf__input-field')
-    // Display form field
+
+    // Display form field // hide button
+    addBookshelfButton.classList.add('hidden');
     newBookshelfFormField.classList.remove('hidden');
 
     console.log('addbookshelfbutton',addBookshelfButton)
 
-    // Change button type
-    setTimeout(function () {
-        addBookshelfButton.removeAttribute('type');
-        addBookshelfButton.type = 'submit';
-    }, 1000);
-
     console.log('addbookshelfbutton', addBookshelfButton)
 
-    addBookshelfButton.addEventListener('click', async e => {
+    newBookshelfForm.addEventListener('submit', async e => {
         e.preventDefault();
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
@@ -70,21 +65,19 @@ const openCreateNewBookshelfField = async () => {
             }
         });
 
-
         //return newly created bookshelf
         const data = await res.json();
         const { bookshelf } = data;
 
-        // console.log(bookshelf)
-        appendBookshelfLi(bookshelf);
+        const overlay = document.querySelector('.overlay');
+        overlay.classList.remove('overlay-hidden');
+        overlay.innerHTML = `'${newBookshelfName}' added to your shelves!`
         newBookshelfFormField.classList.add('hidden');
+        addBookshelfButton.classList.remove('hidden');
 
-        setTimeout(function () {
-            addBookshelfButton
-                .removeAttribute('type')
-                .classlist.add('buttonButton')
-                .type = 'button';
-        }, 1000);
+        setTimeout(() => {
+            overlay.classList.add('overlay-hidden');
+        }, 3000)
     });
 
 };

@@ -10,17 +10,20 @@ block content
         .bookshelf-books.my-custom-scrollbar.my-custom-scrollbar-primary
             .welcome-header
                 h1#welcome
-                h2.quote “A room without books is like a body without a soul.”
+                h2.quote(style="font-weight: light;") “A room without books is like a body without a soul.”
                 h3.quote-author ― Marcus Tullius Cicero
             include includes/bookshelf-book-list.pug
         div(class="bookshelf-books__dropdown")
           .bookshelf-books__book-header
-              h3.bookshelf-books__book-title
-              h4.bookshelf-books__book-author
-              form(class='drop-down-form hidden' name='form')
-                  select(name='dropdownFormSelect' class='drop-down-form__select')
-                    option(class='drop-down-form__option' name='selectBook') add to bookshelf
-                  button(type='submit' class='drop-down-form__button') submit
+                div
+                    h3.bookshelf-books__book-title
+                    <i class="fas fa-minus-circle"></i>
+                h4.bookshelf-books__book-author
+                form(class='hidden' id='drop-down-form' name='form')
+                    select(name='dropdownFormSelect' id='drop-down-form__select' class='drop-down')
+                            option(class='drop-down-form__option drop-down' name='selectBook') add to bookshelf
+                    button(type='submit' id='drop-down-form__button' class='button-light') submit
+
 
           .bookshelf-books__book-description
     script(src="../js/my-books/my-books-index.js" type="module")

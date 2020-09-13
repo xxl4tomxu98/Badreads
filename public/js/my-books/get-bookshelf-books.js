@@ -62,6 +62,7 @@ export const populateBookshelfBookList = async (bookshelfId) => {
     bookshelfTitle.innerHTML = shelf.name;
     const deleteShelfButton = document.createElement("Button");
     deleteShelfButton.className = "delete-button";
+    deleteShelfButton.innerHTML = 'x'
     bookshelfTitle.appendChild(deleteShelfButton);
     deleteShelfButton.addEventListener("click", shelfDelete(bookshelfId));
 
