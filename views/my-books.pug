@@ -9,7 +9,7 @@ block content
         h1.bookshelf-title
         .bookshelf-books.my-custom-scrollbar.my-custom-scrollbar-primary
             .welcome-header
-                h1.welcome Welcome Sophie!
+                h1#welcome
                 h2.quote “A room without books is like a body without a soul.”
                 h3.quote-author ― Marcus Tullius Cicero
             include includes/bookshelf-book-list.pug
@@ -19,6 +19,7 @@ block content
               h4.bookshelf-books__book-author
               form(class='drop-down-form hidden' name='form')
                   select(name='dropdownFormSelect' class='drop-down-form__select')
+                    option(class='drop-down-form__option' name='selectBook') add to bookshelf
                   button(type='submit' class='drop-down-form__button') submit
 
           .bookshelf-books__book-description

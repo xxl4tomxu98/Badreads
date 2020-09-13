@@ -10,7 +10,7 @@ router.get('/shelves', async(req, res) => {
     console.log('coming from /user/shelves', req)
     res.render('my-books', {
         user
-    }, 
+    },
     )
 });
 
