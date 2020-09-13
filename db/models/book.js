@@ -21,13 +21,17 @@ module.exports = (sequelize, DataTypes) => {
     const columnMapping = {
       through: 'Books_Shelf',
       otherKey: 'shelf_id',
-      foreignKey: 'book_id'
+      foreignKey: 'book_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     };
     Book.belongsToMany(models.Shelf, columnMapping);
     const columnMapping1 = {
       through: 'Book_Genre',
       otherKey: 'genre_id',
-      foreignKey: 'book_id'
+      foreignKey: 'book_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     };
     Book.belongsToMany(models.Genre, columnMapping1);
     Book.hasMany(models.Review, {foreignKey: 'book_id'});

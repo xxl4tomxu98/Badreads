@@ -16,6 +16,7 @@ const landingRouter = require('./routes/landing')
 const booksRouter = require('./routes/books');
 const userRouter = require('./routes/user')
 const registerRouter = require('./routes/register')
+const profileRouter = require('./routes/profile');
 
 
 //api
@@ -24,12 +25,8 @@ const apiReviewRouter = require('./routes/api-reviews');
 const apiUserRouter = require('./routes/api-user');
 const authUserRouter = require('./routes/auth-user')
 
-
-
-// internal requires
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 
 // external use statements
@@ -39,7 +36,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(cors({ origin: "http://localhost:8080" }));
 app.use(paginate.middleware(10, 50));
 
-app.use(express.static(path.join(__dirname, 'public')));
 
 // internal route use statements
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,15 +44,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-books', apiBooksRouter)
 app.use('/api-reviews', apiReviewRouter)
 app.use('/api-user', apiUserRouter);
-app.use('/register', registerRouter)
-app.use('/auth-user', authUserRouter)
+app.use('/auth-user', authUserRouter);
 
 //front-end mounted routes
-app.use('/', landingRouter);
 app.use('/books', booksRouter)
+app.use('/register', registerRouter)
 app.use('/user', userRouter)
+app.use('/user/profile', profileRouter);
 // general error handler code, more specialized error handling in utils.js
-
+app.use('/', landingRouter);
 
 
 app.use((req, res, next) => {

@@ -1,4 +1,4 @@
-// import { bookDelete } from "./delete-book.js";
+import { bookDelete } from "./delete-book.js";
 import { createAddToShelfDropdown } from './add-to-shelf-dropdown.js'
 
 const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPublicationYear, bookId, bookshelfId) => {
@@ -12,10 +12,10 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
     bookTitleBlock.innerHTML = `<a href='/books/${bookId}'>${bookTitle}</a>`;
     bookAuthorBlock.innerHTML = bookAuthor;
     bookDescriptionBlock.innerHTML = bookDescription;
-    // const deleteBookButton = document.createElement("Button");
-    // deleteBookButton.className = "delete-button";
-    // bookTitleBlock.appendChild(deleteBookButton);
-    // deleteBookButton.addEventListener("click", bookDelete(bookshelfId, bookId));
+    const deleteBookButton = document.createElement("Button");
+    deleteBookButton.className = "delete-button";
+    bookTitleBlock.appendChild(deleteBookButton);
+    deleteBookButton.addEventListener("click", bookDelete(bookshelfId, bookId));
 
 
     const addToShelfDropdown = await createAddToShelfDropdown(bookId, true);
@@ -45,7 +45,7 @@ export const dropDownBookInfo = async(Book, bookshelfId) => {
         return;
       }
 
-    // const { book } = await res.json();
+    //const { book } = await res.json();
 
     // console.log(bookInfo.book);
     const bookTitle = book.title;
