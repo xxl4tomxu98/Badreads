@@ -6,13 +6,18 @@ const router = express.Router()
 
 const db = require("../db/models");
 
-const { User, Shelf, Review } = db;
+const { Genre, User, Shelf, Review } = db;
 
 //register page with genres
-router.get('/',  (req, res) => {
-    res.render('register', {
-      title: 'Register'
-    });
+router.get('/', asyncHandler(async (req, res) => {
+  const genres = await Genre.findAll({
+    order: [['name', 'ASC']]
+  })
+  console.log(genres);
+  res.render('register', {
+    title: 'Register',
+    genres
   });
-  
-  module.exports = router
+}));
+
+module.exports = router

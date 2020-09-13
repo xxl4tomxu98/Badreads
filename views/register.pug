@@ -1,25 +1,46 @@
 extends layout.pug
 
+include ./includes/favoriteGenres.pug
+
 block content
+  append head
+  link(rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css")
 
-    //- include utils.pug
+  div(class='container genre-container')
+    h2(class="genre-container__header") Pick your favorite genres
+    div(class="row genre-container__row")
+      div(class="form-group genre-container__form-group")
+        div(class="genre-container__genre-group")
+          for genre in genres
+            +genreButton(genre)
+  style.
+    .genre-container__genre-group {
+    margin:20px 0 0 0;
+    display: flex;
+    justify-content: center;
+    }
 
-    h1 register page 
-
-//- block content
-//-   +validationErrorSummary(errors)
-//-   form(action='/user/register' method='post')
-//-     input(type='hidden' name='_csrf' value=csrfToken)
-//-     +field('First Name', 'firstName', user.firstName)
-//-     +field('Last Name', 'lastName', user.lastName)
-//-     +field('Email Address', 'emailAddress', user.emailAddress)
-//-     +field('Password', 'password', user.password, 'password')
-//-     +field('Confirm Password', 'confirmPassword', '', 'password')
-//-     div(class='py-4')
-//-       button(type='submit' class='btn btn-primary') Register
-//-       a(href='/' class='btn btn-warning ml-2') Cancel
-//-   div
-//-     p: a(href='/user/login') Already have an account?
-
-
-//- should display genres selections after signup ----
+    .genre-container__header {
+        text-align: center;
+    }
+    .genre-container__genre-group label.btn-default.active{
+    background-color:#007ba7;
+    color:#FFF;
+    }
+    .genre-container__genre-group label.btn-default{
+    width:90%;
+    border:1px solid #305891;
+    margin:5px;
+    border-radius: 17px;
+    color: #305891;
+    }
+    .genre-container__genre-group label .genre-container__button-content{
+    width:100%;
+    }
+    .genre-container__genre-group .btn-group{
+    width:90%
+    }
+    .genre-container__button-label {
+        border-radius: 16px;
+        border: 1px;
+    }
