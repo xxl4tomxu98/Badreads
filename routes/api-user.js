@@ -120,7 +120,7 @@ router.get("/shelves",
       const shelves = await Shelf.findAll({
         where: {
           //req.user.id needs back
-          user_id : 1
+          user_id : 2
         },
         order: [["createdAt", "DESC"]],
       });
@@ -220,7 +220,11 @@ router.get("/excluded-shelves/:bookshelfid/books/:bookid",
       }
     });
     //all shelves in db
-    const allShelves = await Shelf.findAll();
+    const allShelves = await Shelf.findAll({
+      where: {
+        user_id : req.user.id,
+      }
+    });
     //shelf id's for all user shelves with specific book
     let includedShelf = [];
     for (let shelf of shelves) {
@@ -334,7 +338,7 @@ router.get('/profile', asyncHandler( async(req, res) => {
 
   const genres = await Genre.findAll( {
     //need req.user.id
-    include: {model: User, where: {id: 1}}
+    include: {model: User, where: {id: 2}}
   });
   res.json({ genres });
 
