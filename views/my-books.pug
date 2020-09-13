@@ -16,5 +16,9 @@ block content
         .bookshelf-books__book-header
             h3.bookshelf-books__book-title
             h4.bookshelf-books__book-author
+            form(class='drop-down-form hidden' name='form')
+                select(name='dropdownFormSelect' class='drop-down-form__select')
+                button(type='submit' class='drop-down-form__button') submit
+
         .bookshelf-books__book-description
     script(src="../js/my-books/my-books-index.js" type="module")
