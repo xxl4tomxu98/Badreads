@@ -12,10 +12,10 @@ block content
         if book.id < 29
           img(class='bookpage-container__book-cover book-cover' src=`../images/${book.id}.jpg` style="height: 150px; width: 97px; overflow: hidden;" alt=`${book.name}`)
       div(class='booksearch__block')
-        div(class='booksearch__container')
+        div(class='booksearch__container__header')
           a(href=`/books/${book.id}`)
-            h3= book.title
-          h4= book.author
-          h4= book.publicationYear
-        div(class='booksearch__container')
+            h3.booksearch__title= book.title
+          h4.booksearch__author= book.author
+          h4.booksearch__publication= book.publicationYear
+        div(class='booksearch__container__description')
           p.booksearch__container__description= book.description
