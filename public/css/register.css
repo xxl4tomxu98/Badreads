@@ -111,7 +111,8 @@ div.container.genre-container {
 }
 
 .genre-container__genre-group {
-  width: 800px
+max-width: 700px;
+  padding: 0;
 }
 
 .genre-container__submit-button {
