@@ -7,6 +7,11 @@ body {
   box-sizing: border-box;
 }
 
+h1 {
+  color: #eee;
+  margin-bottom: 30px;
+}
+
 /* #booksList {
   padding-inline-start: 0;
   display: grid;
@@ -18,7 +23,6 @@ body {
   width: 800px;
   margin: auto;
 }
-
 .booksearch {
 display: grid;
 width: 800px;
@@ -26,20 +30,6 @@ grid-template-columns: 150px 1fr;
 grid-template-rows: 150px;
 padding: 20px;
 margin: auto;
-}
-
-.booksearch__author {
-  padding-top: 5px;
-}
-
-.searchTitle h2 {
-  font-size: 30px;
-  font-weight: 500;
-  margin-bottom: 30px;
-}
-
-.booksearch__title:hover {
-  color: #171717d9;
 }
 
 .booksearch h3 {
