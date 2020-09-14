@@ -1,0 +1,12 @@
+.hidden-register-button{
+display: none
+}
+
+.register-submit-button{
+    text-decoration: unset;
+    color: black;
+   }
+
+.register-submit-button-div{
+    text-align: center;
+}
