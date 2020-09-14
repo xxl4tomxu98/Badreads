@@ -30,33 +30,46 @@ const appendBookshelfLi = (bookshelf) => {
     const bookshelfList = document.querySelector('.bookshelf-list');
     li.addEventListener('click', () => populateBookshelfBookList(bookshelf.id))
     bookshelfList.appendChild(li);
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
 };
 
 const openCreateNewBookshelfField = async () => {
-    console.log("calling open create new")
     const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
-
-    const newBookshelfForm = document.querySelector('.add-bookshelf-form');
     const newBookshelfFormField = document.querySelector('#add-new-bookshelf__input-field')
-    // Display form field
+
+    // Display form field // hide button
+    addBookshelfButton.classList.add('hidden');
     newBookshelfFormField.classList.remove('hidden');
+};
 
-    // Change button type
-    setTimeout(function () {
-        addBookshelfButton.removeAttribute('type');
-        addBookshelfButton.type = 'submit';
-    }, 1000);
+export const populateUserBookshelfList = async () => {
+    const newBookshelfFormField = document.querySelector('#add-new-bookshelf__input-field')
+    const addBookshelfButton = document.querySelector('.buttonButton');
+    const newBookshelfForm = document.querySelector('.add-bookshelf-form')
+    const { shelves, username } = await getBookshelves();
 
-    addBookshelfButton.addEventListener('click', async e => {
+    console.log('newbookshelfform', newBookshelfForm)
+    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
+    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
+
+
+    if (shelves) {
+        for (let bookshelf of shelves) {
+            // // console.log('bookshelf', bookshelf)
+            appendBookshelfLi(bookshelf);
+        }
+    }
+
+    addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
+
+    newBookshelfForm.addEventListener('submit', async e => {
         e.preventDefault();
-        addBookshelfButton.disabled = true;
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
 
-        const body = { newBookshelfName }
+        console.log('newbookshelfname', newBookshelfName)
+        const body = {newBookshelfName}
 
-        const res = await fetch('http://localhost:8080/api-user/new-shelf', {
+        const res = await fetch('http://localhost:8080/api-user/shelves', {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -67,35 +80,20 @@ const openCreateNewBookshelfField = async () => {
             }
         });
 
-
         //return newly created bookshelf
         const data = await res.json();
         const { bookshelf } = data;
 
-        // console.log(bookshelf)
         appendBookshelfLi(bookshelf);
+
+        const overlay = document.querySelector('.overlay');
+        overlay.classList.remove('overlay-hidden');
+        overlay.innerHTML = `'${newBookshelfName}' added to your shelves!`
         newBookshelfFormField.classList.add('hidden');
+        addBookshelfButton.classList.remove('hidden');
+
+        setTimeout(() => {
+            overlay.classList.add('overlay-hidden');
+        }, 3000)
     });
-
-    setTimeout(() => {
-        addBookshelfButton.type = 'button';
-        addBookshelfButton.disabled = false;
-    }, 1000);
-};
-
-export const populateUserBookshelfList = async () => {
-    const { shelves, username } = await getBookshelves();
-
-    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
-    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
-    console.log('username', capitalizedUsername);
-    if (shelves) {
-        for (let bookshelf of shelves) {
-            // // console.log('bookshelf', bookshelf)
-            appendBookshelfLi(bookshelf);
-        }
-    }
-
-    const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
-    addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
 };

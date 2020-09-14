@@ -4,6 +4,29 @@ body {
     color: rgb(114, 112, 112)
 }
 
+#margin-left {
+    margin-left: 10px;
+}
+
+a {
+  color: gray;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #7c9089;
+}
+a.hover {
+    color: gray;
+}
+.hidden {
+    display: none;
+}
+
+
+
 .button-light, .profile-button {
     background-color: rgb(208, 163, 132);
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, .25);
@@ -26,27 +49,17 @@ body {
     padding: 3px;
 }
 
-a:link {
-  color: #5c5a5a;
+h1 {
+  font-weight: 600;
+  margin-bottom: 30px;
 }
 
-/* mouse over link */
-a:hover, a:hover {
-  color: #404040;
+h2.quote {
+  font-weight: lighter;
 }
 
-/* selected link */
-a:active {
-  color: blue;
-}
-
-h3 a{
+h3 {
     color: gray;
-    font-size: 26px;
-}
-
-a:active {
-  color: blue;
 }
 
 h4 {
@@ -64,7 +77,7 @@ h5 {
 .add-to-bookshelf-dropdown {
     color: #576169;
     border-radius: 3px;
-    box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 25%);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, .25);
     margin-top: 5px;
     font-weight: 200;
     background-color: rgba(255,255,255, .8) ;
@@ -78,10 +91,11 @@ h5 {
 }
 
 .button-dark {
-    background-color: rgb(136, 84, 55);
+    background-color: rgb(136 84 55 / 76%);
     color: rgb(242, 242, 242);
     border: none;
-    border-radius: 7px;
+    height: 35px;
+    border-radius: 9px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, .6);
     padding: 5px;
     padding-left: 10px;
@@ -89,30 +103,55 @@ h5 {
 }
 
 .button-dark:hover {
-    background-color: rgb(181, 129, 100);
-}
-
-.book-cover {
-    box-shadow: 0px 4px 8px 0px rgb(39 35 35);
+    background-color: rgb(136 84 54);
 }
 
 .drop-down-form {
-    display: inline-block;
-}
-.drop-down-form__button {
-    background-color: rgb(208, 163, 132);
-    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, .25);
-    border: none;
-    border-radius: 3px;
-    color: white;
-    font-size: 13px;
-    margin-left: 13px
+  display: inline-block;
+  height: 28px;
+  color: gray;
+
 }
 
-.drop-down-form__select {
-    color: #797575;
-    border: 1px 1px solid;
-    border-color: #cacaca;
-    border-radius: 3px;
-    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, .13);
+
+.drop-down-form__button {
+  height: 28px;
+  font-size: 15px;
+  margin-left: 15px;
+  padding: 0 10px;
 }
+
+.drop-down {
+  font-size: 15px;
+  height: 28px;
+  border-radius: 5px;
+}
+
+#drop-down-form__select {
+    font-size: 12px;
+    height: 23px;
+    border-radius: 5px;
+  }
+
+#drop-down-form__button {
+    height: 20px;
+    font-size: 12px;
+    padding: 0 10px;
+    margin-left: 20px;
+  }
+
+body {
+    font-family: sans-serif;
+    /* background-color: lightgrey; */
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* #booksList {
+    padding-inline-start: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 20px;
+  } */

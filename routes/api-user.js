@@ -1,3 +1,10 @@
+/* Changes:
+    add shelf POST request
+      line 148 Changed Route Name form /new-shelf to /shelves
+      line 155  fixed 'Shelf' from 'bookshelf'
+      line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
+
 const express = require('express');
 const { check } = require("express-validator");
 const { Op } = require('sequelize');
@@ -137,16 +144,20 @@ router.get("/shelves",
   }
 }));
 
+/*
+line 148 Changed Route Name form /new-shelf to /shelves
+line 155  fixed 'Shelf' from 'bookshelf'
+line 152 fixed from { name } to { newBookshelfName } and correlating line 153 variable
+*/
 // add the bookshelf to database
-/* router.post("/new-shelf", */
 //post req to /api-user/shelves
-router.post("/new-shelf",
+router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
-    console.log('in post request')
-    const { name } = req.body;
-    const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
-    res.json({ bookshelf });
+    const { newBookshelfName } = req.body;
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
+    // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
+    return res.json({ bookshelf });
   })
 );
 
@@ -272,8 +283,6 @@ router.get("/shelves/:bookshelfid/books/:bookid",
 // Add the book to selected shelf in the database
 
 router.post("/:bookid/add-book-to-shelf",
-/* // post to /api-user/shelves/:shelfid/books/:bookid
-router.post("/shelves/:bookshelfid/books/:bookid", */
   asyncHandler(async (req, res, next) => {
   const bookId = req.params.bookid;
   const { bookshelfId } = req.body ;
@@ -281,7 +290,7 @@ router.post("/shelves/:bookshelfid/books/:bookid", */
   const book = await Book.findByPk(bookId)
   if (bookshelf) {
     await bookshelf.addBook(book);
-    res.json({bookshelf});
+    res.json({bookshelf, book});
   } else {
     next(bookshelfNotFoundError(req.params.bookshelfId));
   };
