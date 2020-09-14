@@ -7,24 +7,44 @@
   grid-template-areas:
     'picture user-info'
     'add-button favorite-genres';
+  padding: 20px;
+  border-top: 3px solid #afcbc1a6;;
+  border-bottom: 3px solid #afcbc1bf;;
+
 }
 
+.container_add-button {
+  justify-self: center;
+  color:white;
+}
+
+.container_add-button a {
+  color: white;
+}
+
+.container_add-button a:hover {
+  text-decoration: none;
+}
 
 .user-image__container {
   overflow: hidden;
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  justify-self: center;
+  box-shadow: 0 0 20px #0000004f;
 }
 
 .container_user-info{
   grid-area: user-info;
   display: flex;
+  padding: 20px;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: 200px;
   margin: 30px 30px auto;
+  background-color: #afcbc175;
 }
 
 .user-info {
@@ -34,15 +54,60 @@
 .user-info__name {
   margin: auto;
   text-align: center;
+  font-size: 70px;
   text-decoration: none;
 }
 
 .user-info__email {
+  font-size: 30px;
   margin: auto;
   text-align: center;
 }
 
 .user-info__address {
+  font-weight: 400;
+  font-size: 20px;
   margin: auto;
   text-align: center;
+}
+
+div.container.genre-container {
+  background-color: rgba(227,227, 222, .25);
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 100px;
+  overflow: visible;
+
+}
+
+.genre-container__button-container {
+display: flex;
+ justify-content: flex-end;
+}
+
+.genre-container__form {
+margin: 30px;
+}
+
+.genre-container__header {
+width: 700px;
+align-self: center;
+font-size: 30px;
+}
+
+.genre-container__button {
+margin: 20px;
+height: 60px;
+}
+
+.genre-container__genre-group {
+width: 800px
+}
+
+.genre-container__submit-button {
+height: 40px;
 }

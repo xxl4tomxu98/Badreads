@@ -7,36 +7,36 @@ block content
             h2(class='bookpage-container__book-info__title')
             h3(class='bookpage-container__book-info__author')
             //- buton(class='btn btn-danger')
-            form(id='drop-down-form' name='form')
-                select(name='dropdownFormSelect' class='drop-down-form__select drop-down' id="drop-down-form__select")
-                    option(class='drop-down-form__option drop-down' name='selectBook') add to bookshelf
-                button(type='submit' id='drop-down-form__button' class='drop-down-form__button button-light' ) submit
+            form(class='' id='drop-down-form' name='form')
+                    select(name='dropdownFormSelect' id='drop-down-form__select' class='drop-down')
+                    button(type='submit' id='drop-down-form__button' class='button-light') submit
 
             h5(class='bookpage-container__book-info__description')
 
-        div(class='container__book-cover book-cover')
-                img(class='container__book-image' src=`../images/${book.id}.jpg` alt="bookshelf")
-        div(class='container__genres')
-            h4 Genres
+        div(class='container__book-image book-cover')
+                img(class='container__book-image__src' src=`../images/${book.id}.jpg` alt="bookshelf")
+        div(class='container_genres')
+            h5 Genres
             each genre in book.Genres
-                a(class='container__genres__links' href='/') #{genre.name}
+                a(class='container__genres_links' href='/') #{genre.name}
         div(class='container__reviews-title')
             h3 Reviews
             div
                 form(class='bookpage-container__form')
                     input(class='bookpage-container__reviews__input' type="text", name="reviews" placeholder="write a review")
                     input(type="submit" value="" style='display: none')
-        each review in book.Reviews
-            div(class='container__reviews')
-                div(class='container__reviews__star-container')
-                    img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                div(class='container__reviews___star')
-                    p(class='container__reviews__text') #{review.description}
-                div(class='container__reviews__text')
+        div.container__all-reviews
+            each review in book.Reviews
+                div(class='container__reviews')
+                    div(class='container__reviews__star-container')
+                        img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                        img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                        img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                        img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                        img(class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
+                    div(class='container__reviews___star')
+                        p(class='container__reviews__text') #{review.description}
+                    div(class='container__reviews__text')
                     a(class='container__reviews__readmore' href="#") readmore
     script(type='module' src='../js/book-show.js')
 

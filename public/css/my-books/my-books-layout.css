@@ -7,10 +7,6 @@
     margin-top: 50px;
 }
 
-h1#welcome {
-    color: gray;
-    margin-bottom: 30px;
-}
 .side-bar {
     /* background-color:lavender; */
     grid-column-start: 1;

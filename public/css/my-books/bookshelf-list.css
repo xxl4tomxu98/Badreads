@@ -4,9 +4,13 @@
 }
 
 .bookshelf-list-item:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: 500;
+    color: #605f5f;
+    font-size: 16px;
 }
 
-.bookshelf-list-item--active{
+.bookshelf-list-item--active {
     font-weight: bold;
+    color: black;
 }
