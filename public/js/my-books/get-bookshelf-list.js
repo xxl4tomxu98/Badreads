@@ -33,18 +33,33 @@ const appendBookshelfLi = (bookshelf) => {
 };
 
 const openCreateNewBookshelfField = async () => {
-    console.log("calling open create new")
     const addBookshelfButton = document.querySelector('#add-new-bookshelf__button');
-    const newBookshelfForm = document.querySelector('.add-bookshelf-form');
     const newBookshelfFormField = document.querySelector('#add-new-bookshelf__input-field')
 
     // Display form field // hide button
     addBookshelfButton.classList.add('hidden');
     newBookshelfFormField.classList.remove('hidden');
+};
 
-    console.log('addbookshelfbutton',addBookshelfButton)
+export const populateUserBookshelfList = async () => {
+    const newBookshelfFormField = document.querySelector('#add-new-bookshelf__input-field')
+    const addBookshelfButton = document.querySelector('.buttonButton');
+    const newBookshelfForm = document.querySelector('.add-bookshelf-form')
+    const { shelves, username } = await getBookshelves();
 
-    console.log('addbookshelfbutton', addBookshelfButton)
+    console.log('newbookshelfform', newBookshelfForm)
+    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
+    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
+
+
+    if (shelves) {
+        for (let bookshelf of shelves) {
+            // // console.log('bookshelf', bookshelf)
+            appendBookshelfLi(bookshelf);
+        }
+    }
+
+    addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
 
     newBookshelfForm.addEventListener('submit', async e => {
         e.preventDefault();
@@ -69,6 +84,8 @@ const openCreateNewBookshelfField = async () => {
         const data = await res.json();
         const { bookshelf } = data;
 
+        appendBookshelfLi(bookshelf);
+
         const overlay = document.querySelector('.overlay');
         overlay.classList.remove('overlay-hidden');
         overlay.innerHTML = `'${newBookshelfName}' added to your shelves!`
@@ -79,23 +96,4 @@ const openCreateNewBookshelfField = async () => {
             overlay.classList.add('overlay-hidden');
         }, 3000)
     });
-
-};
-
-export const populateUserBookshelfList = async () => {
-    const { shelves, username } = await getBookshelves();
-
-    var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
-
-    document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
-    console.log('username', capitalizedUsername);
-    if (shelves) {
-        for (let bookshelf of shelves) {
-            // // console.log('bookshelf', bookshelf)
-            appendBookshelfLi(bookshelf);
-        }
-    }
-
-    const addBookshelfButton = document.querySelector('.buttonButton');
-    addBookshelfButton.addEventListener("click", openCreateNewBookshelfField);
 };
