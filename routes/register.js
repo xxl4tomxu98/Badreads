@@ -12,8 +12,7 @@ const { Genre, User, Shelf, Review } = db;
 router.get('/', asyncHandler(async (req, res) => {
   const genres = await Genre.findAll({
     order: [['name', 'ASC']]
-  })
-  console.log(genres);
+  });
   res.render('register', {
     title: 'Register',
     genres

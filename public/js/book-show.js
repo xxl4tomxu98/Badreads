@@ -5,7 +5,8 @@ const bookTitle = document.querySelector('.bookpage-container__book-info__title'
 const bookAuthor = document.querySelector('.bookpage-container__book-info__author')
 const bookDescription = document.querySelector('.bookpage-container__book-info__description')
 const form = document.querySelector('.bookpage-container__form')
-const container = document.querySelector('.book-container')
+const container = document.querySelector('.book-container');
+const allReviewsContainer = document.querySelector('.container__all-reviews');
 const userId = localStorage.getItem('BADREADS_CURRENT_USER_ID')
 const bookId = window.location.pathname.split('/')[2]
 const addBookshelfSelect = document.querySelector('.container_genres_select');
@@ -77,7 +78,7 @@ const addNewReview = (review) => {
              </div>
      `
     reviewContainer.innerHTML = newReview
-    container.prepend(reviewContainer)
+    allReviewsContainer.prepend(reviewContainer)
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -109,8 +110,6 @@ form.addEventListener('submit', async (e) => {
                     )}`
                 },
                 body: JSON.stringify({ description: writtenReview, user_id: userId, book_id: bookId })
-
-
             })
 
             //redirect user to login page if not logged in which is on the landing page path('/')
@@ -126,26 +125,20 @@ form.addEventListener('submit', async (e) => {
             while(container.firstChild.classList.contains('container__reviews')){
                 container.removeChild(container.firstChild)
             }
-
             const { reviews } = await res.json()
 
             if (reviews) {
                 for (let eachReview of reviews) {
-
                     addNewReview(eachReview.description)
                 }
             }
-
             //clear input
             reviewInput.value = ''
         } else {
-
             return
         }
-
     } catch (e) {
         console.log(e)
         handleErrors(e)
     }
-
 })

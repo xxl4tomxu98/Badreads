@@ -1,102 +1,123 @@
+const genreButtons = document.querySelectorAll('.genre-button')
+const submitGenreButton = document.querySelector('.genre-submit-button')
+const selectAllGenresButton = document.querySelector('.genre-select-all-button')
+let genreArray = []
+window.addEventListener('DOMContentLoaded', async (e) => {
+  //get all the genres the user has and make all related buttons active 
+  try {
+    const res = await fetch('/api-user/profile', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("BADREADS_ACCESS_TOKEN")}`
+      }
+    })
 
-const genreInfo = JSON.parse(localStorage.getItem('genreInfo')) || {};
-// const activeInfo = JSON.parse(localStorage.getItem('activeInfo')) || {};
-const $checkboxes = $("#availableGenres :checkbox");
-const $selectAllButton = $("#genre-select-all");
-const $submitButton = $("#genre-submit")
+    if (!res.ok) {
+      throw res
+    }
 
-function allChecked() {
-  return $checkboxes.length === $checkboxes.filter(":checked").length;
-}
+    const { genres } = await res.json()
+    const genreNamesArray = genres.map( genreObj => {
+      genreArray.push(genreObj.name)
+      return genreObj.name
+    })
+    console.log(genres)
+    genreButtons.forEach( genreButton => {
+      if (genreNamesArray.includes(genreButton.id)){
+        genreButton.classList.toggle('active', true)
+      }
+    })
 
-function updateButtonStatus() {
-  $selectAllButton.text(allChecked() ? "Uncheck all" : "Check all");
-}
+  } catch (e) {
+    console.log(e)
+  }
 
-function handleButtonClick() {
-  $checkboxes.prop("checked", allChecked() ? false : true)
-}
+})
 
-function updateStorage() {
-  $checkboxes.each(function () {
-    genreInfo[this.id] = this.checked;
-  });
+genreButtons.forEach((genreButton) => {
+  genreButton.addEventListener('click', (e) => {
+    e.preventDefault
+    const genreName = e.target.id
 
-// function updateActive() {
-//   $checkboxes.each(function () {
-//     if($(this).is(":checked")) {
-//       $(this).attr("id").addClass("active");
-//     } else {
-//       $(this).attr("id").removeClass("active");
-//     }
-//   })
-// }
+    //if genre name is not in the array when button is clicked add it
+    if (!(genreArray.includes(genreName))) {
+      genreArray.push(genreName)
+      //toggle active class to change background color on click
+      e.currentTarget.classList.toggle('active', true)
 
-  genreInfo["buttonText"] = $selectAllButton.text();
-  localStorage.setItem("genreInfo", JSON.stringify(genreInfo));
-  // localStorage.setItem("activeInfo", JSON.stringify(activeInfo));
-}
+      console.log(genreArray)
+      return
+      //if the genre name is in the array already when clicked then it needs to be removed because the user
+      //unchecked the genre
+    } else {
+      genreArray = genreArray.filter((name) => {
+        return name != genreName
+      })
+      e.currentTarget.classList.toggle('active', false)
 
-$selectAllButton.on("click", function () {
-  handleButtonClick();
-  updateButtonStatus();
-  // updateActive();
-  updateStorage();
-});
+      //incase the select all button is active, make it inactive if one genre is pressed
+      selectAllGenresButton.classList.toggle('active', false)
 
-$checkboxes.on("change", function () {
-  updateButtonStatus();
-  // updateActive();
-  updateStorage();
-});
+      console.log(genreArray)
 
-// On page load
-$.each(genreInfo, function (key, value) {
-  $("#" + key).prop('checked', value);
-  // updateActive();
-});
+      return
 
+    }
 
-
-$selectAllButton.text(genreInfo["buttonText"]);
-
-
-$submitButton.on("click", function ( event ) {
-  event.preventDefault();
-  $(location).attr('href', '/user/shelves');
+  })
 })
 
 
-// old Code
+selectAllGenresButton.addEventListener('click', (e) => {
+  if (selectAllGenresButton.classList.contains('active')) {
+    selectAllGenresButton.classList.toggle('active', false)
 
-// import { handleErrors } from './utils.js'
+    //loop through all genres and make button inactive state
+    genreButtons.forEach(genreButton => {
+      genreButton.classList.toggle('active', false)
+    })
 
-// // to obtain any information stored in local storage related to user's genre selections
-// const genreInfo = JSON.parse(localStorage.getItem('genreInfo')) || {};
-// // select all the checkboxes
-// // const genreSelections = document.querySelectorAll('input[type="checkbox"]:checked'), values = [];
-// const genreSelections = document.querySelectorAll('.genre-container__checkbox'), values = [];
+    //clear genres
+    genreArray = []
 
-// // select  button
-// const selectAllButton = document.getElementById('genre-select-all-button');
-// // listen for a change on the boxes and iterate to update our key value pairs
-// function isChecked(checkbox) {
-//   return checkbox.checked === true;
-// }
+    return
+  } else {
+    //make select all button actice to change color
+    selectAllGenresButton.classList.toggle('active', true)
 
-// let allChecked = () => genreSelections.length === genreSelections.filter(isChecked(checkbox));
+    //empty genres array so prep array to add all genres
+    genreArray = []
 
-// genreSelections.addEventListener("change", event => {
+    //loop through all genres and add all to genreArray
+    genreButtons.forEach(genreButton => {
+      genreArray.push(genreButton.id)
+      genreButton.classList.toggle('active', true)
 
-//   genreSelections.forEach(() => {
-//     genreInfo[this.id] = this.checked;
-//   });
-//   // set new value of user genre selections in local storage
-//   localStorage.setItem("genreInfo", JSON.stringify(genreInfo));
-//   window.location.href = "user/shelves";
-// });
+    })
+    return
+  }
+})
 
-// // when the page loads set the checkboxes
-// genreInfo.forEach((key, value) => {
-//   ('#' + key).checked = value;
-// });
+submitGenreButton.addEventListener('click', async (e) => {
+  try {
+    const res = await fetch('/api-user/profile/genres', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem("BADREADS_ACCESS_TOKEN")}`
+      },
+      body: JSON.stringify({ genreArray })
+    })
+
+    if (!res.ok) {
+      throw res
+    }
+
+    const { successMessage } = await res.json()
+    console.log(successMessage);
+    window.location.href = '/user/shelves'
+
+  } catch (e) {
+    console.log(e)
+  }
+
+})
