@@ -20,12 +20,18 @@ const fetchBook = async (bookId) => {
         headers: {
             Authorization: `Bearer ${localStorage.getItem(
                 "BADREADS_ACCESS_TOKEN"
-                )}`,
-            }
+            )}`,
         }
-        )
-        const { book } = await response.json()
-        createAddToShelfDropdown(bookId, false);
+    }
+    )
+
+    //redirect user to login page if not logged in which is on the landing page path('/')
+    if (response.status === 401) {
+        window.location.href = "/";
+        return;
+    }
+    const { book } = await response.json()
+    createAddToShelfDropdown(bookId, false);
 
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
@@ -105,6 +111,12 @@ form.addEventListener('submit', async (e) => {
                 },
                 body: JSON.stringify({ description: writtenReview, user_id: userId, book_id: bookId })
             })
+
+            //redirect user to login page if not logged in which is on the landing page path('/')
+            if (res.status === 401) {
+                window.location.href = "/";
+                return;
+            }
             if (!res.ok) {
                 throw res;
             }
@@ -115,7 +127,7 @@ form.addEventListener('submit', async (e) => {
             }
             const { reviews } = await res.json()
 
-            if(reviews){
+            if (reviews) {
                 for (let eachReview of reviews) {
                     addNewReview(eachReview.description)
                 }

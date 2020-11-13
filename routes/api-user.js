@@ -67,7 +67,7 @@ router.post(
   "/token",
   validateEmailAndPassword,
   asyncHandler(async (req, res, next) => {
-    try{
+    try {
       const { email, password } = req.body;
       const user = await User.findOne({
         where: {
@@ -85,7 +85,7 @@ router.post(
       const token = getUserToken(user);
       res.json({ token, user: { id: user.id } });
 
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   })
@@ -109,12 +109,12 @@ const validatebookShelf = [
 
 
 router.get('/username', asyncHandler(async (req, res) => {
-  try{
+  try {
     const { token } = req
     const { id } = jwt.decode(token).data
     const user = await User.findByPk(id);
     res.json({ user });
-  }catch(e){
+  } catch (e) {
     console.log(e)
   }
 }));
@@ -124,25 +124,25 @@ router.get('/username', asyncHandler(async (req, res) => {
 //api-user/shelves
 router.get("/shelves",
   asyncHandler(async (req, res) => {
-    try{
-    const shelves = await Shelf.findAll({
-      where: {
-        //user_id : 2
-        user_id: req.user.id
-      },
-      order: [["createdAt", "DESC"]],
-    });
-    const user = await User.findByPk(req.user.id);
-    const username = user.username;
-    if(shelves) {
-      res.json({ shelves, username });
-    } else {
-      res.json('no shelves')
+    try {
+      const shelves = await Shelf.findAll({
+        where: {
+          //user_id : 2
+          user_id: req.user.id
+        },
+        order: [["createdAt", "DESC"]],
+      });
+      const user = await User.findByPk(req.user.id);
+      const username = user.username;
+      if (shelves) {
+        res.json({ shelves, username });
+      } else {
+        res.json('no shelves')
+      }
+    } catch (e) {
+      console.log(e)
     }
-  }catch(e){
-    console.log(e)
-  }
-}));
+  }));
 
 /*
 line 148 Changed Route Name form /new-shelf to /shelves
@@ -155,7 +155,7 @@ router.post("/shelves",
   validatebookShelf,
   asyncHandler(async (req, res) => {
     const { newBookshelfName } = req.body;
-    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id});
+    const bookshelf = await Shelf.create({ name: newBookshelfName, user_id: req.user.id });
     // const bookshelf = await bookShelf.create({ name, user_id: req.user.id });
     return res.json({ bookshelf });
   })
@@ -222,13 +222,13 @@ router.delete(
 //api-user/shelves/:bookshelfid/books/:bookid
 router.get("/excluded-shelves/books/:bookid",
   asyncHandler(async (req, res) => {
-//code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
-//the shelves found for the user with the book
+    //code grabs all shelves for user with book and all shelves in db then filters out all shelves by excluding
+    //the shelves found for the user with the book
     const bookId = req.params.bookid;
     //all shelves for the user that have the specified book
     const shelves = await Shelf.findAll({
       where: {
-        user_id : req.user.id,
+        user_id: req.user.id,
       },
       include: {
         model: Book, where: {
@@ -255,14 +255,14 @@ router.get("/excluded-shelves/books/:bookid",
     };
 
     //filters array for all shelves in db to have all shelves that don't contain the book already
-    const allShelvesWithoutBook = allShelvesArray.filter(function(shelf) {
+    const allShelvesWithoutBook = allShelvesArray.filter(function (shelf) {
       if (!includedShelf.includes(shelf.id)) {
         return shelf;
       }
     });
-      //return as an obj containing the filtered array of objects
+    //return as an obj containing the filtered array of objects
     res.json({ allShelvesWithoutBook });
-}));
+  }));
 
 // GET request for the description, author, title, findByPk
 router.get("/shelves/:bookshelfid/books/:bookid",
@@ -270,51 +270,53 @@ router.get("/shelves/:bookshelfid/books/:bookid",
     const bookId = req.params.bookid;
     const bookshelfId = req.params.bookshelfid;
     const book = await Book.findByPk(bookId, {
-      include: { model: Shelf,
+      include: {
+        model: Shelf,
         where: {
           id: bookshelfId
         }
       },
     });
     res.json({ book });
-}));
+  }));
 
 
 // Add the book to selected shelf in the database
 
 router.post("/:bookid/add-book-to-shelf",
   asyncHandler(async (req, res, next) => {
-  const bookId = req.params.bookid;
-  const { bookshelfId } = req.body ;
-  const bookshelf = await Shelf.findByPk(bookshelfId);
-  const book = await Book.findByPk(bookId)
-  if (bookshelf) {
-    await bookshelf.addBook(book);
-    res.json({bookshelf, book});
-  } else {
-    next(bookshelfNotFoundError(req.params.bookshelfId));
-  };
-}));
+    const bookId = req.params.bookid;
+    const { bookshelfId } = req.body;
+    const bookshelf = await Shelf.findByPk(bookshelfId);
+    const book = await Book.findByPk(bookId)
+    if (bookshelf) {
+      await bookshelf.addBook(book);
+      res.json({ bookshelf, book });
+    } else {
+      next(bookshelfNotFoundError(req.params.bookshelfId));
+    };
+  }));
 
 // Get books on a specific shelf
 router.get('/shelves/:id/books',
   asyncHandler(async (req, res) => {
-    console.log('req.params.id', req.params.id);
+    // console.log('req.params.id', req.params.id);
     const books = await Book.findAll({
-      include: { model: Shelf,
+      include: {
+        model: Shelf,
         where: {
           id: req.params.id,
         },
       },
     });
     res.json({ books });
-}));
+  }));
 
 
 // delete book from a bookshelf
-//should be /api-use/shelves/:bookshelfid/books/:bookid
+//should be /api-user/shelves/:bookshelfid/books/:bookid
 router.delete("/shelves/:bookshelfid/books/:bookid",
-  asyncHandler(async(req, res) => {
+  asyncHandler(async (req, res) => {
     const bookId = req.params.bookid;
     const bookshelfId = req.params.bookshelfid;
 
@@ -329,7 +331,8 @@ router.delete("/shelves/:bookshelfid/books/:bookid",
           id: bookId
         }
       },
-      include: { model: Shelf,
+      include: {
+        model: Shelf,
         where: {
           id: bookshelfId,
         }
@@ -350,26 +353,39 @@ router.delete("/shelves/:bookshelfid/books/:bookid",
 
 
 // routes for api-user/profile
+router.get('/profile', asyncHandler(async (req, res) => {
 
-router.get('/profile', asyncHandler( async(req, res) => {
-
-  const genres = await Genre.findAll( {
+  const genres = await Genre.findAll({
     //need req.user.id
-    include: {model: User, where: {id: req.user.id}}
+    include: { model: User, where: { id: req.user.id } }
   });
   res.json({ genres });
 
 }));
 
-// Add a genre to the user's favorites in the user-profile page
-router.post("/profile/:genreid",
+// Add genres to the user's favorites in the user-profile page
+// route /api-user/profile/genres
+router.post("/profile/genres",
   asyncHandler(async (req, res) => {
-    const genreId = req.params.genreid;
-    const user = await User.findByPk(req.user.id);
-    const genre = await Genre.findByPk(genreId);
-    await user.addGenre(genre);
-    res.json(user);
-}));
+    try {
+      const { genreArray } = req.body
+      const user = await User.findByPk(req.user.id);
+
+      genreArray.forEach(async genreName => {
+        const genre = await Genre.findOne({
+          where: {
+            name: genreName
+          }
+        })
+        console.log(genre)
+        await user.addGenre(genre)
+      });
+      return res.json({ successMessage: 'Genre(s) added to profile' });
+    } catch (e) {
+      console.log(e)
+    }
+
+  }));
 
 
 

@@ -17,7 +17,7 @@
     justify-content: space-around;
     align-items: center;
     height: 100px;
-    color: white;
+    /* color: white; */
 }
 .login-errors-container{
     margin: 0; 

@@ -47,9 +47,13 @@ body{
 
 .container__book-image{
   grid-area: book-image;
+  /* height: 225px;
+  width: 150px; */
+  margin: 0 auto;
+}
+.container__book-image__src{
   height: 225px;
   width: 150px;
-  margin: 0 auto;
 }
 
 .container__book-image img{

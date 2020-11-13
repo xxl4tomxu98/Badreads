@@ -1,0 +1,21 @@
+extends layout.pug
+
+
+block content
+  include includes/nav.pug
+  append head
+    link(rel='stylesheet', href='./css/search.css')
+
+  each book in books
+    div(class='block booksearch')
+      div(class='block')
+        img(class='booksearch__img' src=`./images/${book.id}.jpg` alt='book image' style='width:200px; height:300px')
+      div(class='block')
+        div(class='container')
+          a(href=`/books/${book.id}`)
+            h5= book.title
+          p= book.author
+          p= book.publicationYear
+        div(class='container')
+          text= book.description
+  
