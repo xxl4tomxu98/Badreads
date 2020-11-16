@@ -3,16 +3,11 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
 const { asyncHandler } = require('../utils');
-const { Book, Genre, Review, Shelf } = require('../db/models');
+const { Book, Genre, Review } = require('../db/models');
 
 
 
 const router = express.Router();
-
-// router.get('/', (req, res) => {
-//   res.render('search.pug')
-// })
-
 
 //when user goes to /books with or without a search term logic
 router.get('/', asyncHandler(async (req, res) => {
@@ -29,7 +24,6 @@ router.get('/', asyncHandler(async (req, res) => {
         },
         order: [['title', 'ASC']]
       });
-      // console.log(books);
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +35,6 @@ router.get('/', asyncHandler(async (req, res) => {
   }
   console.log(books);
   const searchTitle = `Search result for "${term}"`
-  // console.log(books);
   res.render('searchpage', { books, searchTitle });
 
 }))
@@ -70,37 +63,5 @@ router.get('/:bookid(\\d+)', asyncHandler(async (req, res) => {
   )
 
 }))
-
-//   /books/search
-// how to use a search field
-// router.get('/search', asyncHandler(async (req, res) => {
-//     const { term } = req.query
-//     console.log(term)
-
-//     const books = await Book.findAll({
-//         where: {
-
-//             [Op.or]: [
-//                 {
-//                     author: {
-//                         [Op.iLike]: `%${term}%`,
-//                     }
-//                 },
-//                 {
-//                     title: {
-//                         [Op.iLike]: `%${term}%`,
-//                     }
-//                 }
-//             ]
-
-//         },
-//         order: [['title', 'ASC']]
-//     })
-//     res.render('search-results', {
-//         books
-//     }
-//     )
-
-// }))
 
 module.exports = router;

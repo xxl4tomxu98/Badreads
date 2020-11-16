@@ -38,7 +38,6 @@ body{
 .container__book-info{
   grid-area: book-info;
   font-size: 1.5em;
-  /* display: block; */
 }
 
 .bookpage-container__book-info__description{
@@ -47,8 +46,6 @@ body{
 
 .container__book-image{
   grid-area: book-image;
-  /* height: 225px;
-  width: 150px; */
   margin: 0 auto;
 }
 .container__book-image__src{
@@ -111,23 +108,21 @@ body{
 .container__all-reviews {
   grid-column: 2 / 3;
 }
+
 .container__reviews{
   display: grid;
-  grid-template-rows: 20px 1fr 20px;
+  grid-template-rows: 4fr 20px;
   padding: 20px;
   background-color: rgb(255, 254, 254);
   box-shadow: 10px 10px 10px -10px #888888;
   margin-top: 30px;
+  height: 100%;
 }
 
-.container__reviews__star-container{
-  justify-self: end;
-  width: 50px;
-  height: 10px;
-  /* keeps stars closely together */
-  display: flex;
-
+.hide{
+  display: none;
 }
+
 
 .container__reviews__star{
   height: 10px;
@@ -137,8 +132,14 @@ body{
 
 .container__reviews__readmore{
   font-size: 10px;
-  text-decoration: unset;
+  cursor: pointer;
+  margin: 10px 0;
+  color: blue;
+}
 
+.ellipses{
+  color: blue;
+  font-size: 15px;
 }
 
 .container__reviews__readmore-container{
@@ -147,16 +148,12 @@ body{
 
 .container__reviews__text{
   margin: 0;
-  font-size: 12px;
+  font-size: 15px;
 }
 
-
-/* .container__reviews__textarea{
-  margin-top: 10px;
-} */
-/* .container__reviews__textarea:hover{
-  cursor: crosshair;
-} */
+.hide, .readmore-text{
+  font-size: 15px;
+}
 
 .container__reviews__input{
   height: 50px;

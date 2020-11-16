@@ -6,7 +6,6 @@ block content
         div(class='container_book-info ')
             h2(class='container_book-info_title')
             h3(class='container_book-info_author')
-            //- buton(class='btn btn-danger')
             form(class='drop-down-form' name='form') 
                 select(name='dropdownFormSelect' class='drop-down-form__select')
                     option(selected) Add to Bookshelf
@@ -31,12 +30,6 @@ block content
                     input(type="submit" value="" style='display: none')
         each review in book.Reviews
             div(class='container_reviews')
-                div(class='container_reviews_star-container')
-                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
-                    img(class='container_reviews_star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star")
                 div(class='container_reviews_text-container')
                     p(class='container_reviews_text') #{review.description}
                 div(class='container_reviews_readmore-container')
