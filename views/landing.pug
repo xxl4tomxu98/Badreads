@@ -3,7 +3,8 @@ extends layout.pug
 block content
 
   div(class="login-container")
-    div BadReads
+    div
+      h1(class='landing-logo') BadReads
     form(class="login-form")
       input(class="input login-form__email" type='text' name='email2' placeholder="email")
       input(class="input login-form__password"  type='password' name="password2" placeholder='Password')
@@ -12,7 +13,7 @@ block content
   div(class="signup-container")
     div(class="login-errors-container")
     div(class="signup-errors-container")
-    h6 New here? Create a free account!
+    h4 New here? Create a free account!
     form(class="signup-form")
       input(class="input signup-form__username form-control"  type='text' name='username' placeholder="Username")
       input(class="input signup-form__email form-control" type='email' name="email" placeholder='Enter email')
@@ -24,7 +25,7 @@ block content
       p(class="quote-generator-quote") "quotes will go here! " 
 
   div(class="discover-container") 
-    p Discover...
+    h2 Discover...
     div(class="book-image-container")
       img(class="book-image__1" src="../images/1.jpg", alt="")
     div(class="book-image-container")
