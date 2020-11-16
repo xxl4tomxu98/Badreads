@@ -7,14 +7,16 @@ const bookDescription = document.querySelector('.bookpage-container__book-info__
 const form = document.querySelector('.bookpage-container__form')
 const container = document.querySelector('.book-container');
 const allReviewsContainer = document.querySelector('.container__all-reviews');
+
+//elements for readmore ellipses
+const readmore = document.querySelectorAll('.container__reviews__readmore')
+const readmoreText = document.querySelectorAll('.readmore-text')
+const ellipses = document.querySelectorAll('.ellipses')
+
 const userId = localStorage.getItem('BADREADS_CURRENT_USER_ID')
 const bookId = window.location.pathname.split('/')[2]
 const addBookshelfSelect = document.querySelector('.container_genres_select');
 
-
-// let id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
-// console.log('this is the current path: ', window.location.pathname)
-// console.log(window.location.pathname.split('/'))
 const fetchBook = async (bookId) => {
     const response = await fetch(`/api-books/${bookId}`, {
         headers: {
@@ -36,46 +38,34 @@ const fetchBook = async (bookId) => {
     bookTitle.innerHTML = `<strong>${book.title}</strong>`
     bookAuthor.innerHTML = `by author <strong>${book.author}</strong>`
     bookDescription.innerHTML = book.description
-    // for(let shelf in shelves){
-    //    const option = document.createElement('option')
-    //    option.innerHTML = `${shelf.name}`
-    //    option.setAttribute('value', `${shelf.id}`)
-    //    addBookshelfSelect.appendChild(option)
-    //                     //-     option(value=shelf.id) #{shelf.name}
-    // }
 }
-
-// const fetchReview = async (id) => {
-//     const response = await fetch(`/api-reviews/${id}`)
-//     const { review } = await response.json()
-
-
-// }
 
 const addNewReview = (review) => {
     const reviewContainer = document.createElement('div')
     reviewContainer.classList.add('container__reviews')
 
     const newReview =
-        `
-             <div class='container__reviews__star-container'>
-                 <img class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                 <img class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                 <img class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                 <img class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-                 <img class='container__reviews__star' src="../images/transparent-background-star-115497268824j1ftohfyn.png" alt="star">
-             </div>
-             <div class='container__reviews___star'>
-                 <p class='container__reviews__text'>
-                         ${review}
-                 </p>
-             </div>
-             <div class='container__reviews__text'>
-                 <a class='container__reviews__readmore' href='#'>
-                         readmore
-                 <a/>
-             </div>
-             </div>
+        `  
+            {% if review.description.length > 260 %}
+                <div class='container__reviews___star'>
+                    <p class='container__reviews__text'>
+                            ${review.slice(0, 250)}
+                            <span class='ellipses'>...</span>
+                            <span class='readmore-text hide'>${review.slice(250)}</span>
+                    </p>
+                </div>
+                <div class='container__reviews__text'>
+                    <p class='container__reviews__readmore'>
+                            readmore
+                    <p/>
+                </div>
+            {% else %}
+                <div class='container__reviews___star'>
+                    <p class='container__reviews__text'>
+                            ${review}
+                    </p>
+                </div>
+            {% endif %}
      `
     reviewContainer.innerHTML = newReview
     allReviewsContainer.prepend(reviewContainer)
@@ -122,7 +112,7 @@ form.addEventListener('submit', async (e) => {
             }
 
             //remove previously displayed reviews
-            while(container.firstChild.classList.contains('container__reviews')){
+            while (container.firstChild.classList.contains('container__reviews')) {
                 container.removeChild(container.firstChild)
             }
             const { reviews } = await res.json()
@@ -141,4 +131,28 @@ form.addEventListener('submit', async (e) => {
         console.log(e)
         handleErrors(e)
     }
+})
+
+//readmore funtionality to reveal rest of reviews after 250 characters
+readmore.forEach((readmoreButton, i) => {
+    //give each readmore button an id that will relate to the ellipses and readmoretext id
+    readmoreButton.setAttribute('id', i)
+    readmoreButton.addEventListener('click', (e) => {
+        let relatedId = e.target.id
+        if(readmoreText[relatedId].classList.contains('hide')){
+            //reveal hidden text
+            readmoreText[relatedId].classList.toggle('hide', false)
+            //change reamdmore button to readless
+            readmoreButton.innerHTML = 'readless'
+            //hide the ellipses
+            ellipses[relatedId].classList.toggle('hide', true)
+        } else {
+            //hide the text
+            readmoreText[relatedId].classList.toggle('hide', true)
+            //change button back to readmore
+            readmoreButton.innerHTML = 'readmore'
+            //reveal the ellipses
+            ellipses[relatedId].classList.toggle('hide', false)
+        }
+    })
 })

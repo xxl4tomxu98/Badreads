@@ -12,22 +12,15 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* #booksList {
-  padding-inline-start: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 20px;
-} */
-
 .searchTitle {
   width: 800px;
   margin: auto;
 }
 .booksearch {
 display: grid;
-width: 800px;
-grid-template-columns: 150px 1fr;
-grid-template-rows: 150px;
+width: 1000px;
+height: 100%;
+grid-template-columns: 200px 1fr;
 padding: 20px;
 margin: auto;
 }
@@ -47,15 +40,18 @@ margin-bottom: 0px;
 height: 150px;
 }
 
+.book-cover{
+  height: 200px;
+  width: 150px;
+}
+
 div .booksearch__container__header{
   display:block;
   height: 65px;
 }
 
 .booksearch__container__description{
-display:block;
-height: 90px;
-overflow: hidden;
+margin: 20px 0;
 font-weight: 350;
 font-size: 13px;
 }
