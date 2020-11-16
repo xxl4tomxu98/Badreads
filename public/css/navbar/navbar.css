@@ -37,6 +37,7 @@
 }
 
 .navbar__text-logo-div {
+    grid-column-start: 1;
     width: fit-content;
     padding: 0px 10px;
 }

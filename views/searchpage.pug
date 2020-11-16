@@ -1,6 +1,5 @@
 extends layout.pug
 
-
 block content
   include includes/nav.pug
 
@@ -10,7 +9,9 @@ block content
     div(class='booksearch')
       div(class='booksearch__block')
         if book.id < 29
-          img(class='bookpage-container__book-cover book-cover' src=`../images/${book.id}.jpg` style="height: 150px; width: 97px; overflow: hidden;" alt=`${book.name}`)
+          img(class='bookpage-container__book-cover book-cover' 
+              src=`../images/${book.id}.jpg` 
+              alt=`${book.name}`)
       div(class='booksearch__block')
         div(class='booksearch__container__header')
           a(href=`/books/${book.id}`)
