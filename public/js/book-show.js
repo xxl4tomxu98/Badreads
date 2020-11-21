@@ -5,7 +5,6 @@ const bookTitle = document.querySelector('.bookpage-container__book-info__title'
 const bookAuthor = document.querySelector('.bookpage-container__book-info__author')
 const bookDescription = document.querySelector('.bookpage-container__book-info__description')
 const form = document.querySelector('.bookpage-container__form')
-const container = document.querySelector('.book-container');
 const allReviewsContainer = document.querySelector('.container__all-reviews');
 
 //elements for readmore ellipses
@@ -15,7 +14,6 @@ const ellipses = document.querySelectorAll('.ellipses')
 
 const userId = localStorage.getItem('BADREADS_CURRENT_USER_ID')
 const bookId = window.location.pathname.split('/')[2]
-const addBookshelfSelect = document.querySelector('.container_genres_select');
 
 const fetchBook = async (bookId) => {
     const response = await fetch(`/api-books/${bookId}`, {
@@ -142,9 +140,7 @@ form.addEventListener('submit', async (e) => {
             }
 
             //remove previously displayed reviews
-            while (container.firstChild.classList.contains('container__reviews')) {
-                container.removeChild(container.firstChild)
-            }
+            allReviewsContainer.innerHTML = ''
             const { reviews } = await res.json()
 
             if (reviews) {
@@ -154,6 +150,9 @@ form.addEventListener('submit', async (e) => {
             }
             //clear input
             reviewInput.value = ''
+
+            //scroll back to top of page
+            window.scroll(0,0)
         } else {
             return
         }
