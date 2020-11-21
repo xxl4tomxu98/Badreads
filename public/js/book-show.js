@@ -61,6 +61,33 @@ const addNewReview = (review) => {
                             <p/>
                         </div>
                     `
+        reviewContainer.innerHTML = newReview
+        allReviewsContainer.prepend(reviewContainer)
+
+        //add readmore button event listener when review added
+        //had to add seperately since page doesn't refresh when review is added and the event listener doesn't
+        //get add until the page is refreshed reflected by code at line 166
+        const newReviewReadmoreButton = document.querySelector('.container__reviews__readmore')
+        const newReviewReadmoreText = document.querySelector('.readmore-text')
+        const newReviewEllipses = document.querySelector('.ellipses')
+        newReviewReadmoreButton.addEventListener('click', (e) => {
+            if (newReviewReadmoreText.classList.contains('hide')) {
+                //reveal hidden text
+                newReviewReadmoreText.classList.toggle('hide', false)
+                //change reamdmore button to readless
+                newReviewReadmoreButton.innerHTML = 'readless'
+                //hide the ellipses
+                newReviewEllipses.classList.toggle('hide', true)
+            } else {
+                //hide the text
+                newReviewReadmoreText.classList.toggle('hide', true)
+                //change button back to readmore
+                newReviewReadmoreButton.innerHTML = 'readmore'
+                //reveal the ellipses
+                newReviewEllipses.classList.toggle('hide', false)
+            }
+        })
+
     } else {
         newReview = `
                         <div class='container__reviews___star'>
@@ -69,9 +96,9 @@ const addNewReview = (review) => {
                             </p>
                         </div>
                     `
+        reviewContainer.innerHTML = newReview
+        allReviewsContainer.prepend(reviewContainer)
     }
-    reviewContainer.innerHTML = newReview
-    allReviewsContainer.prepend(reviewContainer)
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
