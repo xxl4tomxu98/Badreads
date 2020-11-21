@@ -44,29 +44,32 @@ const addNewReview = (review) => {
     const reviewContainer = document.createElement('div')
     reviewContainer.classList.add('container__reviews')
 
-    const newReview =
-        `  
-            {% if review.description.length > 260 %}
-                <div class='container__reviews___star'>
-                    <p class='container__reviews__text'>
-                            ${review.slice(0, 250)}
-                            <span class='ellipses'>...</span>
-                            <span class='readmore-text hide'>${review.slice(250)}</span>
-                    </p>
-                </div>
-                <div class='container__reviews__text'>
-                    <p class='container__reviews__readmore'>
-                            readmore
-                    <p/>
-                </div>
-            {% else %}
-                <div class='container__reviews___star'>
-                    <p class='container__reviews__text'>
-                            ${review}
-                    </p>
-                </div>
-            {% endif %}
-     `
+    let newReview;
+    // to add ellipses for reviews that are over 250 characters in length
+    if (review.length > 260) {
+        newReview = `
+                        <div class='container__reviews___star'>
+                            <p class='container__reviews__text'>
+                                    ${review.slice(0, 250)}
+                                    <span class='ellipses'>...</span>
+                                    <span class='readmore-text hide'>${review.slice(250)}</span>
+                            </p>
+                        </div>
+                        <div class='container__reviews__text'>
+                            <p class='container__reviews__readmore'>
+                                    readmore
+                            <p/>
+                        </div>
+                    `
+    } else {
+        newReview = `
+                        <div class='container__reviews___star'>
+                            <p class='container__reviews__text'>
+                                    ${review}
+                            </p>
+                        </div>
+                    `
+    }
     reviewContainer.innerHTML = newReview
     allReviewsContainer.prepend(reviewContainer)
 }
@@ -139,7 +142,7 @@ readmore.forEach((readmoreButton, i) => {
     readmoreButton.setAttribute('id', i)
     readmoreButton.addEventListener('click', (e) => {
         let relatedId = e.target.id
-        if(readmoreText[relatedId].classList.contains('hide')){
+        if (readmoreText[relatedId].classList.contains('hide')) {
             //reveal hidden text
             readmoreText[relatedId].classList.toggle('hide', false)
             //change reamdmore button to readless

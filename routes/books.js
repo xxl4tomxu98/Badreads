@@ -29,7 +29,7 @@ router.get('/', asyncHandler(async (req, res) => {
     }
   } else {
     books = await Book.findAll({
-      limit: 10,
+      limit: 30,
       order: [['title', 'ASC']]
     })
   }
