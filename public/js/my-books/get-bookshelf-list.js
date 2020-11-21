@@ -64,7 +64,7 @@ export const populateUserBookshelfList = async () => {
 
         const body = {newBookshelfName}
 
-        const res = await fetch('http://localhost:8080/api-user/shelves', {
+        const res = await fetch('/api-user/shelves', {
             method: "POST",
             body: JSON.stringify(body),
             headers: {

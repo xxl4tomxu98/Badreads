@@ -40,8 +40,6 @@ const bookshelfNotFoundError = (id) => {
   return err;
 };
 
-
-
 //user authorization
 
 //create a user in database after logging in (post req from form) and returns a user and their token

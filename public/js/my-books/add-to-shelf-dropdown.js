@@ -1,5 +1,5 @@
 export const createAddToShelfDropdown = async(bookId, hidden) => {
-    const res = await fetch(`http://localhost:8080/api-user/excluded-shelves/books/${bookId}`,{
+    const res = await fetch(`/api-user/excluded-shelves/books/${bookId}`,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             "BADREADS_ACCESS_TOKEN"
@@ -43,7 +43,7 @@ export const createAddToShelfDropdown = async(bookId, hidden) => {
 
           const body = { "bookshelfId": bookshelfId};
 
-          const res = await fetch(`http://localhost:8080/api-user/${bookId}/add-book-to-shelf`, {
+          const res = await fetch(`/api-user/${bookId}/add-book-to-shelf`, {
               method: "POST",
               body: JSON.stringify(body),
               headers: {

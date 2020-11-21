@@ -8,26 +8,11 @@ const router = express.Router()
 
 router.use(requireAuth)
 
-
-// router.get('/books/:bookid(\\d+)', asyncHandler( async(req, res) => {
-//     const bookId = parseInt(req.params.bookid, 10)
-//     const reviews = await Review.findAll({
-//         where: {
-//             book_id: bookId
-//         }
-//     })
-
-//     res.json({ reviews })
-// }))
-
-//add new review to db
-
 //api-reviews/books/:bookid
 router.post('/books/:bookid(\\d+)', asyncHandler( async(req, res) => {
     //to get current user id from token
     const { token } = req
     const { id } = jwt.decode(token).data
-
 
     const bookId = parseInt(req.params.bookid, 10)
     const description = req.body.description

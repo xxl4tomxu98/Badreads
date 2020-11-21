@@ -3,7 +3,7 @@ import { shelfDelete } from "./delete-shelf.js";
 
 const getBookList = async(bookshelfId) => {
 
-    const res = await fetch(`http://localhost:8080/api-user/shelves/${bookshelfId}`, {
+    const res = await fetch(`/api-user/shelves/${bookshelfId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             "BADREADS_ACCESS_TOKEN"
