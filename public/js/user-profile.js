@@ -10,7 +10,7 @@ const createGenreDiv = (genre, userId) => {
   genreCoverDiv.className = 'genre-in-profile__genre-cover';
 
   let deleteGenreButton = document.createElement("button");
-  deleteGenreButton.setAttribute("class", "genre-delete-button");
+  deleteGenreButton.setAttribute("class", "genre-delete-button btn btn-info");
 
   let genreNameDiv = document.createElement('div');
   genreNameDiv.className = 'genre-in-profile__genre-name';
@@ -51,6 +51,13 @@ export const populateUserGenres = async () => {
   userGenres.innerHTML = '';
   //userName.innerHTML = user.name;
 
+  //add favorite genres header
+  const favoriteGenreHeader = document.createElement('h3')
+  favoriteGenreHeader.innerHTML = 'Favorite Genres:'
+  favoriteGenreHeader.setAttribute('class', 'favorite-genres-header')
+  userGenres.appendChild(favoriteGenreHeader)
+
+  // add all genres from db
   for (let genre of genres) {
     const genreDiv = createGenreDiv(genre, userId);
     userGenres.appendChild(genreDiv);
