@@ -53,7 +53,6 @@ router.post(
                     email,
                 },
             });
-            // console.log(user, password)
             if (!user || !user.validatePassword(password)) {
                 const err = new Error("Login failed");
                 err.status = 401;

@@ -44,31 +44,61 @@ const addNewReview = (review) => {
     const reviewContainer = document.createElement('div')
     reviewContainer.classList.add('container__reviews')
 
-    const newReview =
-        `  
-            {% if review.description.length > 260 %}
-                <div class='container__reviews___star'>
-                    <p class='container__reviews__text'>
-                            ${review.slice(0, 250)}
-                            <span class='ellipses'>...</span>
-                            <span class='readmore-text hide'>${review.slice(250)}</span>
-                    </p>
-                </div>
-                <div class='container__reviews__text'>
-                    <p class='container__reviews__readmore'>
-                            readmore
-                    <p/>
-                </div>
-            {% else %}
-                <div class='container__reviews___star'>
-                    <p class='container__reviews__text'>
-                            ${review}
-                    </p>
-                </div>
-            {% endif %}
-     `
-    reviewContainer.innerHTML = newReview
-    allReviewsContainer.prepend(reviewContainer)
+    let newReview;
+    // to add ellipses for reviews that are over 250 characters in length
+    if (review.length > 260) {
+        newReview = `
+                        <div class='container__reviews___star'>
+                            <p class='container__reviews__text'>
+                                    ${review.slice(0, 250)}
+                                    <span class='ellipses'>...</span>
+                                    <span class='readmore-text hide'>${review.slice(250)}</span>
+                            </p>
+                        </div>
+                        <div class='container__reviews__text'>
+                            <p class='container__reviews__readmore'>
+                                    readmore
+                            <p/>
+                        </div>
+                    `
+        reviewContainer.innerHTML = newReview
+        allReviewsContainer.prepend(reviewContainer)
+
+        //add readmore button event listener when review added
+        //had to add seperately since page doesn't refresh when review is added and the event listener doesn't
+        //get add until the page is refreshed reflected by code at line 166
+        const newReviewReadmoreButton = document.querySelector('.container__reviews__readmore')
+        const newReviewReadmoreText = document.querySelector('.readmore-text')
+        const newReviewEllipses = document.querySelector('.ellipses')
+        newReviewReadmoreButton.addEventListener('click', (e) => {
+            if (newReviewReadmoreText.classList.contains('hide')) {
+                //reveal hidden text
+                newReviewReadmoreText.classList.toggle('hide', false)
+                //change reamdmore button to readless
+                newReviewReadmoreButton.innerHTML = 'readless'
+                //hide the ellipses
+                newReviewEllipses.classList.toggle('hide', true)
+            } else {
+                //hide the text
+                newReviewReadmoreText.classList.toggle('hide', true)
+                //change button back to readmore
+                newReviewReadmoreButton.innerHTML = 'readmore'
+                //reveal the ellipses
+                newReviewEllipses.classList.toggle('hide', false)
+            }
+        })
+
+    } else {
+        newReview = `
+                        <div class='container__reviews___star'>
+                            <p class='container__reviews__text'>
+                                    ${review}
+                            </p>
+                        </div>
+                    `
+        reviewContainer.innerHTML = newReview
+        allReviewsContainer.prepend(reviewContainer)
+    }
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -139,7 +169,7 @@ readmore.forEach((readmoreButton, i) => {
     readmoreButton.setAttribute('id', i)
     readmoreButton.addEventListener('click', (e) => {
         let relatedId = e.target.id
-        if(readmoreText[relatedId].classList.contains('hide')){
+        if (readmoreText[relatedId].classList.contains('hide')) {
             //reveal hidden text
             readmoreText[relatedId].classList.toggle('hide', false)
             //change reamdmore button to readless

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Reviews', [
+    return queryInterface.bulkInsert("Reviews", [
       {
         book_id: 11,
         description: "Very difficult to absorb, mainly because he creates his own language and uses several terms to mean unique specific things. It can be frustrating to get through but if you can make it to about 400 pages it all magically fits together and the remaining few hundred pages are much more manageable. Recommend reading it with some other people (we had an entire upper level philosophy class devoted to just this book) to stay on track if you plan to read it.",
@@ -151,7 +151,8 @@ module.exports = {
       },
       {
         book_id: 19,
-        description: "Her discussion of what it means to be \"human\" and socially intelligible made me cry. Specifically: \"To be called a copy, to be called unreal, is thus one way in which one can be oppressed. But consider that it is more fundamental than that. For to be oppressed means that you already exist as a subject of some kind... But to be unreal is something else again. For to be oppressed one must first become intelligible. To find that one is fundamentally unintelligible is to find that one has not yet achieved access to the human\" (218).", user_id: 2,
+        description: "Her discussion of what it means to be \"human\" and socially intelligible made me cry. Specifically: \"To be called a copy, to be called unreal, is thus one way in which one can be oppressed. But consider that it is more fundamental than that. For to be oppressed means that you already exist as a subject of some kind... But to be unreal is something else again. For to be oppressed one must first become intelligible. To find that one is fundamentally unintelligible is to find that one has not yet achieved access to the human\" (218).", 
+        user_id: 2,
         createdAt: new Date(),
 
         updatedAt: new Date()
@@ -186,9 +187,9 @@ module.exports = {
       {
         book_id: 20,
 
-        description: 'Whilst I can\'t speak highly enough of the fantastic ideas in this book, it does share a problem with many post-modern critical writings. It insists on hiding simple yet powerful ideas behind overly esoteric language, potentially rendering them inaccessible to people who could make great use of them. A book intended to have consequences for society as a whole shouldn\'t be written in language that is only understandable to those privileged few who posses degrees in related subjects. Given the subject matter, it is clearly impossible that jargon be avoided altogether. Still, there were many moments where things could have be said simply but were not.', user_id: 3,
+        description: 'Whilst I can\'t speak highly enough of the fantastic ideas in this book, it does share a problem with many post-modern critical writings. It insists on hiding simple yet powerful ideas behind overly esoteric language, potentially rendering them inaccessible to people who could make great use of them. A book intended to have consequences for society as a whole shouldn\'t be written in language that is only understandable to those privileged few who posses degrees in related subjects. Given the subject matter, it is clearly impossible that jargon be avoided altogether. Still, there were many moments where things could have be said simply but were not.', 
+        user_id: 3,
         createdAt: new Date(),
-
         updatedAt: new Date()
       },
       {

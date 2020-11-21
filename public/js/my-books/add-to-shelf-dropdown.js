@@ -18,8 +18,6 @@ export const createAddToShelfDropdown = async(bookId, hidden) => {
     if(hidden) {
       dropdownForm.classList.remove('hidden');
     }
-    console.log(bookshelves);
-    console.log(dropdownFormSelect);
 
     const optionDefault = new Option('add to bookshelf', 'default');
     optionDefault.classList = 'add-to-bookshelf-dropdown__option'
@@ -32,7 +30,6 @@ export const createAddToShelfDropdown = async(bookId, hidden) => {
             dropdownFormSelect.appendChild(option);
         };
       }
-    console.log(dropdownFormSelect)
 
     dropdownFormButton.addEventListener('click', async e => {
         e.preventDefault();

@@ -111,3 +111,24 @@ width: 800px
 .genre-container__submit-button {
 height: 40px;
 }
+
+.btn-info{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  width: 40px
+}
+
+.container_favorite-genres{
+  width: 100%;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px
+}
+
+.favorite-genres-header{
+  grid-column: span 3;
+  text-align: center;
+}

@@ -29,11 +29,10 @@ router.get('/', asyncHandler(async (req, res) => {
     }
   } else {
     books = await Book.findAll({
-      limit: 10,
+      limit: 30,
       order: [['title', 'ASC']]
     })
   }
-  console.log(books);
   const searchTitle = `Search result for "${term}"`
   res.render('searchpage', { books, searchTitle });
 

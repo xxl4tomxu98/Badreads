@@ -2,7 +2,6 @@ import {populateUserBookshelfList} from './get-bookshelf-list.js';
 
 
 export const shelfDelete = (shelfId) => {
-  console.log('delete shelf clicked')
   return async () => {
     try {
       const res = await fetch(`/api-user/shelves/${shelfId}`, {
@@ -15,7 +14,6 @@ export const shelfDelete = (shelfId) => {
       });
 
       const data = await res.json();
-      console.log(data);
       window.location.reload();
 
       if (!res.ok) {

@@ -19,7 +19,6 @@ const populateDropDown = async (bookTitle, bookAuthor, bookDescription, bookPubl
     deleteBookButton.addEventListener("click", bookDelete(bookshelfId, bookId));
 
     const addToShelfDropdown = await createAddToShelfDropdown(bookId, true);
-    console.log('addToShelfDropdown = ', addToShelfDropdown)
     bookAuthorBlock.insertAdjacentElement('afterend', addToShelfDropdown);
 }
 
@@ -42,14 +41,10 @@ export const dropDownBookInfo = async(book, bookshelfId) => {
         return;
       }
 
-    //const { book } = await res.json();
-
-    // console.log(bookInfo.book);
     const bookTitle = book.title;
     const bookAuthor = book.author;
     const bookDescription = book.description
     const bookPublicationYear = book.publicationYear
 
     populateDropDown(bookTitle, bookAuthor, bookDescription, bookPublicationYear, book.id, bookshelfId);
-    // console.log(bookTitle, bookAuthor, bookDescription, bookPublicationYear);
 }

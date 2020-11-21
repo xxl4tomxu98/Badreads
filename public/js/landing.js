@@ -3,6 +3,7 @@ import { handleErrors } from './utils.js'
 const quoteArea = document.querySelector('.quote-generator-quote')
 const signUpForm = document.querySelector('.signup-form');
 const loginForm = document.querySelector('.login-form')
+const demoUserButton = document.querySelector('.demo-user')
 const ghandiQuotes= [
     '"An eye for eye only ends up making the whole world blind."',
     '"Happiness is when what you think, what you say, and what you do are in harmony."',
@@ -101,4 +102,37 @@ loginForm.addEventListener('submit', async (e) =>{
             console.log(err)
             handleErrors(err, '.login-errors-container')
       };
+})
+
+//demo user logic
+demoUserButton.addEventListener('click', async (e) => {
+  e.preventDefault()
+  try {
+    const res = await fetch("/auth-user/token", {
+      method: "POST",
+      body: JSON.stringify({'email': 'demo@example.com', 'password': 'password'}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      throw res;
+    }
+
+    const {
+      token,
+      user: { id },
+    } = await res.json();
+
+    // storage access_token in localStorage:
+    localStorage.setItem("BADREADS_ACCESS_TOKEN", token);
+    localStorage.setItem("BADREADS_CURRENT_USER_ID", id);
+
+    // redirect to home page to see all tweets:
+    window.location.href = "/user/shelves";
+  } catch (err) {
+      console.log(err)
+      handleErrors(err, '.login-errors-container')
+};
 })

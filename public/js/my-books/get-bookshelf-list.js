@@ -2,7 +2,6 @@ import { populateBookshelfBookList } from './get-bookshelf-books.js'
 
 // Get shelves
 const getBookshelves = async () => {
-    console.log('getting shelves');
     const res = await fetch('/api-user/shelves', {
         headers: {
             Authorization: `Bearer ${localStorage.getItem(
@@ -18,7 +17,6 @@ const getBookshelves = async () => {
     }
 
     const data = await res.json();
-    // // console.log(data)
     return data;
 };
 
@@ -47,14 +45,12 @@ export const populateUserBookshelfList = async () => {
     const newBookshelfForm = document.querySelector('.add-bookshelf-form')
     const { shelves, username } = await getBookshelves();
 
-    console.log('newbookshelfform', newBookshelfForm)
     var capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1)
     document.getElementById('welcome').innerHTML = `Welcome ${capitalizedUsername}!`
 
 
     if (shelves) {
         for (let bookshelf of shelves) {
-            // // console.log('bookshelf', bookshelf)
             appendBookshelfLi(bookshelf);
         }
     }
@@ -66,7 +62,6 @@ export const populateUserBookshelfList = async () => {
         const formData = new FormData(newBookshelfForm);
         const newBookshelfName = formData.get('newBookshelfName');
 
-        console.log('newbookshelfname', newBookshelfName)
         const body = {newBookshelfName}
 
         const res = await fetch('http://localhost:8080/api-user/shelves', {
