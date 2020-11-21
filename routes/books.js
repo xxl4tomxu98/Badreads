@@ -33,7 +33,6 @@ router.get('/', asyncHandler(async (req, res) => {
       order: [['title', 'ASC']]
     })
   }
-  console.log(books);
   const searchTitle = `Search result for "${term}"`
   res.render('searchpage', { books, searchTitle });
 

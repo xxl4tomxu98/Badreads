@@ -76,7 +76,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   });
   const { user } = await res.json();
-  console.log(user);
   const name = document.querySelector(".user-info__name");
   const email = document.querySelector(".user-info__email");
   name.innerHTML = `${user.username}`;
@@ -85,9 +84,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   genreContainer.addEventListener("click", async (event) => {
 
     const genreId = event.target.parentNode.id;
-
-    console.log(event.target.parentNode.id);
-
 
     const res = await fetch(`/api-user/profile/${genreId}`, {
       method: "DELETE",

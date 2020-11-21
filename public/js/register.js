@@ -20,7 +20,6 @@ window.addEventListener('DOMContentLoaded', async (e) => {
       genreArray.push(genreObj.name)
       return genreObj.name
     })
-    console.log(genres)
     genreButtons.forEach( genreButton => {
       if (genreNamesArray.includes(genreButton.id)){
         genreButton.classList.toggle('active', true)
@@ -44,7 +43,6 @@ genreButtons.forEach((genreButton) => {
       //toggle active class to change background color on click
       e.currentTarget.classList.toggle('active', true)
 
-      console.log(genreArray)
       return
       //if the genre name is in the array already when clicked then it needs to be removed because the user
       //unchecked the genre
@@ -56,9 +54,6 @@ genreButtons.forEach((genreButton) => {
 
       //incase the select all button is active, make it inactive if one genre is pressed
       selectAllGenresButton.classList.toggle('active', false)
-
-      console.log(genreArray)
-
       return
 
     }
@@ -113,7 +108,6 @@ submitGenreButton.addEventListener('click', async (e) => {
     }
 
     const { successMessage } = await res.json()
-    console.log(successMessage);
     window.location.href = '/user/shelves'
 
   } catch (e) {

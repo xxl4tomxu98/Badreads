@@ -74,7 +74,6 @@ router.post(
           email,
         },
       });
-      // console.log(user, password)
       if (!user || !user.validatePassword(password)) {
         const err = new Error("Login failed");
         err.status = 401;
@@ -295,7 +294,6 @@ router.post("/:bookid/add-book-to-shelf",
 // Get books on a specific shelf
 router.get('/shelves/:id/books',
   asyncHandler(async (req, res) => {
-    // console.log('req.params.id', req.params.id);
     const books = await Book.findAll({
       include: {
         model: Shelf,
@@ -372,7 +370,6 @@ router.post("/profile/genres",
             name: genreName
           }
         })
-        console.log(genre)
         await user.addGenre(genre)
       });
       return res.json({ successMessage: 'Genre(s) added to profile' });
