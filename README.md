@@ -1,3 +1,5 @@
+[Live Link](https://aa-badreads.herokuapp.com/)
+
 <div align="center">
   <h2>Table of Contents</h2>
 </div>
@@ -10,54 +12,53 @@
 - [FAQ](#faq)
 
 
-
----
-
-<div align="center">
-  <h2>Example</h2>
-</div>
-
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
-
 <div align="center">
   <h2>Installation</h2>
 </div>
 
 
-### Clone
+### Installation
+1. Clone this repository
 
-- Clone this repo to your local machine using `https://github.com/tjtaylorjr/goodreads-clone.git`
-
+    ```
+    Clone this repo to your local machine using `https://github.com/tjtaylorjr/goodreads-clone.git`
+    ```
 <br>
 
-### Setup
+2. Install dependencies
 
 > install npm packages
 
-```shell
-$ npm install
-```
-
-> refer to internal documentation for setting up database
+    ```
+    $ npm install
+    ```
 <br>
+3. Create user and database (PSQL)
 
-> run the server
+    ```
+    - CREATE USER badreads_app WITH PASSWORD <<good password>>
+    - CREATE DATABASE badreads WITH OWNER badreads_app
+    ```
+    
+4. Create .env and add configuration model
 
-```shell
-$ npm start
-```
+    ```
+    PORT=8080
+    DB_USERNAME=badreads_app
+    DB_PASSWORD=<<your good password>>
+    DB_DATABASE=badreads
+    DB_HOST=localhost
+    JWT_SECRET=db848d54f348cf7e9606293213f1169870c2f2268217ba093f1d0049e9928117
+    JWT_EXPIRES_IN=604800
+    ```
+5. 
+
+5. Start it up
+
+    ```shell
+    $ npm start
+    ```
+    
 > browse to http://localhost:8080
 ---
 
