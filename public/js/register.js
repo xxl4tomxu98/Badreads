@@ -3,7 +3,7 @@ const submitGenreButton = document.querySelector('.genre-submit-button')
 const selectAllGenresButton = document.querySelector('.genre-select-all-button')
 let genreArray = []
 window.addEventListener('DOMContentLoaded', async (e) => {
-  //get all the genres the user has and make all related buttons active 
+  //get all the genres the user has and make all related buttons active
   try {
     const res = await fetch('/api-user/profile', {
       headers: {
@@ -29,7 +29,6 @@ window.addEventListener('DOMContentLoaded', async (e) => {
   } catch (e) {
     console.log(e)
   }
-
 })
 
 genreButtons.forEach((genreButton) => {

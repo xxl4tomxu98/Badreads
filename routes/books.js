@@ -2,7 +2,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
-const { asyncHandler } = require('../utils');
+const { asyncHandler} = require('../utils');
 const { Book, Genre, Review } = require('../db/models');
 
 

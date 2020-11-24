@@ -19,8 +19,10 @@ block content
       div(class='container_add-button')
         button.button-light.add-button(type='button'): a(href="/register") Add Genre
 
-      div(class='container_favorite-genres') 
+      div(class='container_favorite-genres')
         div(class='favorite-genres')
           userGenres
+
+      button(type='button' class='logout__button') Logout
 
     script(type='module' src='../js/user-profile.js')
