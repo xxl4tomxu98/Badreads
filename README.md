@@ -1,49 +1,4 @@
-
-<div align="center">
-<a href="https://https://github.com/tjtaylorjr/goodreads-clone"><img src="./documentation/images/booktree.jpg" title="ReadingTree" alt="A Tree Bookshelf"></a>
-</div>
-<br>
 [Live Link](https://aa-badreads.herokuapp.com/)
-
-<div align="center">
-  <h1>Goodreads Clone Project</h1>
-</div>
-
-<br>
-
-
-> A collaboration project to create a clone website based loosely on Goodreads
-
-<br>
-
-> **Badges will go here**
-<br>
-
-
-
-<!-- - build status
-- issues (waffle.io maybe)
-- devDependencies
-- npm package
-- coverage
-- slack
-- downloads
-- gitter chat
-- license
-- etc. -->
-
-<!-- [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Dependency Status](http://img.shields.io/gemnasium/badges/badgerbadgerbadger.svg?style=flat-square)](https://gemnasium.com/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![Code Climate](http://img.shields.io/codeclimate/github/badges/badgerbadgerbadger.svg?style=flat-square)](https://codeclimate.com/github/badges/badgerbadgerbadger) [![Github Issues](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/issues.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/pulls.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) [![Badges](http://img.shields.io/:badges-9/9-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger) -->
-
-<!-- - For more on these wonderful ~~badgers~~ badges, refer to <a href="http://badges.github.io/badgerbadgerbadger/" target="_blank">`badgerbadgerbadger`</a>. -->
-
-<br>
-
----
-
-<div align="center">
-  <a href="https://https://github.com/tjtaylorjr/goodreads-clone" target="_blank"><img src="./documentation/images/multiplyingbooks.gif" alt="multiplying books"/></a>
-</div>
-<br>
 
 <div align="center">
   <h2>Table of Contents</h2>
@@ -57,54 +12,53 @@
 - [FAQ](#faq)
 
 
-
----
-
-<div align="center">
-  <h2>Example</h2>
-</div>
-
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
-
 <div align="center">
   <h2>Installation</h2>
 </div>
 
 
-### Clone
+### Installation
+1. Clone this repository
 
-- Clone this repo to your local machine using `https://github.com/tjtaylorjr/goodreads-clone.git`
-
+    ```
+    Clone this repo to your local machine using `https://github.com/tjtaylorjr/goodreads-clone.git`
+    ```
 <br>
 
-### Setup
+2. Install dependencies
 
 > install npm packages
 
-```shell
-$ npm install
-```
-
-> refer to internal documentation for setting up database
+    ```
+    $ npm install
+    ```
 <br>
+3. Create user and database (PSQL)
 
-> run the server
+    ```
+    - CREATE USER badreads_app WITH PASSWORD <<good password>>
+    - CREATE DATABASE badreads WITH OWNER badreads_app
+    ```
+    
+4. Create .env and add configuration model
 
-```shell
-$ npm start
-```
+    ```
+    PORT=8080
+    DB_USERNAME=badreads_app
+    DB_PASSWORD=<<your good password>>
+    DB_DATABASE=badreads
+    DB_HOST=localhost
+    JWT_SECRET=db848d54f348cf7e9606293213f1169870c2f2268217ba093f1d0049e9928117
+    JWT_EXPIRES_IN=604800
+    ```
+5. 
+
+5. Start it up
+
+    ```shell
+    $ npm start
+    ```
+    
 > browse to http://localhost:8080
 ---
 

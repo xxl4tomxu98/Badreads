@@ -1,6 +1,7 @@
 import { handleErrors } from './utils.js'
 const editButton = document.querySelector('.edit-button');
 // Create genre names
+
 const createGenreDiv = (genre, userId) => {
 
   let genreDiv = document.createElement('div');
@@ -38,6 +39,10 @@ const getUserGenres = async () => {
       )}`,
     }
   });
+  if (res.status === 401) {
+    window.location.href = "/";
+    return;
+  }
   const { genres } = await res.json();
 
   return genres;
@@ -64,6 +69,15 @@ export const populateUserGenres = async () => {
   };
 };
 
+const logoutButton = document.querySelector('.logout__button');
+
+logoutButton.addEventListener('click', () => {
+    console.log('clicked logout')
+    localStorage.removeItem("BADREADS_ACCESS_TOKEN");
+    localStorage.removeItem("BADREADS_CURRENT_USER_ID");
+    window.location.href = "/";
+});
+
 window.addEventListener("DOMContentLoaded", async () => {
   populateUserGenres();
   const genreContainer = document.querySelector('.container_favorite-genres');
@@ -75,6 +89,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       )}`,
     }
   });
+  if (res.status === 401) {
+    window.location.href = "/";
+    return;
+  }
   const { user } = await res.json();
   const name = document.querySelector(".user-info__name");
   const email = document.querySelector(".user-info__email");
@@ -93,6 +111,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         )}`,
       }
     });
+
+    if (res.status === 401) {
+      window.location.href = "/";
+      return;
+    }
 
     location.reload();
   });

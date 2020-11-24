@@ -19,15 +19,31 @@
 .navbar__logo__button {
     border: none;
     background: none;
+    border: none;
+    outline:none;
 }
+
+input[type="button"], img {
+    border: none;
+    outline:none;
+}
+
 .navbar__logo__button__img {
     height: 60px;
     border-radius: 50%;
     opacity: .8;
+    border: none;
+    outline:none;
+}
+
+* {
+    outline: none;
 }
 
 .navbar__logo__button__img:hover {
     opacity: 1;
+    border: none;
+    outline:none;
 }
 
 .navbar__text-logo {
@@ -99,6 +115,68 @@
     width: 300px;
     box-shadow: 0 0 6 rgba(156, 172, 183, 100)
 }
+
+.dropdown {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    justify-self:flex-end;
+    margin-right: 20px;
+}
+
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content__con {
+    display: none;
+    position: absolute;
+    margin-top: 60px;
+    min-width: 120px;
+    padding: 10px;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .dropdown-content {
+    color: rgb(159, 159, 159);
+    text-transform: lowercase;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    background-color: white;
+    padding: 10px 0px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+
+  .dropdown-content__con {
+      display: none;
+      padding: 10px;
+  }
+
+  .dropdown:hover .dropdown-content__con{
+      display: block;
+  }
+
+  .dropdown-content:hover {
+      display: block;
+  }
+
+  /* Links inside the dropdown */
+.dropdown-item{
+    color: rgb(89, 89, 89);
+    padding: 5px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+}
+
+  /* Change color of dropdown links on hover */
+  dropdown-item:hover {
+        background-color: #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
 
 @media screen and (max-width: 800px) {
     .navbar {
