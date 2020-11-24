@@ -8,6 +8,12 @@ append head
     form(action="/books" method="GET" class='navbar__search')
       input(type="search" name="term" placeholder="Search By Title/Author" class="input-field navbar__search-field")
       button(type="submit" class="button-dark") discover
-    button(type='button' class='navbar__logo__button'): a( href="/user/" class="profile-link"): img(src='../../images/logo.jpg' class='navbar__logo__button__img')
+    .dropdown
+      button(type='button' class='navbar__logo__button' id='user-dropdown__btn'): img(src='../../images/logo.jpg' class='navbar__logo__button__img')
+      .dropdown-content__con
+        div(id='user-dropdown' class="dropdown-content")
+          a( href="/user/profile" class="dropdown-item") Edit Profile
+          div(class="dropdown-item logout__button") Logout
+  script(type='module' src='../js/navBar.js')
   .overlay__container
     .overlay.overlay-hidden
