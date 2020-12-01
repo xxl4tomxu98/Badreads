@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+
+    //- redirect user if logged in
+    script.
+        const id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
+        if ( id ) window.location.href = "/user/shelves";
+
+    div(class="login-container")
+        div
+            h1(class='landing-logo') BadReads
+        form(class="login-form")
+            input(class="input login-form__email" type='text' name='email2' placeholder="email")
+            input(class="input login-form__password"  type='password' name="password2" placeholder='Password')
+            button.btn.btn-primary(type='submit') Login
+            button.btn.btn-secondary(class='demo-user') Demo User
+            a(class='navbar-about-link' href='/about') About
+
+    div(class='about-page-container')
+        p(class='about-page-info') Badreads is a GoodReads inspired web application that allows users to keep track of books they are currently reading as well as intending to read by creating custom bookshelves with books of different genres. Create Bookshelves and store books on them to your heart's content.
+        p(class='about-page-devicons') Site Links: 
+            a(href='https://github.com/tjtaylorjr/goodreads-clone')
+                i(class="github-link devicon-github-plain colored")
+
+    script(src="../js/about.js" type="module")

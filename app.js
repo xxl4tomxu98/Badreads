@@ -17,6 +17,7 @@ const booksRouter = require('./routes/books');
 const userRouter = require('./routes/user')
 const registerRouter = require('./routes/register')
 const profileRouter = require('./routes/profile');
+const aboutRouter = require('./routes/about')
 
 
 //api
@@ -51,6 +52,7 @@ app.use('/books', booksRouter)
 app.use('/register', registerRouter)
 app.use('/user', userRouter)
 app.use('/user/profile', profileRouter);
+app.use('/about', aboutRouter)
 
 // general error handler code, more specialized error handling in utils.js
 app.use('/', landingRouter);

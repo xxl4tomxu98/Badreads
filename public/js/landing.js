@@ -15,7 +15,7 @@ const randomNumGen = () => {
 
 window.addEventListener('DOMContentLoaded', () => {
     const id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
-    if (id ) window.location.href = "/user/shelves";
+    // if (id ) window.location.href = "/user/shelves";
     const randomNum = randomNumGen()
     quoteArea.innerHTML = ghandiQuotes[randomNum] + '   -Ghandi'
 })
@@ -72,7 +72,6 @@ signUpForm.addEventListener('submit', async (e) => {
 
 
 //login logic
-
 loginForm.addEventListener('submit', async (e) =>{
         e.preventDefault();
         const formData = new FormData(loginForm);

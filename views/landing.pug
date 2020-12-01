@@ -2,6 +2,11 @@ extends layout.pug
 
 block content
 
+  //- redirect user if logged in
+  script.
+    const id = localStorage.getItem("BADREADS_CURRENT_USER_ID")
+    if (id ) window.location.href = "/user/shelves";
+
   div(class="login-container")
     div
       h1(class='landing-logo') BadReads
@@ -10,6 +15,8 @@ block content
       input(class="input login-form__password"  type='password' name="password2" placeholder='Password')
       button.btn.btn-primary(type='submit') Login
       button.btn.btn-secondary(class='demo-user') Demo User
+      a(class='navbar-about-link' href='/about') About
+
 
   div(class="signup-container")
     div(class="login-errors-container")

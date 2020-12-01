@@ -46,13 +46,12 @@
 }
 .input{
     margin: 5px 10px;
-    /* width: 125px;  */
 }
 
 .quote-generator-container{
-    height: 200px; 
+    height: 300px; 
     background-color: peachpuff; 
-    margin: 50px 0; 
+    margin-bottom: 20px;
     display: flex; 
     justify-content: space-around;
     align-items: center;
@@ -65,28 +64,44 @@
 }
 
 .quote-generator-img{
-    height: 150px;
-    width: 150px;
-    /* object-fit: cover; */
+    height: 175px;
+    width: 175px;
     border-radius:50%;
-    box-shadow: 10px 10px 10px -10px #000000;
-    /* align-self: center; */
 }
 
-.book-image-container{
+.book-image-container {
     display: inline-block;
     margin: 30px 30px; 
 }
 
 .book-image__1, .book-image__2, .book-image__3{
-    height: 150px;
-    width: 100px;
+    height: 200px;
+    width: auto;
+}
+
+.discover-container {
+    margin: 0 20px;
 }
 
 .landing-logo{
     margin: 0;
 }
 
-.demo-user{
+.demo-user {
     margin-left: 10px;
+}
+
+.navbar-about-link {
+    position: relative;
+    top: 3px;
+    margin-left: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-about-link:hover{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 }

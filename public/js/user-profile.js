@@ -69,6 +69,7 @@ export const populateUserGenres = async () => {
   };
 };
 
+// logout logic
 const logoutButton = document.querySelector('.logout__button');
 
 logoutButton.addEventListener('click', () => {
