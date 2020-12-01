@@ -1,5 +1,7 @@
 [Live Link](https://aa-badreads.herokuapp.com/)
 
+![BadReads](readmeImages/BadReads.gif)
+
 <div align="center">
   <h2>Table of Contents</h2>
 </div>
