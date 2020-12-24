@@ -51,7 +51,7 @@
     DB_PASSWORD=<<your good password>>
     DB_DATABASE=badreads
     DB_HOST=localhost
-    JWT_SECRET=db848d54f348cf7e9606293213f1169870c2f2268217ba093f1d0049e9928117
+    JWT_SECRET=YOUR_SECRET_CODE
     JWT_EXPIRES_IN=604800 (**about a week**)
     ```
     4a. Migrate and seed database:
